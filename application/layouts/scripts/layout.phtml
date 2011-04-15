@@ -1,0 +1,49 @@
+<?php
+/*$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('航空订票系统网站');*/
+echo $this->doctype();
+//var_dump($this->doctype());
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<!-- 网站meta -->
+<?php
+echo $this->headMeta();
+?>
+
+<!-- 网站title -->
+<?php
+echo $this->headTitle();
+?>
+
+<!-- 加载网站源文件的css -->
+<?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/skin/source/css/style.css');?>
+
+<!-- 加载content的css -->
+<link href="<?php echo $this->baseUrl().'/skin/css/ZYFcontent.css' ?>" media="screen" rel="stylesheet" type="text/css" />
+<!-- 加载jquery -->
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
+
+</head>
+<body>
+	<!-- header start -->
+	<?php echo $this->render('header.phtml') ?> 
+	<!-- header end -->
+	
+	<!-- content start -->
+	<div id="content">
+		<!-- header 选中 -->
+		<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/js/ZYFheader.js' ;?>"></script>
+		<?php
+		echo $this->layout()->content;
+		?>
+	</div>
+	<!-- content end -->
+	
+	<!-- footer start -->
+	<?php echo $this->render('footer.phtml') ?> 
+	<!-- footer end -->
+</body>
+</html>
