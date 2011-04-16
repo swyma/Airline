@@ -20,9 +20,11 @@ echo $this->headTitle();
 
 <!-- 加载网站源文件的css -->
 <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/skin/source/css/style.css');?>
-
 <!-- 加载content的css -->
 <link href="<?php echo $this->baseUrl().'/skin/css/ZYFcontent.css' ?>" media="screen" rel="stylesheet" type="text/css" />
+<!-- 加载flightinformation的css -->
+<link href="<?php echo $this->baseUrl().'/skin/css/YMAflightinformation.css' ?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->baseUrl().'/skin/js/YMAflightinformation.js'?>">
 <!-- 加载jquery -->
 <script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
 

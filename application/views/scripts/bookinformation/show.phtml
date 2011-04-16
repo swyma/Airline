@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery_table</title>
+<script type="text/javascript">
+			$(document).ready(function(){
+					$(".stripe tr").mouseover(function(){
+						$(this).addClass("over");}).mouseout(function(){
+							$(this).removeClass("over");});
+					$(".stripe tr:even").addClass("alt");
+			});
+</script>
+<style type ="text/css">
+th {
+	background: #0066FF;
+	color: #FFFFFF;
+	line-height: 20px;
+	height: 30px;
+}
+
+td {
+	padding: 6px 11px;
+	border-bottom: 1px solid #95bce2;
+	vertical-align: top;
+	text-align: center;
+}
+
+td * {
+	padding: 6px 11px;
+}
+
+tr.alt td {
+	background: #ecf6fc;
+}
+
+tr.over td {
+	background: #bcd4ec;
+}
+</style>
+</head>
+	
+	<body>
+		<table class="stripe" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th>航空公司</th>
+					<th>机型代码</th>
+					<th>飞行日期</th>
+					<th>航班号</th>
+					<th>航班折扣</th>
+					<th>起飞地点</th>
+					<th>抵达地点</th>
+					<th>起飞时间</th>
+					<th>抵达时间</th>
+					<th>F舱价格</th>
+					<th>C舱价格</th>
+					<th>Y舱价格</th>
+					<th>航班状态</th>
+					<th>系统状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				 <?php foreach($this->flightinformation as $key=>$value){ ?>
+  				<tr>
+  				<td>
+ 					<?php echo $value['com_code'] ?>
+  				</td>
+ 	 			<td>
+  					<?php echo $value['air_code'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_everyday'] ?>
+  				</td>
+  				<td>
+  					<?php echo $value['fli_no'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_discount'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_baddress'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_aaddress'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_btime'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_atime'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_Ffare'] ?>
+  				</td>
+  				<td>
+ 					<?php echo $value['fli_Cfare'] ?>
+  				</td>
+  				<td>
+  					<?php echo $value['fli_Yfare'] ?>
+  				</td>
+  				<td>
+  					<?php echo $value['fli_refundtime'] ?>
+  				</td>
+  				<td>
+  					<?php echo $value['fli_refund'] ?>
+  				</td>
+  					<?php } ?>			
+				</tr>
+				<tr>
+  					<td colspan="14">
+		  				当前页：
+		  				&nbsp;
+		  				总页数：
+		  				&nbsp;
+		  				<a href="<?php echo $this->url(array('controller'=>'index','action'=>'index'));?>">首页</a>
+		  				<a href="#">上一页</a>
+		  				<a href="#">下一页</a>
+		  				<a href="#">尾页</a>
+  					</td>
+  				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

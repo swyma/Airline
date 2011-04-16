@@ -20,6 +20,7 @@
         </controllerFile>
         <controllerFile controllerName="Bookinformation">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="show"/>
         </controllerFile>
         <controllerFile controllerName="Customer">
           <actionMethod actionName="index"/>
@@ -80,6 +81,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Aboutus">
             <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Bookinformation">
+            <viewScriptFile forActionName="show"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
