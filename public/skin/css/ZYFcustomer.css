@@ -1,0 +1,89 @@
+@CHARSET "UTF-8";
+
+/* 主面板高度 */
+#content {
+	height: 500px;
+}
+
+/* 左面板 */
+.left {
+	width: 225px;
+}
+
+/* 左面板 链接 */
+.reme {
+	font-size: 15px;
+	margin-left: 50px;
+}
+
+.reme a {
+	color: #000;
+	text-decoration: none;
+}
+
+.reme a:hover {
+	color: #A9D0F5;
+}
+
+/* 右面板 */
+.right {
+	width: 759px;
+	margin-left:235px;
+}
+
+.right .left-top-corner {
+	background: url(../image/ZYFleft-top-corner.png) no-repeat left top;
+	padding-left: 18px
+}
+
+.right .right-top-corner {
+	background: url(../image/ZYFright-top-corner.png) no-repeat right top;
+	padding-right: 18px
+}
+
+.right .border-top {
+	background: url(../image/ZYFborder-top.png) left top repeat-x;
+	height: 18px;
+	overflow: hidden;
+	font-size: 0;
+	line-height: 0
+}
+
+.right .border-left {
+	background: url(../image/ZYFborder-side.png) left top repeat-y;
+	padding-left: 1px
+}
+
+.right .border-right {
+	background: url(../image/ZYFborder-side.png) right top repeat-y;
+	padding-right: 1px
+}
+
+.right .left-bot-corner {
+	background: url(../image/ZYFleft-bot-corner.png) no-repeat left top;
+	padding-left: 18px
+}
+
+.right .right-bot-corner {
+	background: url(../image/ZYFright-bot-corner.png) no-repeat right top;
+	padding-right: 18px
+}
+
+.right .border-bot {
+	background: url(../image/ZYFborder-bot.png) left top repeat-x;
+	height: 18px;
+	overflow: hidden;
+	font-size: 0;
+	line-height: 0
+}
+
+.right .inner {
+	padding: 5px 5px 15px 5px;
+	height: auto !important;
+	min-height: 440px;
+	background: url(../image/ZYFbox-bg.png) left top;
+}
+
+.right .inner #pager {
+	margin: 10px 15px 0px 120px;
+}
