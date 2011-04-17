@@ -25,6 +25,7 @@
         <controllerFile controllerName="Customer">
           <actionMethod actionName="index"/>
           <actionMethod actionName="register"/>
+          <actionMethod actionName="bookticket"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -88,6 +89,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="register"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="bookticket"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
