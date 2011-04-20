@@ -1,1 +1,60 @@
-<br /><br /><center>View script for controller <b>Customer</b> and script/action name <b>bookticket</b></center>
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>register</title>
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#submit").click(function(){
+			var flight_no=$("#flight_no").val();
+			var fli_cangwei=$("#fli_cangwei").val();
+			var fli_everyday=$("#fli_everyday").val();
+			var cus_id=$("#cus_id").val();
+			var data={flight_no:flight_no,fli_cangwei:fli_cangwei,fli_everyday:fli_everyday,cus_id:cus_id};
+			$.ajax({
+				type:"post",
+				url:"/Airline/Customer/hello",
+				contentType: "application/x-www-form-urlencoded; charset=utf-8",
+				cache: true,
+				data:data,
+				success:function(data,textStatus){
+					$("#show").html("<b>用户ID：</b>"+data[0].cus_id+"<br />"+"<b>航班号:</b>"+data[0].boo_no+"<br />"+"<b>机票编码:</b>"+data[0].ticket_no+"<br />");
+					//$("#show").text(data);
+				},
+				error: function(data, textStatus) { }
+			});
+		});
+		$("#com_code").mousedown(function(){
+			//alert("f");
+			//var com_code=$("#com_code").val();
+			/*$.ajax({
+				type:"post",
+				url:"/Airline/Customer/hello",
+				contentType: "application/x-www-form-urlencoded; charset=utf-8",
+				cache: true,
+				data:data,
+				success:function(data,textStatus){
+					$("#show").html("<b>现在传来的数据是：</b>"+data[0].com_code+"<br />");
+					//$("#show").text(data);
+				},
+				error: function(data, textStatus) { }
+			});*/
+		});
+
+	});	
+</script>
+
+<div id="fli_info">
+	<!--  航班代码：<input type="text" id="com_code" /><br />-->
+	用户ID：<input type="text" id="cus_id" name="cus_id"/><br />
+	航班号码：<input type="text" id="flight_no" name="flight_no" value="CC123"/><br />
+	航班舱位：<input type="text" id="fli_cangwei" name="fli_cangwei" value="头等舱"/><br />
+	飞行日期：<input type="text" id="fli_everyday"  name="fli_everyday" value="星期六"/><br />
+	<input type="button" value="submit" id="submit"  />
+</div>
+<div id="show">
+	<p>summmer</p>
+</div>
+</body>
+</html>

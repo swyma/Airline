@@ -3,11 +3,13 @@
 echo $this->baseUrl() . '/skin/css/ZYFcustomer.css'?>"
 	media="screen" rel="stylesheet" type="text/css" />
 <!-- 链接页面js -->
-<script type="text/javascript"
-	src="<?php
-echo $this->baseUrl() . '/skin/js/ZYFcustomer.js';
-?>"></script>
+<script type="text/javascript" 
+	src="<?php	echo $this->baseUrl() . '/skin/js/ZYFcustomer.js'; ?>">
+</script>
 
+<!-- 链接jquery -->
+<script type="text/javascript">
+</script>
 <!-- 左面板 start -->
 <div class="left">
 <div class="subdiv">
@@ -55,7 +57,9 @@ echo $this->baseUrl() . '/skin/image/ZYFpage_copy.png'?>" /> <a href="#">会员�
 <script type="text/javascript">
 $(".reme a").live("click", function(){
 	if($(this).text()=="会员注册")
-	$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/register'?>";
+			$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/register'?>";
+	else if($(this).text()=="会员订票")
+		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/bookticket'?>";
 });
 </script>
 <!-- 左面板 end -->
