@@ -44,7 +44,7 @@ class CustomerController extends Zend_Controller_Action
     {
        
     }
-	public function helloAction ()
+	public function book_ticketAction ()
 	{
 		/**
 		 * 	从前台取来的数据:
