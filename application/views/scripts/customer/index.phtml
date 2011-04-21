@@ -18,6 +18,8 @@ echo $this->baseUrl() . '/skin/css/ZYFcustomer.css'?>"
 <div class="reme"><br>
 <a href="#">会员注册</a><br>
 <br>
+<a href="#">会员登录</a><br>
+<br>
 <img src="<?php
 echo $this->baseUrl() . '/skin/image/ZYFcomments.png'?>" /> <a href="#">会员评论</a><br>
 <br>
@@ -57,7 +59,13 @@ echo $this->baseUrl() . '/skin/image/ZYFpage_copy.png'?>" /> <a href="#">会员�
 <script type="text/javascript">
 $(".reme a").live("click", function(){
 	if($(this).text()=="会员注册")
-			$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/register'?>";
+			$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/customerregister'?>";
+	else if($(this).text()=="会员登录")
+		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/customerlogin'?>";
+	else if($(this).text()=="会员评论")
+		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Membership/customercommentcontentshow'?>";
+	else if($(this).text()=="会员信息")
+		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/customerinfomationshow'?>";
 	else if($(this).text()=="会员订票")
 		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/bookticket'?>";
 });

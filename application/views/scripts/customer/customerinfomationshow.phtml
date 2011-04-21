@@ -1,0 +1,65 @@
+<!-- //编辑者：李招意 -->
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<a href="#">修改会员个人信息</a><br />
+<table width="720" height="160" border="6" bordercolor="00CCFF">
+  <tr>
+    <th>会员编号</th>
+    <th>会员账号</th>
+    <th>密&nbsp;&nbsp;码</th>
+    <th>身份证号</th>
+    <th>性&nbsp;&nbsp;别</th>
+    <th>电话号码</th>
+    <th>电子邮件</th>
+    <th>注册时间</th>
+    <th>积&nbsp;&nbsp;分</th>
+  </tr>
+  <?php 
+  		foreach($this->customers as $key=>$value){
+  ?>
+  <tr>
+  	<td>
+ 	 <?php echo $value['cus_autoid'] ?>
+  	</td>
+ 	<td>
+  		<?php echo $value['cus_account'] ?>
+  	</td>
+  	  	<td>
+ 	 <?php echo $value['cus_pwd'] ?>
+  	</td>
+ 	<td>
+  		<?php echo $value['cus_id'] ?>
+  	</td>
+  	  	<td>
+ 	 <?php echo $value['cus_sex'] ?>
+  	</td>
+ 	<td>
+  		<?php echo $value['cus_telnumber'] ?>
+  	</td>
+  	  	<td>
+ 	 <?php echo $value['cus_email'] ?>
+  	</td>
+ 	<td>
+  		<?php echo $value['cus_time'] ?>
+  	</td>
+  	  	<td>
+ 	 <?php echo $value['cus_integral'] ?>
+  	</td>
+
+  </tr>
+  <?php } ?>			 	
+  		
+</table>
+<form action="customercomment" method="post">
+<div id="commentform">
+写评论 <br />
+<textarea name="comment_content" cols="69" rows="6"></textarea>
+  <p align="left"><!--
+  账号：<input type="text" size="12" name="cus_account" id="cus_account" />
+  密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />
+  <a href="<?php echo $this->baseUrl() . '/Customer/register'?>">新用户注册</a>-->
+  <input type="submit" name="sent" value="发表评论" >
+  </p>
+
+</div>
+</form>

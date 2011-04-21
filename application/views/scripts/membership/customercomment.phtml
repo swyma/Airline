@@ -1,0 +1,19 @@
+<html>
+<title>发表评论</title>
+<form action="comment" method="post">
+<div id="commentform">
+我也来评论 <br />
+<textarea name="comment_content" cols="60" rows="8"></textarea>
+  <p align="left">
+  账号：<input type="text" size="12" name="cus_account" id="cus_account" />
+  密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />
+  <a href="<?php echo $this->baseUrl() . '/Customer/register'?>">新用户注册</a>
+  <input type="submit" name="sent" value="发表评论" >
+  </p>
+
+</div>
+</form>
+<body>
+<?php Zend_Session::start();?>
+</body>
+</html>

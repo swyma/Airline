@@ -26,6 +26,10 @@
           <actionMethod actionName="index"/>
           <actionMethod actionName="register"/>
           <actionMethod actionName="bookticket"/>
+          <actionMethod actionName="customerlogin"/>
+          <actionMethod actionName="customerinfomationshow"/>
+          <actionMethod actionName="customerregister"/>
+          <actionMethod actionName="customercomment"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -35,6 +39,11 @@
         </controllerFile>
         <controllerFile controllerName="Aboutus">
           <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Membership">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="customercomment"/>
+          <actionMethod actionName="customercommentcontentshow"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
@@ -93,6 +102,27 @@
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="bookticket"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customerlogin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customerinfomationshow"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customerregister"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customercomment"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Membership">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Membership">
+            <viewScriptFile forActionName="customercomment"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Membership">
+            <viewScriptFile forActionName="customercommentcontentshow"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -134,6 +164,7 @@
           <testApplicationControllerFile filesystemName="CustomerserviceControllerTest.php"/>
           <testApplicationControllerFile filesystemName="SitehelpControllerTest.php"/>
           <testApplicationControllerFile filesystemName="AboutusControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="MembershipControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>
