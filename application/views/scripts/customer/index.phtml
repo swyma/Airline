@@ -68,6 +68,9 @@ $(".reme a").live("click", function(){
 		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/customerinfomationshow'?>";
 	else if($(this).text()=="会员订票")
 		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/bookticket'?>";
+	else if($(this).text()=="航班查询")
+		$("#c-c-iframe").get(0).src="<?php
+echo $this->baseUrl() . '/Customer/flightsearch'?>";
 });
 </script>
 <!-- 左面板 end -->

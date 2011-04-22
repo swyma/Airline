@@ -30,6 +30,8 @@
           <actionMethod actionName="customerinfomationshow"/>
           <actionMethod actionName="customerregister"/>
           <actionMethod actionName="customercomment"/>
+          <actionMethod actionName="flightsearch"/>
+          <actionMethod actionName="pagelist"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -122,6 +124,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Membership">
             <viewScriptFile forActionName="customercommentcontentshow"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="flightsearch"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="pagelist"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

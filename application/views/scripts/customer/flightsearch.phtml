@@ -1,0 +1,135 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>航班查询</title>
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFtablecloth.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+
+<!-- 链接页面js -->
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/js/ZYFtablecloth.js'?>"></script>
+
+<!-- 加载jquery -->
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+?>"></script>
+
+<!-- 页面浮动层 -->
+<link href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFcommon.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFpowerFloat.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
+</head>
+<body>
+<center>
+
+<form name="login"
+	action="<?php
+echo $this->url(array('controller' => 'Customer', 'action' => 'flightsearch'));
+?>"
+	method="post"><input type="text" name="txt" id="txt" /><input
+	type="submit" value="搜索"> <input type="button" value="刷新"
+	onclick="location.href='<?php
+echo $this->baseUrl()?>/Customer/flightsearch'">
+</form>
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th width="10%">航班号</th>
+		<th>起始点</th>
+		<th>抵达点</th>
+		<th>本周日期</th>
+		<th>起始时间</th>
+
+		<th>经济舱价格</th>
+		<th>操作1</th>
+		<th>操作2</th>
+	</tr>
+	<?php
+foreach ($this->flightinformation as $key => $value) {
+    ?>
+	<tr>
+		<td><?php
+    echo $value['com_code'] . $value['fli_no']?></td>
+		<td><?php
+    echo $value['fli_baddress']?></td>
+		<td><?php
+    echo $value['fli_aaddress']?></td>
+		<td><?php
+    echo $value['fli_everyday']?></td>
+		<td><?php
+    echo $value['fli_btime']?></td>
+
+		<td><?php
+    echo $value['fli_Cfare'] . "元"?></td>
+		<td><a href="javascript:;"
+			rel="<?php
+    echo 'targetBox' . $this->i;
+    ?>">详情</a></td>
+		<td><a href="<?php
+echo $this->baseUrl()?>/Customer/bookticket/parm/<?php echo $value['fli_autoid']?>">订票</a></td>
+	</tr>
+	<div id="<?php
+    echo 'targetBox' . $this->i;
+    ?>"
+		class="shadow target_box dn">
+	<div class="target_list">
+	地点：
+    <?php
+    echo $value['fli_baddress'] . "-" . $value['fli_aaddress'];
+    ?>
+    </div>
+	<div class="target_list">	折扣：
+    <?php
+    echo $value['fli_discount'];
+    ?></div>
+	<div class="target_list">	时间：
+    <?php
+    echo $value['fli_btime'] . "-" . $value['fli_atime'];
+    ?></div>
+	<div class="target_list">头等舱(F)：
+    <?php
+    echo $value['fli_Ffare']?>元|经济舱(C)：<?php
+    echo $value['fli_Cfare']?>元|商务舱(Y)：<?php
+    echo $value['fli_Yfare']?>元</div>
+	</div>
+	<?php
+    $this->i += 1;
+}
+?>	
+</table>
+<!-- 页面样式
+All：显示所有页；
+
+Elastic：Google式，页码范围会根据用户当前页而扩展或缩小；
+
+Jumping：页码最后页之后会显示第一页；
+
+Sliding：Yahoo式，当前页会放在页码中间，这是默认样式。 
+ -->
+<?php
+echo $this->paginationControl($this->flightinformation, 'Sliding', 
+'/customer/pagelist.phtml');
+?>
+</center>
+
+
+<script type="text/javascript">
+$(function() {
+		$("a").powerFloat();
+})
+</script>
+
+</body>
+</html>
