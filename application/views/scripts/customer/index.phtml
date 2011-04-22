@@ -71,6 +71,8 @@ $(".reme a").live("click", function(){
 	else if($(this).text()=="航班查询")
 		$("#c-c-iframe").get(0).src="<?php
 echo $this->baseUrl() . '/Customer/flightsearch'?>";
+else if($(this).text()=="会员订单")
+	$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/bookhistory'?>";
 });
 </script>
 <!-- 左面板 end -->
