@@ -2,59 +2,88 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>register</title>
-<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+?>"></script>
 <body>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#submit").click(function(){
-			var flight_no=$("#flight_no").val();
+			var flight_no= $("#flight_no").val();
 			var fli_cangwei=$("#fli_cangwei").val();
 			var fli_everyday=$("#fli_everyday").val();
 			var cus_id=$("#cus_id").val();
 			var data={flight_no:flight_no,fli_cangwei:fli_cangwei,fli_everyday:fli_everyday,cus_id:cus_id};
 			$.ajax({
 				type:"post",
-				url:"/Airline/Customer/book_ticket",
+				url:"/Airline/Customer/ticket",
 				contentType: "application/x-www-form-urlencoded; charset=utf-8",
 				cache: true,
 				data:data,
 				success:function(data,textStatus){
-					$("#show").html("<b>用户ID：</b>"+data[0].cus_id+"<br />"+"<b>航班号:</b>"+data[0].boo_no+"<br />"+"<b>机票编码:</b>"+data[0].ticket_no+"<br />");
-					//$("#show").text(data);
+					$("#show").html("<fieldset style=\"width:96.6%;\"><legend>机票信息</legend><table width=\"564\" height=\"147\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">"+
+					     	"<tr> <td>机票编号:</td> <td>"+data[0].ticket_no+"</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>座&nbsp;位&nbsp;号:</td> <td>"+data[0].boo_number+"</td> </tr>"+
+					     	" <tr> <td colspan=\"1\"></td> <td>"+data[0].boo_baddress+"</td> <td colspan=\"2\">-----------</td><td colspan=\"1\"></td> <td>"+data[0].boo_aaddress+"</td> </tr>"+
+					     	"<tr> <td colspan=\"1\"></td> <td>"+data[0].boo_btime+"</td><td colspan=\"2\"></td><td colspan=\"1\"></td> <td>"+data[0].boo_atime+"</td></tr>"+
+					     	"<tr><td>飞行日期:</td><td>"+data[0].boo_everyday+"</td><td colspan=\"2\"></td><td>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价:</td> <td>"+data[0].boo_fare+"</td></tr>"+
+					     	"<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>订票时间:</td><td>"+data[0].boo_time+"</td> </tr></table></fieldset>");
 				},
 				error: function(data, textStatus) { }
 			});
 		});
-		$("#com_code").mousedown(function(){
-			//alert("f");
-			//var com_code=$("#com_code").val();
-			/*$.ajax({
-				type:"post",
-				url:"/Airline/Customer/hello",
-				contentType: "application/x-www-form-urlencoded; charset=utf-8",
-				cache: true,
-				data:data,
-				success:function(data,textStatus){
-					$("#show").html("<b>现在传来的数据是：</b>"+data[0].com_code+"<br />");
-					//$("#show").text(data);
-				},
-				error: function(data, textStatus) { }
-			});*/
-		});
-
+		
 	});	
 </script>
 
-<div id="fli_info">
-	<!--  航班代码：<input type="text" id="com_code" /><br />-->
-	用户ID：<input type="text" id="cus_id" name="cus_id"/><br />
-	航班号码：<input type="text" id="flight_no" name="flight_no" value="CC123"/><br />
-	航班舱位：<input type="text" id="fli_cangwei" name="fli_cangwei" value="头等舱"/><br />
-	飞行日期：<input type="text" id="fli_everyday"  name="fli_everyday" value="星期六"/><br />
-	<input type="button" value="submit" id="submit"  />
+<div id="fli_no">
+<fieldset style="width: 96%;"><legend>订票信息</legend>
+<table width="600" height="101" border="0" align="center"
+	cellpadding="0" cellspacing="0">
+	<?php
+		foreach ($this->book_flightinfo as $key => $value) {
+    ?>
+	<tr>
+		<td width="80" height="34">起飞地点:</td>
+		<td width="160"><input id="fli_baddress" type="text" readonly="true "
+			name="fli_baddress" value="<?php
+    echo $value['fli_baddress']?>" /></td>
+		<td width="80">起飞时间:</td>
+		<td width="160"><input id="fli_everyday" type="text" readonly="true "
+			name="fli_everyday" value="<?php
+    echo $value['fli_everyday']?>" /></td>
+	</tr>
+	<tr>
+		<td height="32">降落地点:</td>
+		<td><input id="fli_aaddress" type="text" name="fli_aaddress"
+			readonly="true " value="<?php
+    echo $value['fli_aaddress']?>" /></td>
+		<td>航班舱位:</td>
+
+		<td><select style="width: 160;">
+			<option id="fli_cangwei" value="经济舱">经济舱</option>
+			<option id="fli_cangwei" value="头等舱">头等舱</option>
+			<option id="fli_cangwei" value="公务舱">公务舱</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td>&nbsp;&nbsp;航班号:</td>
+		<td><input type="text" id="flight_no"
+			value="<?php
+    echo $value['com_code'] . $value['fli_no']?>"
+			readonly='true' /></td>
+		<td colspan="4" align="right"><input id="submit" type="submit"
+			name="submit" value="确认订票" /> <input id="reset" type="reset"
+			name="reset" value="返回查询" /></td>
+	</tr>
+</table>
+
+</fieldset>
+<?php
+}
+?>
 </div>
-<div id="show">
-	<p>summmer</p>
-</div>
+<div id="show"></div>
+
 </body>
 </html>

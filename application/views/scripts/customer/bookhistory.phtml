@@ -44,6 +44,7 @@ echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
 		<th>价格</th>
 		<th>订票时间</th>
 		<th>操作1</th>
+		<th>操作2</th>
 	</tr>
 	<?php
 foreach ($this->flightinformation as $key => $value) {
@@ -55,39 +56,32 @@ foreach ($this->flightinformation as $key => $value) {
 		<td><?php echo $value['boo_berth']?></td>
 		<td><?php echo $value['boo_fare']?>元</td>
 		<td><?php echo $value['boo_time']?></td>
-		<td><a href="javascript:;"
-			rel="<?php
-    echo 'targetBox' . $this->i;
-    ?>">详情</a></td>
+		<td><a href="javascript:;" rel="<?php echo 'targetBox' . $this->i; ?>">详情</a></td>
+		<?php ?>
+		<td><a href="<?php echo $this->baseUrl()?>/Customer/refundticket/parm/<?php echo $value['boo_autoid']?>">退票</a></td>
 	</tr>
-	<div id="<?php
-    echo 'targetBox' . $this->i;
-    ?>"
-		class="shadow target_box dn">
-	<div class="target_list">
-	时间：<?php echo $value['boo_btime'].'-'.$value['boo_atime']?>
+	<div id="<?php echo 'targetBox' . $this->i; ?>" class="shadow target_box dn" >
+		<div class="target_list"> 
+			时间：<?php echo $value['boo_btime'].'-'.$value['boo_atime']?>
+		</div>
+		<div class="target_list">
+			座位号：<?php echo $value['boo_no'];
+			if($value['flag_pay']=="1") 
+				echo "(已付款)"; 
+			else
+				echo "(未付款)";
+		?></div>
+		<div class="target_list">
+			是否退票：<?php 
+			if($value['flag_pass']=="1") 
+				echo "否"; 
+			else
+				echo "<font color=red>是</font>";
+			?>
+		</div>
 	</div>
-	<div class="target_list">
-	座位号：<?php 
-	echo $value['boo_no'];
-	if($value['flag_pay']=="1") 
-	echo "(已付款)"; 
-	else
-	echo "(未付款)";
-	?></div>
-	<div class="target_list">
-	是否退票：<?php 
-	if($value['flag_pass']=="1") 
-	echo "否"; 
-	else
-	echo "<font color=red>是</font>";
-	?>
-	</div>
-	</div>
-	<?php
-    $this->i += 1;
-}
-?>	
+	<?php $this->i += 1;
+	} ?>	
 </table>
 <!-- 页面样式
 All：显示所有页；
@@ -98,17 +92,14 @@ Jumping：页码最后页之后会显示第一页；
 
 Sliding：Yahoo式，当前页会放在页码中间，这是默认样式。 
  -->
-<?php
-echo $this->paginationControl($this->flightinformation, 'Sliding', 
-'/customer/pagelist.phtml');
-?>
+<?php echo $this->paginationControl($this->flightinformation, 'Sliding', '/customer/pagelist.phtml'); ?>
 </center>
 
 
 <script type="text/javascript">
 $(function() {
 		$("a").powerFloat();
-})
+});
 </script>
 
 </body>

@@ -33,6 +33,7 @@
           <actionMethod actionName="flightsearch"/>
           <actionMethod actionName="pagelist"/>
           <actionMethod actionName="bookhistory"/>
+          <actionMethod actionName="refundticket"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -134,6 +135,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="bookhistory"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="refundticket"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
