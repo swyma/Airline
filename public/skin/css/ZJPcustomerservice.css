@@ -1,0 +1,52 @@
+@CHARSET "UTF-8";
+
+#content{ 
+font-family:Arial, Helvetica, sans-serif; font-size:14px; color: #3399FF;
+background:url(../image/ZJP10.jpg) repeat 0 0;
+height:447px;
+}
+#menu_panel{
+	margin: 0 auto;
+	float:left;
+	height:20px;
+}
+
+#menu_panel #menu_section{
+	width: auto;
+	margin:0 auto;
+	padding: 0 0 0 10px;
+	color: #3399FF;
+}
+
+
+#menu_section ul li{
+	display: inline;
+}
+
+#menu_section ul li a{
+	float: left;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	color: #3399FF;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#menu_section li a:hover, #menu_section li .current{
+	color: #fff;
+	font-size:25px;
+	color:#660066;
+}
+#allen1{ 
+float:left;
+height:190px;
+padding-left: 20px;
+padding-right: 10px;
+}
+#allen2{ 
+float:left;
+padding-left: 400px;
+padding-right: 10px;
+}

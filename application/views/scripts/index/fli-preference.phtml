@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>航班优惠</title>
+<!-- 加载jQuery -->
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
+<script type="text/javascript">
+			$(document).ready(function(){
+					$(".fliPreferenceShow tr").mouseover(function(){
+						$(this).addClass("over");}).mouseout(function(){
+							$(this).removeClass("over");});
+					$(".fliPreferenceShow tr:even").addClass("alt");
+			});
+</script>
+<style type="text/css">
+th {
+	background: #0066FF;
+	color: #FFFFFF;
+	line-height: 20px;
+	height: 15px;
+	font-size:14px;
+}
+
+td {$this->fliPreferenceInfo
+	padding: 6px 11px;
+	border-bottom: 1px solid #95bce2;
+	vertical-align: top;
+	text-align: center;
+}
+
+td * {
+	padding: 6px 11px;
+}
+
+tr.alt td {
+	background: #ecf6fc;
+}
+
+tr.over td {
+	background: #bcd4ec;
+}
+p{
+	font-size:20px;
+}
+hr{
+	color:#09c;
+}
+</style>
+</head>
+
+<body>
+<table class="fliPreferenceShow" width="100%" border="0" cellspacing="0" cellpadding="0">
+ <thead>
+ <tr>
+  <th>航空公司</th>
+  <th>航班号</th>
+  <th>起始地址</th>
+  <th>抵达地址</th>
+  <th>折扣</th>
+  </tr>
+ </thead>
+ <tbody>
+ <?php 
+  		foreach($this->fliPreferenceInfo as $key=>$value){
+  ?>
+  <tr>
+  	<td>
+ 	 <?php echo $value['com_code'] ?>
+  	</td>
+ 	 <td>
+  		<?php echo $value['air_code'] ?>
+  	</td>
+  	<td>
+  		<?php echo $value['fli_baddress'] ?>
+  	</td>
+  	<td>
+  		<?php echo $value['fli_aaddress'] ?>
+  	</td>
+  	<td>
+  		<?php echo $value['fli_discount'] ?>
+  	</td>
+  	 <?php } ?>		
+  </tr>
+  </tbody>
+ </table>
+ 
+ <!-- 页面样式
+All：显示所有页；
+Elastic：Google式，页码范围会根据用户当前页而扩展或缩小；
+Jumping：页码最后页之后会显示第一页；
+Sliding：Yahoo式，当前页会放在页码中间，这是默认样式。 
+ -->
+ 
+ <?php
+echo $this->paginationControl($this->fliPreferenceInfo, 'Sliding', '/index/flidiscount-pagelist.phtml');
+?>
+</body>
+</html>

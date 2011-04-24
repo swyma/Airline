@@ -10,6 +10,9 @@
       <controllersDirectory>
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="announceShow"/>
+          <actionMethod actionName="fliPreference"/>
+          <actionMethod actionName="dirgramshow"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="Hotelinformation">
@@ -138,6 +141,15 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="refundticket"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="announceShow"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="fliPreference"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="dirgramshow"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

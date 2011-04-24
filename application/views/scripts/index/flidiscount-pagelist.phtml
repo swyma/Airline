@@ -1,0 +1,54 @@
+<style type="text/css">
+.paginationControl{
+	font-size:12px;
+}
+</style>
+<?php $ctr='Index';$act='fli-preference';?>
+<?php if($this->pageCount):?>
+
+   <div class="paginationControl" align="center">
+     <?php if( isset($this->first) ):?>
+
+        <a href="<?php echo $this->url(array('controller'=>$ctr,'action'=> $act,'page'=>$this->first));?>">首页</a>
+         <?php else: ?>
+          <span class="disabled">首页</span>
+       <?php endif;?>
+
+       <?php if( isset($this->previous) ):?>
+
+           <a href="<?php echo $this->url(array('controller'=>$ctr,'action'=> $act,'page'=>$this->previous));?>">上一页</a>
+
+           <?php else: ?>
+
+           <span class="disabled">上一页</span>
+       <?php endif;?>
+
+     <?php foreach ($this->pagesInRange as $page):?>
+
+         <?php if($page !=$this->current):?>
+           <a href="<?php echo $this->url(array('controller'=>$ctr,'action'=>$act,'page'=>$page));?>"><?php echo $page;?></a>|
+
+         <?php else :?>
+            <?php echo $page;?>|
+           <?php endif;?>
+        <?php endforeach;?>
+
+    <?php if(isset($this->next)):?>
+           <a href="<?php echo $this->url(array('controller'=>$ctr,'action'=> $act,'page'=>$this->next));?>">下一页</a>
+       <?php else:?>
+          <span class="disabled" >下一页</span>
+       <?php endif;?>
+
+       <?php if( isset($this->last) ):?>
+            <a href="<?php echo $this->url(array('controller'=>$ctr,'action'=> $act,'page'=>$this->last));?>">尾页</a>
+
+
+           <?php else: ?>
+      <span class="disabled">尾页</span>
+      <?php endif;?>
+
+      <span>第<?php echo $this->current;?>页</span>
+       <span>共<?php echo $this->pageCount;?>页</span>
+      <span>共<?php echo $this->totalItemCount;?>条</span>
+    </div>
+<?php endif;?>
