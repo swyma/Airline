@@ -493,10 +493,16 @@ class CustomerController extends Zend_Controller_Action
 
     public function customerregisterAction()
     {
-        // action body
+    {
+            {
+                $time = date("Y-m-d H:i:s");
                 $this->_helper->layout->disableLayout();
                 // action body
-                if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                $customerNamespace = new Zend_Session_Namespace(
+                'customer');
+                // $customerNamespace->setExpirationHops(2);
+                if (strtolower($_SERVER['REQUEST_METHOD']) ==
+                 'post') {
                     $cus_account = $this->_request->getPost('cus_account');
                     $cus_pwd = $this->_request->getPost('cus_pwd');
                     $cus_pwd2 = $this->_request->getPost('cus_pwd2');
@@ -507,14 +513,24 @@ class CustomerController extends Zend_Controller_Action
                     $cus_time = $this->_request->getPost('cus_time');
                     $db = new Application_Model_DbTable_Customer();
                     //将前台传过来的值进行数组化,为inser服务
-                    $data = array('cus_account' => $cus_account, 
-                    'cus_pwd' => $cus_pwd, 'cus_id' => $cus_id, 'cus_sex' => $cus_sex, 
+                    $data = array(
+                    'cus_account' => $cus_account, 'cus_pwd' => $cus_pwd, 
+                    'cus_id' => $cus_id, 'cus_sex' => $cus_sex, 
                     'cus_telnumber' => $cus_telnumber, 'cus_email' => $cus_email, 
-                    'cus_integral' => 0, 'flag' => true);
+                    'cus_time' => $time, 'cus_integral' => 0, 'flag' => true);
                     //该方法的api是这样的insert($array)
                     $db->insert($data);
+                    $adapter = Zend_Registry::get('db');
+                    if ($cus_account != "" && $cus_pwd != "" && $cus_pwd2 != "" &&
+                     $cus_id != "" && $cus_telnumber != "" && $cus_email != "") {
+                        echo $this->_helper->redirector('customerlogin');
+                    } else {
+                        $this->_helper->redirector('customerregister');
+                    }
                 }
                  //成功后跳转页面
+            }
+        }
     }
 
     public function customerloginAction()
@@ -810,31 +826,103 @@ class CustomerController extends Zend_Controller_Action
         }
     }
 
+ public function customerpwdAction ()
+    {
+        {
+            $this->_helper->layout->disableLayout();
+           
+            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                //取得前台得传过来的值
+                //$cus_id = $this->_request->getPost('cus_id');
+                $cus_id = $this->_request->getPost( 'cus_id');
+                $cus_pwd = $this->_request->getPost('cus_pwd');
+                $customerNamespace->cus_id = $cus_id; //设置值
+                $customerNamespace->cus_pwd = $cus_pwd;
+                if ($cus_id != null && $cus_pwd != null) {
+                    //实例化
+                    $db = new Application_Model_DbTable_Customer();
+                    //实例一个全局变量
+                    $adapter = Zend_Registry::get('db');
+                    //查询登录会员的信息
+                    $sqlstr1 = "select count(*) from customer where  cus_id='" .
+                     $cus_id .
+                     "' and
+                                                                          cus_pwd='" .
+                     $cus_pwd . "' ";
+                    echo $sqlstr1;
+                    $result = $adapter->fetchOne($sqlstr1);
+                    echo $result;
+                    if ($result > 0) {
+                        echo "success";
+                        echo $this->_helper->redirector('customerpwd2');
+                    } else {
+                        //失败后返回
+                        echo "账户或密码有错，请重新登录！";
+                        echo $this->_helper->redirector('customerpwd');
+                    }
+                }
+            }
+             // action body
+        }
+    }
+public function customerpwd2Action ()
+    {
+        {
+            $this->_helper->layout->disableLayout();
+           
+            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                //取得前台得传过来的值
+                $newpwd = $this->_request->getPost('newpwd');
+                $newpwd2 = $this->_request->getPost('newpwd2');
+                $cus_newaccount = $this->_request->getPost('cus_newaccount');
+                $customerNamespace->newpwd = $newpwd; //设置值
+                $customerNamespace->newpwd2 = $newpwd2;
+                $customerNamespace->cus_newaccount = $cus_newaccount;
+               
+                    //实例化
+                    $db = new Application_Model_DbTable_Customer();
+                    //实例一个全局变量
+                    $adapter = Zend_Registry::get('db');
+                    //查询登录会员的信息
+                     $sqlstr2 = "update customer set  cus_pwd='".$newpwd."'  where cus_account ='".$cus_newaccount."' ";
+                    echo $sqlstr2;
+                    $result = $adapter->fetchOne($sqlstr2);
+                    echo $result;
+                    if ($result > 0) {
+                        echo "success";
+                        echo $this->_helper->redirector('customerlogin');
+                    } else {
+                        //失败后返回
+                        echo "账户或密码有错，请重新登录！";
+                        echo $this->_helper->redirector('customerpwd2');
+                    }
+                
+            }
+             // action body
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

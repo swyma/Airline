@@ -1,0 +1,68 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<head>
+<title>register</title>
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+?>"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	
+	
+	$('form :input').blur(function(){
+		var $parent = $(this).parent();
+		$parent.find(".formtips").remove();
+		//验证账户
+		if($(this).is('#identifier')){
+			if(this.value == "" || this.value.length< 18){
+				var errorMsg ="<font color=red>请填写正确的识别码<font>";
+				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
+			else { var okMsg = "<font color=green>输入正确<font>";
+			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
+			
+		}
+		
+}  ) ;
+
+		}) ;
+
+</script>
+</head>
+
+
+<body>
+<center>认真填写以下信息，以便找回用户名/密码
+<hr width="60%" size="1">
+
+<form name="login"
+	action="<?php
+echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd'));
+?>"
+	method="post">
+<div>
+
+<div>
+
+<p style="width: 500px;">身份证:<input name="cus_id" type="text"
+	id="cus_id" maxlength="18"></p>
+<p style="width: 500px;">原密码:<input name="cus_pwd" type="password"
+	id=" cus_pwd" maxlength="14"></p>
+<p><input type="submit" value="　下一步　" id="next" /></p>
+
+</div>
+</div>
+
+</form>
+
+<hr width="60%" size="1">
+</center>
+
+</body>
+</html>

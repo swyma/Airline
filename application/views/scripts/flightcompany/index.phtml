@@ -1,5 +1,83 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head><title>航空公司信息</title>
 
-<br />
-<br />
-<center>View script for controller <b>Flightcompany</b> and
-script/action name <b>index</b></center>
+</head>
+<body  >
+相关介绍：<br>
+<hr width="100%" size="1">
+以下各航空公司的信息:
+<hr width="100%" size="1">
+ 
+
+
+<table style= "TABLE-LAYOUT:fixed ">
+ 
+ 
+  <tr>
+  	
+  	 <?php 
+  		foreach($this->Flightcompany  as $key=>$value){
+  ?>
+  	<td>
+ 	 	<?php echo $value['com_name']?>
+  	</td>  	
+  <td>
+ 	 	<?php echo "地址:" ?>
+  	</td>  	
+ 	 <td>
+  		<?php echo $value['com_address'] 
+  		
+  		?>
+  	
+  	</td>
+  	<td>
+  	<textarea style="scrollbar-face-color:#ff80ff;background-color:;  border:0px;color:black ;font-size:8pt;font-weight:bold"  cols=80 rows=10    > 
+		<?php echo $value['com_information'] 
+  		?>
+		</textarea> 	  
+	
+  	</td> 
+  	<td>
+  	
+  	<tr>
+  	<td>
+  	
+  	<hr width="100%" size="1">
+		
+   </td>
+   <td>
+  	
+  	<hr width="100%" size="1">
+		
+   </td>   
+    <td>
+  	
+  	<hr width="100%" size="1">
+		
+   </td>   
+    <td>
+  	
+  	<hr width="100%" size="1">
+		
+   </td>   
+   </tr>
+  
+		
+  <?php 
+  		 } ?>		
+ 
+   
+   </table>
+      谢谢浏览
+     
+   <hr width="100%" size="1">
+   
+  </body>
+<div id="images">
+<img src="<?php echo $this->baseUrl() . '/skin/image/zqnFlightcompany.png'?>" width=350px height=200px>
+</div>
+
+  	  
+</html>

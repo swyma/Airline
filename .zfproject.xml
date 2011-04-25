@@ -29,7 +29,7 @@
         </controllerFile>
         <controllerFile controllerName="Customer">
           <actionMethod actionName="index"/>
-          <actionMethod actionName="register"/>
+         
           <actionMethod actionName="bookticket"/>
           <actionMethod actionName="customerlogin"/>
           <actionMethod actionName="customerinfomationshow"/>
@@ -39,6 +39,8 @@
           <actionMethod actionName="pagelist"/>
           <actionMethod actionName="bookhistory"/>
           <actionMethod actionName="refundticket"/>
+          <actionMethod actionName="customerpwd"/>
+          <actionMethod actionName="customerpwd2"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -106,8 +108,7 @@
           <viewControllerScriptsDirectory forControllerName="Bookinformation">
             <viewScriptFile forActionName="show"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Customer">
-            <viewScriptFile forActionName="register"/>
+          
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="bookticket"/>
@@ -162,6 +163,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Membership">
             <viewScriptFile forActionName="customercommentcontentspaging"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customerpwd"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customerpwd2"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

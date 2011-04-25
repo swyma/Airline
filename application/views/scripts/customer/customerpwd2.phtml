@@ -1,0 +1,54 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<head>
+<title>register</title>
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+?>"></script>
+
+
+</head>
+
+
+<body>
+<center>认真填写以下信息，以便找回用户名/密码
+<hr width="60%" size="1">
+
+<form name="login"
+	action="<?php
+echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd2'));
+?>"
+	method="post">
+<div>
+<div>
+<p>账户名 <input type="text"  id="cus_newaccount "  maxlength="12"/></p>
+<p>请重新设置你的新密码</p>
+<p style="width: 500px;">新密码:<input  type="password"
+	maxlength="14" id="newpwd"></p>
+<p style="width: 500px;">请确认:<input  type="password"
+	maxlength="14" id="newpwd2"></p>
+<p><input type="submit" value="　完成　" id="finish" />
+
+
+<p>
+
+</div>
+</div>
+
+
+
+
+
+
+</form>
+
+<hr width="60%" size="1">
+</center>
+
+</body>
+</html>
