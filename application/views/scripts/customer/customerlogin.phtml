@@ -3,8 +3,24 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录界面</title>
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
 <body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#submit").click(function(){
+			//var cus_account=$("#cus_account").val();
+			//var cus_pwd=$("#cus_pwd").val();
+			if ($.trim($("#cus_account")[0].value) == "")
+			{
+			  alert("会员账号不能为空！");
+			} else if ($.trim($("#cus_pwd")[0].value) == "")
+			{
+				  alert("会员密码不能为空！");
+				}
+		});
 
+	});	
+</script>
 <center>
 <form name="login" 
 	  action="<?php echo $this->url(array('controller'=>'customer','action'=>'customerlogin'));?>" 
@@ -14,8 +30,8 @@
 	会员密码：<input type="text" name="cus_pwd" id="cus_pwd" /><br />
 	<input type="submit" id="submit" value="登录" />
 	<input type="reset" value="取消" /><br />
-	新会员？<a href="http://localhost/Airline/Customer/register">会员注册</a><br />
-	<a href="http://localhost/Airline/Customer/PwdMod">忘记密码</a>
+	新会员？<a href="<?php echo $this->baseUrl() . '/Customer/customerregister'?>">会员注册</a><br />
+	<a href="<?php echo $this->baseUrl() . '/Customer/customermodifypassword'?>">忘记密码</a>
 </form>
 </center>
 </body>

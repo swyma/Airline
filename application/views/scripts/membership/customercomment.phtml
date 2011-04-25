@@ -1,19 +1,42 @@
-<html>
+<!-- 编辑者：李招意 -->
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>发表评论</title>
-<form action="comment" method="post">
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#submit").click(function(){
+			//var comment_content=$("#comment_content").val();
+			if ($.trim($("#comment_content")[0].value) == "")
+			{
+			  alert("评论内容不能为空！");
+			}else{
+			  alert("success");
+			}
+			//获取后台传来的success进行判断
+			
+		});
+
+	});	
+</script>
+
+<form action="customercomment" method="post" style="bgcolor:#FA5858">
 <div id="commentform">
-我也来评论 <br />
-<textarea name="comment_content" cols="60" rows="8"></textarea>
-  <p align="left">
+<h5><?php Zend_Session::start(); 
+  $customerNamespace = new Zend_Session_Namespace('customer');
+  echo $customerNamespace->cus_account;?>您好,请在下面的输入框中发表您的评论 </h5>
+<textarea name="comment_content" id="comment_content" cols="30" rows="4"></textarea>
+  <p align="left"><!--
   账号：<input type="text" size="12" name="cus_account" id="cus_account" />
   密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />
-  <a href="<?php echo $this->baseUrl() . '/Customer/register'?>">新用户注册</a>
-  <input type="submit" name="sent" value="发表评论" >
+  新会员？<a href="http://localhost/Airline/Customer/register">会员注册</a>
+  -->
+  <input type="submit" id="submit" name="sent" value="发表评论" >
+  <input type="reset" name="reset" value="取消评论" >
   </p>
-
 </div>
 </form>
 <body>
-<?php Zend_Session::start();?>
 </body>
 </html>

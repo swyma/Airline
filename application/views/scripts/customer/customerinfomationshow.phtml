@@ -1,8 +1,44 @@
 <!-- //编辑者：李招意 -->
 <!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<a href="#">修改会员个人信息</a><br />
-<table width="720" height="160" border="6" bordercolor="00CCFF">
+<title>航班查询</title>
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFtablecloth.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+
+<!-- 链接页面js -->
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/js/ZYFtablecloth.js'?>"></script>
+
+<!-- 加载jquery -->
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+?>"></script>
+
+<!-- 页面浮动层 -->
+<link href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFcommon.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFpowerFloat.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
+</head>
+<body>
+您好<?php Zend_Session::start(); 
+       $customerNamespace = new Zend_Session_Namespace('customer');
+        echo $customerNamespace->cus_account;?>，您的个人信息如下：<br />
+<center>
+<table cellspacing="0" cellpadding="0">
   <tr>
     <th>会员编号</th>
     <th>会员账号</th>
@@ -50,16 +86,9 @@
   <?php } ?>			 	
   		
 </table>
-<form action="customercomment" method="post">
-<div id="commentform">
-写评论 <br />
-<textarea name="comment_content" cols="69" rows="6"></textarea>
-  <p align="left"><!--
-  账号：<input type="text" size="12" name="cus_account" id="cus_account" />
-  密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />
-  <a href="<?php echo $this->baseUrl() . '/Customer/register'?>">新用户注册</a>-->
-  <input type="submit" name="sent" value="发表评论" >
-  </p>
+</center>
+</body>
+</html>
+您可以修改您的个人信息，<a href="#">现在就修改？</a><br />
+您还可以发表评论，<a href="<?php echo $this->baseUrl() . '/Membership/customercomment'?>">现在马上评论？</a><br />
 
-</div>
-</form>

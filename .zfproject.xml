@@ -53,6 +53,7 @@
           <actionMethod actionName="index"/>
           <actionMethod actionName="customercomment"/>
           <actionMethod actionName="customercommentcontentshow"/>
+          <actionMethod actionName="customercommentcontentspaging"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
@@ -158,6 +159,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Hotelinformation">
             <viewScriptFile forActionName="hotelinfo"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Membership">
+            <viewScriptFile forActionName="customercommentcontentspaging"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

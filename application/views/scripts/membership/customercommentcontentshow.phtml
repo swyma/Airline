@@ -1,37 +1,77 @@
 <!-- 编辑者：李招意 -->
 <!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>评论列表页面</title>
+<script type="text/javascript"
+	src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+?>"></script>
+<script type="text/javascript"
+	src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery-powerFloat-min.js';
+?>"></script>
+<!--<script type="text/javascript"
+	src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery-powerFloat.js';
+?>"></script>
+--><body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#submit").click(function(){
+			//var comment_content=$("#comment_content").val();
+			if ($.trim($("#comment_content")[0].value) == "")
+			{
+			  alert("评论内容不能为空！");
+			}
+		});
+	});	
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+       $("#trigger6").powerFloat({ 
+			eventType: "click",
+			target: "/Airline/membership/customercomment", 
+			targetMode: "ajax" 
+		});
+ });
+</script>
 <form action="customercomment" method="post">
 <div id="commentform">
-我也来评论 <br />
-<textarea name="comment_content" cols="65" rows="4"></textarea>
-  <p align="left">
+<h5><?php Zend_Session::start(); 
+  $customerNamespace = new Zend_Session_Namespace('customer');
+  echo $customerNamespace->cus_account;?> 您好,请在下面的输入框中发表您的评论 </h5>
+<textarea name="comment_content" id="comment_content" cols="65" rows="4"></textarea>
+<p align="left"><!--
   账号：<input type="text" size="12" name="cus_account" id="cus_account" />
   密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />
   新会员？<a href="http://localhost/Airline/Customer/register">会员注册</a>
-  <input type="submit" name="sent" value="发表评论" >
-  </p>
+  --> <input type="submit" id="submit" name="sent" value="发表评论"> <input
+	type="reset" name="reset" value="取消评论"></p>
 </div>
 </form>
-<table width="700" height="160" border="6" bordercolor="00CCFF">
-  <tr>
-    <th>会员账号</th>
-    <th>评论内容</th>
-  </tr>
-  <?php 
-  		foreach($this->membership as $key=>$value){
-  ?>
-  <tr>
-  	<td>
- 	 <?php echo $value['customer_name'] ?>:
-  	</td>
- 	 <td>
-  		<?php echo $value['comment_content'] ?>
-  	</td>
-  	<td>
-  		<a href="http://localhost/Airline/Membership/comment">回复此评论</a>
-  	</td>
-  </tr>
-  <?php } ?>			
-</table>
-
+<style>
+.commentcustomer {
+	padding-bottom: 0px;
+	padding-left: 0px;
+	border: 1px solid green;
+	background: lightgrey;
+	width: 600px;
+	height: 40px;
+}
+</style>
+<div>已有评论：</div>
+<?php
+foreach ($this->membership as $key => $value) {
+    ?>
+<div class="commentcustomer">
+<h5><?php echo $value['customer_name']?> 发表于<?php
+    echo $value['comment_time']?></h5>
+</div>
+<div>
+<p><?php echo $value['comment_content']?><button style="float:right" id="trigger6" >回复此评论</button></p>    
+</div>
+<?php
+}
+?>	
+<?php
+echo $this->paginationControl($this->membership, 'Sliding', 
+'/membership/customercommentcontentspaging.phtml');
+?>
