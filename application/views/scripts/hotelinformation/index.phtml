@@ -1,5 +1,129 @@
 
-<br />
-<br />
-<center>View script for controller <b>Hotelinformation</b> and
-script/action name <b>index</b></center>
+<!-- hotelinformation页面css -->
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/YJhotelinformation.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<!-- 链接页面js -->
+<script type="text/javascript"
+src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js';?>">
+</script>
+<script type="text/javascript"
+	src="<?php echo $this->baseUrl() . '/skin/js/YJhotelinformation.js';
+?>"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript">
+
+
+//图片滚动效果
+$(document).ready(function(){
+	
+	$('form :input').blur(function(){
+	var $parent=$(this).parent();
+	$parent.find(".formtips").remove();
+	//验证酒店名称
+	if($(this).is('#hotel_name')){
+			if(this.value==""){
+				var errorMsg='请输入酒店的名称.';
+				$parent.append('<span class="formtips onError">'+errorMsg+'</span>');
+			}else{
+				var okMsg='输入正确.';
+				$parent.append('<span class="formtips onSuccess">'+okMsg+'</span>');
+			}
+		}
+	
+	//验证酒店等级
+	if($(this).is('#hotel_level')){
+		if(this.value==""||this.value>5){
+			var errorMsg='请输入正确等级.';
+			$parent.append('<div class="formtips onError">'+errorMsg+'</div>');
+		}else{
+			var okMsg='输入正确.';
+			$parent.append('<div class="formtips onSuccess">'+okMsg+'</div>');
+		}
+	}
+	
+	//验证酒店所在地
+	if($(this).is('#hotel_city')){
+		if(this.value==""){
+			var errorMsg='请输入酒店的所在城市.';
+			$parent.append('<span class="formtips onError">'+errorMsg+'</span>');
+		}else{
+			var okMsg='输入正确.';
+			$parent.append('<span class="formtips onSuccess">'+okMsg+'</span>');
+		}
+	}
+	});	
+});
+</script>
+<title>酒店信息</title>
+<div id="scroller">
+	<div id="images">
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/北京国际饭店.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/北京珀丽酒店原海逸酒店.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/广州花园酒店.gif'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/广州新珠江国际公寓.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/广州瀛丰商务酒店.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/深圳华侨城洲际大酒店.jpg'?>" width=150px height=150px></a>
+	</div>
+</div>
+
+<!-- 左面板 start -->
+<div class="left">
+	<div class="subdiv">
+		<p class="top">&nbsp;</p>
+			<h2>酒店搜索</h2>
+				<div class="search"><br>
+					<form name="search" method="post" id="f">
+						<label><font size="3px">酒店名称</font></label>
+						<input name="hotel_name" id="hotel_name" type="text" size="12">
+						<br>
+						<label><font size="3px">酒店等级</font></label>
+						<input name="hotel_level" id="hotel_level" type="text" size="12">
+						<br>
+						<label><font size="3px">城市名称</font></label>
+						<input name="hotel_city" id="hotel_city" type="text" size="12">
+						<br>
+						
+						<input type="button"  id="search" value="　搜索　" onclick="a()" />
+					
+					</form>
+				
+					<p class="bot"></p>
+				</div>
+		</div>
+</div>
+
+<!-- 左面板 end -->
+<!--// 右面板 start -->
+<div class="right">
+<div class="left-top-corner">
+<div class="right-top-corner">
+<div class="border-top"></div>
+</div>
+</div>
+<div class="border-left">
+<div class="border-right">
+<div class="inner">
+	<div id="hello"><!--
+	  <iframe style="width: 100%; height: 220px; border: none;" id="c-c-iframe"
+	></iframe> 
+	--></div><!--
+	 <div class="hoteldetail">	
+	<iframe style="width: 100%; height: 220px; border: none;" id="c-c-iframe1" >
+	</iframe>
+	</div>
+	
+--></div>
+
+</div>
+</div>
+<div class="left-bot-corner">
+<div class="right-bot-corner">
+<div class="border-bot"></div>
+</div>
+</div>
+</div>
+
+<!-- 右面板 end -->

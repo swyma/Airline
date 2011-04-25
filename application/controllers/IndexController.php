@@ -12,17 +12,7 @@ class IndexController extends Zend_Controller_Action
     public function indexAction ()
     {
         // action body
-        $db = new Application_Model_DbTable_Flightinformation();
-        /*获取最近30天内的数目
-         * select day(boo_time) as day,count(boo_autoid)as count,boo_time from bookinformation 
-where flag_pass=0 and date_sub(now(), interval 30 day)<=date(boo_time)
-group by DATE_FORMAT(boo_time,'%m %d')
-        */
-        $sql = "select DATE_FORMAT(boo_time,'%m-%d') as day,count(boo_autoid)as count from bookinformation " .
-         "where flag_pass=0 and date_sub(now(), interval 30 day)<=date(boo_time) " .
-         "group by DATE_FORMAT(boo_time,'%m %d')";
-        $result = $db->getAllInfo($sql)->fetchAll();
-        $this->view->result=$result;
+      
     }
     public function announceShowAction ()
     {
@@ -82,6 +72,18 @@ group by DATE_FORMAT(boo_time,'%m %d')
     public function dirgramshowAction ()
     {
         // action body
+         $this->_helper->layout->disableLayout(); //去掉母版页
+          $db = new Application_Model_DbTable_Flightinformation();
+        /*获取最近30天内的数目
+         * select day(boo_time) as day,count(boo_autoid)as count,boo_time from bookinformation 
+where flag_pass=0 and date_sub(now(), interval 30 day)<=date(boo_time)
+group by DATE_FORMAT(boo_time,'%m %d')
+        */
+        $sql = "select DATE_FORMAT(boo_time,'%m-%d') as day,count(boo_autoid)as count from bookinformation " .
+         "where flag_pass=0 and date_sub(now(), interval 30 day)<=date(boo_time) " .
+         "group by DATE_FORMAT(boo_time,'%m %d')";
+        $result = $db->getAllInfo($sql)->fetchAll();
+        $this->view->result=$result;
        
     }
     public function fliPreferenceAction ()

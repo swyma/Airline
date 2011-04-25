@@ -1,0 +1,94 @@
+@CHARSET "UTF-8";
+*/
+/* 主面板高度 */
+#content {
+	height: 500px;
+}
+
+/* 左面板 */
+.left {
+	width: 225px;
+}
+
+/* 右面板 */
+.right {
+	width: 759px;
+	margin-left:235px;
+}
+
+.right .left-top-corner {
+	background: url(../image/ZYFleft-top-corner.png) no-repeat left top;
+	padding-left: 18px
+}
+
+.right .right-top-corner {
+	background: url(../image/ZYFright-top-corner.png) no-repeat right top;
+	padding-right: 18px
+}
+
+.right .border-top {
+	background: url(../image/ZYFborder-top.png) left top repeat-x;
+	height: 18px;
+	overflow: hidden;
+	font-size: 0;
+	line-height: 0
+}
+
+.right .border-left {
+	background: url(../image/ZYFborder-side.png) left top repeat-y;
+	padding-left: 1px
+}
+
+.right .border-right {
+	background: url(../image/ZYFborder-side.png) right top repeat-y;
+	padding-right: 1px
+}
+.right .left-bot-corner {	
+	background: url(../image/ZYFleft-bot-corner.png) no-repeat left top;
+	padding-left: 18px
+}
+
+.right .right-bot-corner {
+	background: url(../image/ZYFright-bot-corner.png) no-repeat right top;
+	padding-right: 18px
+}
+
+.right .border-bot {
+	background: url(../image/ZYFborder-bot.png) left top repeat-x;
+	height: 18px;
+	overflow: hidden;
+	font-size: 0;
+	line-height: 0
+}
+
+.right .inner {
+	padding: 5px 5px 15px 5px;
+	height: auto !important;
+	min-height: 440px;
+	background: url(../image/ZYFbox-bg.png) left top;
+}
+
+.right .inner #pager {
+	margin: 10px 15px 0px 120px;
+}
+
+/*图片滚动效果*/
+#scroller{
+	position:relative;
+	height:150px;
+	width:940px;
+	overflow:hidden;
+	margin:auto;
+}
+
+#images{
+	width:1000px;
+}
+
+#images a img{
+	border:0;
+	position:relative;
+}
+
+
+

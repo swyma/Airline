@@ -1,0 +1,56 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!--<?php 
+  	foreach($this->hotelinformation as $key=>$value){
+?>
+<div id="hotelinfo">
+<ul>
+<li><div id="hotel_name"><?php echo $value['hotel_name'] ?></div></li>
+<li><div id="hotel_level"><?php echo $value['hotel_level'] ?></div></li>
+</ul>
+<ul>
+<li><div id="hotel_picture"><?php echo $value['hotel_picture'] ?></div></li>
+
+<li><div id="hotel_address"><?php echo $value['hotel_address'] ?></div></li>
+<li><div id="hotel_tel"><?php echo $value['hotel_tel'] ?></div></li>
+<li><div id="hotel_page"><?php echo $value['hotel_page'] ?></div></li>
+</ul>
+</div>
+ <?php }?>-->
+ 
+ 
+<table border="1" cellspacing="0" cellpadding="2px" bgcolor="#abedef" align="center" width="700px">
+  <tr> 
+   <th>酒店名称</th>
+   <th>酒店等级</th>
+   <th>酒店城市</th>
+   <th>酒店电话</th>
+   <th>酒店地址</th>
+   <th>酒店主页</th>
+  </tr>
+  <?php 
+  		foreach($this->hotelinformation as $key=>$value){
+  ?>
+  <tr>
+  	<td align="center" id="hotelinfo">
+ 	<?php echo $value['hotel_name'] ?>
+  	</td>
+  	 <td align="center">
+  		<?php echo $value['hotel_level'] ?>
+  	</td>
+ 	 <td align="center">
+  		<?php echo $value['hotel_city'] ?>
+  	</td>
+  	 <td align="center">
+  		<?php echo $value['hotel_tel'] ?>
+  	</td>
+  	 <td align="center">
+  		<?php echo $value['hotel_address'] ?>
+  	</td>
+  	 <td align="center">
+  		<a href="<?php echo $value['hotel_page'] ?>"><?php echo $value['hotel_page'] ?></a>
+  	</td>
+  </tr>
+  <?php }?>
+</table>

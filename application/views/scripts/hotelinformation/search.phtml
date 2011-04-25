@@ -1,0 +1,85 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+ th{
+ 	font-size:12px;
+ 	align:center;
+ 	color:blue;
+ 	width:150px;
+}
+ td{
+	font-size:12px;
+	align:center;
+}
+a{
+	text-decoration:none;
+}
+a:hover{
+	color:red;
+}
+</style>
+
+<script type="text/javascript" src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js';?>">
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var hotelinfo=$("#hotelinfo").text();
+		$("#hotelinfo").live("click",function(){
+//			alert(hotelinfo);
+		
+			var data={hotelinfo:hotelinfo};
+			$.ajax({
+				type:"post",
+				url:"Hotelinformation/hotelinfo",
+				contentType: "application/x-www-form-urlencoded; charset=utf-8",
+				cache: true,
+				data:data,
+				success:function(data,textStatus){
+				 	$("#hoteldetail #c-c-iframe1").html(data);
+					// $("#hello").html(data);
+					},
+				error: function(data, textStatus) { }
+			});
+		});
+	});
+</script>
+
+<form name="form" 
+	  action="<?php echo $this->url(array('controller'=>'hotelinformation','action'=>'search'));?>" 
+	  method="post">
+<table border="1" cellspacing="0" cellpadding="2px" bgcolor="#abedef" align="center" width="700px">
+  <tr> 
+   <th>酒店名称</th>
+   <th>酒店等级</th>
+   <th>酒店城市</th>
+   <th>酒店电话</th>
+   <th>酒店地址</th>
+   <th>酒店主页</th>
+  </tr>
+  <?php 
+  		foreach($this->hotelinformation as $key=>$value){
+  ?>
+  <tr>
+  	<td align="center" id="hotelinfo">
+ 	<?php echo $value['hotel_name'] ?>
+  	</td>
+  	 <td align="center">
+  		<?php echo $value['hotel_level'] ?>
+  	</td>
+ 	 <td align="center">
+  		<?php echo $value['hotel_city'] ?>
+  	</td>
+  	 <td align="center">
+  		<?php echo $value['hotel_tel'] ?>
+  	</td>
+  	 <td align="center">
+  		<?php echo $value['hotel_address'] ?>
+  	</td>
+  	 <td align="center">
+  		<a href="<?php echo $value['hotel_page'] ?>"><?php echo $value['hotel_page'] ?></a>
+  	</td>
+  </tr>
+  <?php }?>
+</table>
+</form>

@@ -1,4 +1,65 @@
-<br />
-<br />
-<center>View script for controller <b>Index</b> and script/action
-name <b>index</b></center>
+<!-- index页面css -->
+<link href="<?php
+echo $this->baseUrl() . '/skin/css/YHLindex.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<!-- 链接jquery -->
+<script language="javascript" type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js'?>"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){  
+     $("#colorize2").animate({
+         fontSize:"25px"
+     },1000);
+  });
+</script>
+
+<div id="container">
+<div id="mainContent">
+
+<div id="mainContent-left"><!-- 最新通告 start -->
+<div id="sidebar">
+<h3 align="center" id="colorize2"><font color="red">最新通告</font></h3>
+<hr />
+<p align="center"><font color="yellow">各位乘客，请注意!</font></p>
+<div id="announceShow"><!-- <?php // echo $this->render('/index/announce-show.phtml')?>	-->
+<iframe frameborder="0"
+	src="<?php
+echo $this->baseUrl() . '/Index/announce-show'?>"
+	scrolling="no" width=100% height=200px></iframe></div>
+</div>
+<!-- 最新通告 end --> <!-- 航班优惠 start -->
+<div id="flidiscount">
+
+<h2 id="event" align="center">航班优惠</h2>
+<hr />
+<div id="flidiscountInfo"><iframe frameborder="0"
+	src="<?php
+echo $this->baseUrl() . '/Index/fli-preference'?>"
+	scrolling="no" width=100% height=200px></iframe></div>
+</div>
+<!-- 航班优惠 end--> <!-- 航班折线图信息 start -->
+<div id="menu">
+<!--<?php echo $this->render('/index/dirgramshow.phtml')?>
+-->
+<iframe frameborder="0"
+	src="<?php
+echo $this->baseUrl() . '/Index/dirgramshow'?>"
+	scrolling="no" width=100% height=500px></iframe>
+</div>
+</div>
+<!-- 航班折线图信息 end -->
+<div id="mainContent-right"><!-- 天气信息 start -->
+<h2 id="event" align="center">天气信息</h2>
+<div id="weatherInfo"><br>
+<!-- 此处显示天气信息 --> <iframe frameborder="0"
+	src="http://php.weather.sina.com.cn/widget/weather.php" scrolling="no"
+	width="250" height="340"> </iframe></div>
+<!-- 天气信息 start --></div>
+
+</div>
+</div>
+
+
+
