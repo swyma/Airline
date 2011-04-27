@@ -109,7 +109,6 @@
             <viewScriptFile forActionName="show"/>
           </viewControllerScriptsDirectory>
           
-          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="bookticket"/>
           </viewControllerScriptsDirectory>
