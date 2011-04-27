@@ -1,6 +1,12 @@
 @CHARSET "UTF-8";
 
-#content{ 
-font-family:Arial, Helvetica, sans-serif; font-size:14px; color: #660066;
-background:url(../image/ZJP10.jpg) repeat 0 0;
+table, td{
+	font:100% Arial, Helvetica, sans-serif; 
+}
+table{width:100%;border-collapse:collapse;margin:1em 0;}
+th, td{text-align:left;padding:.5em;border:1px solid #fff;}
+th{background:#328aa4 url(../image/ZJPtr_back.gif) repeat-x;color:#fff;}
+td{background:#e5f1f4;height:auto;line-height:24px;}
+td a{
+	text-decoration:none;
 }
