@@ -6,60 +6,95 @@ echo $this->baseUrl() . '/skin/css/YHLindex.css'?>"
 <script language="javascript" type="text/javascript"
 	src="<?php
 echo $this->baseUrl() . '/skin/source/jquery/jquery.js'?>"></script>
-
 <script type="text/javascript">
-  $(document).ready(function(){  
-     $("#colorize2").animate({
-         fontSize:"25px"
-     },1000);
-  });
+$(document).ready(function(){
+	$("#frame1").get(0).src="http://php.weather.sina.com.cn/widget/weather.php";
+	$("#frame2").get(0).src="<?php
+echo $this->baseUrl() . '/Index/dirgramshow'?>";
+});
 </script>
-
-<div id="container">
-<div id="mainContent">
-
-<div id="mainContent-left"><!-- 最新通告 start -->
-<div id="sidebar">
-<h3 align="center" id="colorize2"><font color="red">最新通告</font></h3>
-<hr />
-<p align="center"><font color="yellow">各位乘客，请注意!</font></p>
-<div id="announceShow"><!-- <?php // echo $this->render('/index/announce-show.phtml')?>	-->
-<iframe frameborder="0"
-	src="<?php
+<div id="main">
+<div class="main_left">
+<div class="main_top">
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th>通告</th>
+	</tr>
+	<tr>
+		<td><iframe frameborder="0"
+			src="<?php
 echo $this->baseUrl() . '/Index/announce-show'?>"
-	scrolling="no" width=100% height=200px></iframe></div>
-</div>
-<!-- 最新通告 end --> <!-- 航班优惠 start -->
-<div id="flidiscount">
+			scrolling="no" width=100% height=170px></iframe></td>
 
-<h2 id="event" align="center">航班优惠</h2>
-<hr />
-<div id="flidiscountInfo"><iframe frameborder="0"
-	src="<?php
+	</tr>
+</table>
+</div>
+<div class="main_top">
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th>评论</th>
+	</tr>
+	<tr>
+		<td><iframe frameborder="0"
+			src="#"
+			scrolling="no" width=100% height=170px></iframe></td>
+
+	</tr>
+</table>
+</div>
+<div class="main_top">
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th>动态留言</th>
+	</tr>
+	<tr>
+		<td><iframe frameborder="0"
+			src="#"
+			scrolling="no" width=100% height=170px></iframe></td>
+
+	</tr>
+</table>
+</div>
+<div class="main_bottom">
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th class="thoffer">航班优惠</th>
+	</tr>
+	<tr>
+		<td><iframe frameborder="0"
+			src="<?php
 echo $this->baseUrl() . '/Index/fli-preference'?>"
-	scrolling="no" width=100% height=200px></iframe></div>
-</div>
-<!-- 航班优惠 end--> <!-- 航班折线图信息 start -->
-<div id="menu">
-<!--<?php echo $this->render('/index/dirgramshow.phtml')?>
--->
-<iframe frameborder="0"
-	src="<?php
-echo $this->baseUrl() . '/Index/dirgramshow'?>"
-	scrolling="no" width=100% height=500px></iframe>
-</div>
-</div>
-<!-- 航班折线图信息 end -->
-<div id="mainContent-right"><!-- 天气信息 start -->
-<h2 id="event" align="center">天气信息</h2>
-<div id="weatherInfo"><br>
-<!-- 此处显示天气信息 --> <iframe frameborder="0"
-	src="http://php.weather.sina.com.cn/widget/weather.php" scrolling="no"
-	width="250" height="340"> </iframe></div>
-<!-- 天气信息 start --></div>
+			scrolling="no" width=100% height=170px></iframe></td>
 
+	</tr>
+</table>
 </div>
 </div>
+<div class="main_right">
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th class="thweather">最近天气</th>
+	</tr>
+	<tr>
+		<td><iframe frameborder="0" id="frame1" scrolling="no" width="100%"
+			height="405px"> </iframe></td>
+	</tr>
+</table>
+</div>
+<div class="main_draw">
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th class="thdraw">近日销售量</th>
+	</tr>
+	<tr>
+		<td style="height: 300px"><iframe frameborder="0" id="frame2"
+			scrolling="no" width=100% height=100%></iframe></td>
+
+	</tr>
+</table>
+</div>
+</div>
+
 
 
 
