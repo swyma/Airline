@@ -46,6 +46,7 @@ class CustomerController extends Zend_Controller_Action
 
     public function ticketAction()
     {
+    	$param = $this->_request->getParam('parm');
         /**
                  * 从前台取来的数据:
                  * 1.用户	$cus_id
@@ -65,11 +66,10 @@ class CustomerController extends Zend_Controller_Action
                  * 这部分要等负责用户登录完成后才能进行
                  */
                 //$cus_id = $this->_request->getPost("cus_id"); //success
-                $cus_id="2";
+                $cus_id="1";
                 //echo $cus_id;
                 //取得用户选择的航班号,用户输入的格式为:CA123
-                $flight_no = $this->_request->getPost(
-                "flight_no"); //success
+                $flight_no = $this->_request->getPost("flight_no"); //success
                 //echo $flight_no;
                 //对取得的数据库进行拆分
                 /*
@@ -83,8 +83,7 @@ class CustomerController extends Zend_Controller_Action
                 //var_dump($com_code="CC");
                 //$fli_no="123";
                 //取得选择的星期几的航班
-                $fli_everyday = $this->_request->getPost(
-                "fli_everyday");
+                $fli_everyday = $this->_request->getPost("fli_everyday");
                 //业务二：
                 /**
                  * 1.根据用户的ID和用户选择的航班号进行判断
@@ -93,20 +92,15 @@ class CustomerController extends Zend_Controller_Action
                  */
                 if ($com_code != null && $cus_id != NULL && $fli_no != null) {
                     //首先判断有没有这个航班号
-                    $fli_flightinformation = "select count(com_code) from flightinformation where flag=1 and fli_refundtime='正常' and fli_refund='运行' and fli_no='" .
-                     $fli_no . "' and com_code='" . $com_code . "' and fli_everyday='" .
-                     $fli_everyday . "'";
+                    $fli_flightinformation = "select count(com_code) from flightinformation where flag=1 and fli_refundtime='正常' and fli_refund='运行' and fli_no='" . $fli_no . "' and com_code='" . $com_code . "' and fli_everyday='" . $fli_everyday . "'";
                     $flight_occur = $adapter->fetchOne($fli_flightinformation);
                     if ($flight_occur > 0) {
                         //航班处理运行状态
                         //后台业务:用户订票了flag=0,退票为flag=1
-                        $accept = "select count(com_code) from bookinformation where flag_pass=0 and cus_id='" .
-                         $cus_id . "' and boo_no ='" . $fli_no . "' and com_code='" .
-                         $com_code . "' and boo_everyday='" . $fli_everyday . "'";
+                        $accept = "select count(com_code) from bookinformation where flag_pass=0 and cus_id='" . $cus_id . "' and boo_no ='" . $fli_no . "' and com_code='" . $com_code . "' and boo_everyday='" . $fli_everyday . "'";
                         //$accept="select count(com_code) from bookinformation where cus_id='123' and com_code='CC'";
                         //取得总记录数,返回的是一个整型
-                        $flightinformation = $adapter->fetchOne(
-                        $accept);
+                        $flightinformation = $adapter->fetchOne($accept);
                         if ($flightinformation == 0) {
                             //echo $flightinformation;
                             /*
@@ -127,9 +121,7 @@ class CustomerController extends Zend_Controller_Action
                                 //业务三:取得相应舱位的人数和标准价格
                                 $fli_cangweiinfo = "";
                                 if ($fli_cangwei == "公务舱") {
-                                    $GLOBALS['$fli_cangweiinfo'] = "select fli_Ynumber as fli_number,fli_Yfare as fli_fare,fli_discount from flightinformation where flag=1 and com_code='" .
-                                     $com_code . "' and fli_no='" . $fli_no .
-                                     "' and fli_everyday='" . $fli_everyday . "'";
+                                    $GLOBALS['$fli_cangweiinfo'] = "select fli_Ynumber as fli_number,fli_Yfare as fli_fare,fli_discount from flightinformation where flag=1 and com_code='" . $com_code . "' and fli_no='" . $fli_no . "' and fli_everyday='" . $fli_everyday . "'";
                                     //取得公务舱的现有人数和标准价格
                                     //首先进入退票表里看信息,如果有相应航班相应舱位的退票信息
                                     /**
@@ -137,10 +129,7 @@ class CustomerController extends Zend_Controller_Action
                                      * 查询退票表信息:$refund_info_sql
                                      * 判断是否为空信息:$refund_info
                                      */
-                                    $refund_info_sql = "select count(r.boo_number) from refundrecord r ,bookinformation b where r.boo_autoid=b.boo_autoid and b.com_code='" .
-                                     $com_code . "' and b.boo_no='" . $fli_no .
-                                     "' and b.boo_berth='" . $fli_cangwei .
-                                     "' and b.boo_everyday='" . $fli_everyday . "'";
+                                    $refund_info_sql = "select count(r.boo_number) from refundrecord r ,bookinformation b where r.boo_autoid=b.boo_autoid and b.com_code='" . $com_code . "' and b.boo_no='" . $fli_no . "' and b.boo_berth='" . $fli_cangwei . "' and b.boo_everyday='" . $fli_everyday . "'";
                                     $refund_info = $adapter->fetchOne($refund_info_sql);
                                     if ($refund_info > 0) {
                                         //如果退票表有相应航班相应舱位信息的话
@@ -152,11 +141,8 @@ class CustomerController extends Zend_Controller_Action
                                          * $fli_cangweicount:舱位人数的多少
                                          */
                                         //判断该航班没有有没有座位提供
-                                        $fli_cangwei_sql = "select count(*) from flightinformation where flag=1 and com_code='" .
-                                         $com_code . "' and fli_no='" . $fli_no .
-                                         "' and fli_everyday='" . $fli_everyday . "'";
-                                        $fli_cangweicount = $adapter->fetchOne(
-                                        $fli_cangwei_sql);
+                                        $fli_cangwei_sql = "select count(*) from flightinformation where flag=1 and com_code='" . $com_code . "' and fli_no='" . $fli_no . "' and fli_everyday='" . $fli_everyday . "'";
+                                        $fli_cangweicount = $adapter->fetchOne($fli_cangwei_sql);
                                         if ($fli_cangweicount > 0) {
                                             //航班的相应舱位有座位提供
                                             $permit = true;
@@ -283,11 +269,11 @@ class CustomerController extends Zend_Controller_Action
 	                                        $this->_discount = $far_brodiscount;
 	                                    }
 	                                    //折中折,生成最终的票价
-	                                    $this->$_fare = $standardMoney * $this->_discount * $fli_discount; //最终用户价格
+	                                    $this->_fare = $standardMoney * $this->_discount * $fli_discount; //最终用户价格
                                     }else{
-                                    	$this->$_fare = $standardMoney * $fli_discount; //最终用户价格
+                                    	$this->_fare = $standardMoney * $fli_discount; //最终用户价格
                                     }
-                                    
+                                    //$this->_fare="";
                                     
                                     
                                     /**
@@ -377,7 +363,7 @@ class CustomerController extends Zend_Controller_Action
                                     'boo_aaddress' => $fli_aaddress, 
                                     'boo_atime' => $fli_atime, 'boo_btime' => $fli_btime, 
                                     'boo_berth' => $fli_cangwei, 
-                                    'boo_number' => $cus_real_seat, 'boo_fare' => $this->$_fare, 
+                                    'boo_number' => $cus_real_seat, 'boo_fare' => $this->_fare, 
                                     'boo_time' => $time, 'flag_pay' => '1', 
                                     'flag_type' => '1', 'flag_pass' => '0');
                                     //该方法的api是这样的insert($array)
@@ -394,7 +380,7 @@ class CustomerController extends Zend_Controller_Action
                                         $where = $db->quoteInto('cus_id = ?', $cus_id);
                                         // 更新表数据,返回更新的行数
                                         $result_update = $db->update($data_update, $where);*/
-                                        $data_update_sql = "update customer set cus_integral='" . ($this->$_fare + $cus_score) . "' where cus_id='" . $cus_id . "'";
+                                        $data_update_sql = "update customer set cus_integral='" . ($this->_fare + $cus_score) . "' where cus_id='" . $cus_id . "'";
                                         $result_update = $adapter->query($data_update_sql);
                                         if ($result_update) {
                                             /**
@@ -406,13 +392,9 @@ class CustomerController extends Zend_Controller_Action
                                             if ($fli_cangwei =="经济舱") {
                                                 if ($seat_virtual_no != null) {
                                                     //删除退票表相应的信息
-                                                    $seat_update = "delete from refundrecord where boo_autoid=(select boo_autoid from bookinformation where flag_pass=1 and com_code='" .
-                                                     $com_code . "' and boo_no='" .
-                                                     $fli_no . "' and boo_number='" .
-                                                     $seat_virtual_no .
-                                                     "' and boo_everyday='" .
-                                                     $fli_everyday . "')";
-                                                     //$reuslt=$adapter->query($seat_update);	//删除完毕
+                                                    echo $seat_update = "delete from refundrecord where boo_autoid in(select boo_autoid from bookinformation where flag_pass=1 and com_code='" . $com_code . "' and boo_no='" . $fli_no . "' and boo_number='" . $seat_virtual_no . "' and boo_everyday='" . $fli_everyday . "')";
+													//$seat_update="delete from refundrecord where boo_autoid='".$param."'";
+                                                	//$reuslt=$adapter->query($seat_update);	//删除完毕
                                                 } else {
                                                     $seat_update = "update flightinformation set fli_Cnumber='" .
                                                      ($seat_no - 1) . "' where fli_no='" .
@@ -422,7 +404,7 @@ class CustomerController extends Zend_Controller_Action
                                                 }
                                             } else if ($fli_cangwei == "头等舱") {
                                                     if ($seat_virtual_no != null) {
-                                                        $seat_update = "delete from refundrecord where boo_autoid=(select boo_autoid from bookinformation where flag_pass=1 and com_code='" .
+                                                        $seat_update = "delete from refundrecord where boo_autoid in(select boo_autoid from bookinformation where flag_pass=1 and com_code='" .
                                                          $com_code . "' and boo_no='" .
                                                          $fli_no . "' and boo_number='" .
                                                          $seat_virtual_no .
@@ -439,7 +421,7 @@ class CustomerController extends Zend_Controller_Action
                                                     }
                                                 } else if ($fli_cangwei == "公务舱") {
                                                         if ($seat_virtual_no != null) {
-                                                            $seat_update = "delete from refundrecord where boo_autoid=(select boo_autoid from bookinformation where flag_pass=1 and com_code='" .
+                                                            $seat_update = "delete from refundrecord where boo_autoid in(select boo_autoid from bookinformation where flag_pass=1 and com_code='" .
                                                              $com_code . "' and boo_no='" .
                                                              $fli_no .
                                                              "' and boo_number='" .
@@ -763,11 +745,27 @@ class CustomerController extends Zend_Controller_Action
                 $this->view->i = 0;
     }
 
-    public function refundticketAction()
+    public function refundticketAction(){
+    	// action body
+		$this->_helper->layout->disableLayout();
+		
+        //得到用户订票的航班信息
+        $adapter = Zend_Registry::get('db');
+        $param = $this->_request->getParam('parm');   
+        if($param!=null){
+        	$refundticketinfo_sql="select boo_autoid,com_code,boo_everyday,boo_no,boo_baddress,boo_aaddress,SUBSTRING(boo_btime,12,5) as boo_btime,SUBSTRING(boo_atime,12,5) as boo_atime, boo_number,boo_time,boo_fare from bookinformation where boo_autoid='".$param."'";
+        	$refundticketinfo=$adapter->fetchAll($refundticketinfo_sql);
+        	$this->view->refundticket=$refundticketinfo;   
+        }else{
+        	echo("error");
+        	
+        } 
+    }
+    
+    public function refundtickethandlerAction()
     {
-        // action body
-    // action body
-        $this->_helper->layout->disableLayout();
+    	// action body
+        //$this->_helper->layout->disableLayout();
 	    /**
 	     * 用户退票业务
 	     * 解决方案:	1.用户模糊查询
@@ -775,8 +773,14 @@ class CustomerController extends Zend_Controller_Action
 	     * 3.退票应注意,如果航班取消或者系统关闭时,则不能退票
 	     */
         //得到用户订票的航班信息
+        //$adapter = Zend_Registry::get('db');
+        $this->_helper->contextSwitch()->initJsonContext();
+        $this->getResponse()->setHeader('Content-Type', 'text/plain');
         $adapter = Zend_Registry::get('db');
-        $param = $this->_request->getParam('parm');
+        $this->_helper->layout->disableLayout();
+        //$this->_helper->contextSwitch()->initJsonContext();
+        //$this->getResponse()->setHeader('Content-Type', 'application/json');
+        $param = $this->_request->getParam('boo_autoid');
         if($param!=""){
         	//根据得到的boo_autoid获取用户订票的所有信息
         	/**
@@ -788,7 +792,7 @@ class CustomerController extends Zend_Controller_Action
         	 *  保留业务:更新银行表(讨论后确定是否要增加)
         	 */
         	//1.
-  			$refundticket_sql="select * from bookinformation where boo_autoid='".$param."'";
+  			$refundticket_sql="select * from bookinformation where flag_pass=0 and boo_autoid='".$param."'";
         	//取出各个字段的值
             $refundticket = $adapter->query($refundticket_sql);
             $refundticketAllinfo = $refundticket->fetchAll();
@@ -812,7 +816,7 @@ class CustomerController extends Zend_Controller_Action
             		$update_customer_integral_sql="update customer set cus_integral='".($cus_current_integral - $boo_fare)."'";
             		$update_customer_integral=$adapter->query($update_customer_integral_sql);
             		if($update_customer_integral){
-            			echo "退票成功!";
+            			echo "<script>alert(\"退票成功!\")</script>";
             		}else{
             			echo "积分表更新失败!";
             		}
@@ -822,7 +826,6 @@ class CustomerController extends Zend_Controller_Action
             }else{
             	echo "订票表退票更新失败!";
             }
-            
         }
     }
 
@@ -845,10 +848,7 @@ class CustomerController extends Zend_Controller_Action
                     $adapter = Zend_Registry::get('db');
                     //查询登录会员的信息
                     $sqlstr1 = "select count(*) from customer where  cus_id='" .
-                     $cus_id .
-                     "' and
-                                                                          cus_pwd='" .
-                     $cus_pwd . "' ";
+                     $cus_id . "' and cus_pwd='" .  $cus_pwd . "' ";
                     echo $sqlstr1;
                     $result = $adapter->fetchOne($sqlstr1);
                     echo $result;
@@ -879,8 +879,8 @@ public function customerpwd2Action ()
                 $customerNamespace->newpwd2 = $newpwd2;
                 $customerNamespace->cus_newaccount = $cus_newaccount;
                
-                    //实例化
-                    $db = new Application_Model_DbTable_Customer();
+                //实例化
+               	$db = new Application_Model_DbTable_Customer();
                     //实例一个全局变量
                     $adapter = Zend_Registry::get('db');
                     //查询登录会员的信息
@@ -896,33 +896,11 @@ public function customerpwd2Action ()
                         echo "账户或密码有错，请重新登录！";
                         echo $this->_helper->redirector('customerpwd2');
                     }
-                
             }
              // action body
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
 
 

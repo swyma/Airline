@@ -16,7 +16,11 @@
 <div class="left">
 <div class="reme"><marquee>
 <?php
-foreach ($this->fliCancleInfo as $key => $value) {
+	if($this->fliCancleInfo==NULL){
+		echo "最近暂时没有航班动态消息";
+	}else{
+	
+		foreach ($this->fliCancleInfo as $key => $value) {
     ?>
 	  <div>从<font color="red"><?php
     echo $value['fli_baddress']?></font>到<font
@@ -24,7 +28,7 @@ foreach ($this->fliCancleInfo as $key => $value) {
     echo $value['fli_aaddress']?></font> 的<font
 	color="red"><?php
     echo $value['fli_no']?></font>航班已取消！</div>
-         <?php
+         <?php }
 }
 ?><!--
          <div> 此处可以添加需要通告的信息</div>
