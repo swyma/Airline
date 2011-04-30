@@ -20,33 +20,15 @@ $(document).ready(function(){
 		var $parent = $(this).parent();
 		$parent.find(".formtips").remove();
 		//验证账户
-		if($(this).is('#cus_account')){
-			if(this.value == "" || this.value.length< 3){
-				var errorMsg ="<font color=red>*请填写正确的帐号名<font>";
+		if($(this).is('#identifier')){
+			if(this.value == "" || this.value.length< 18){
+				var errorMsg ="<font color=red>请填写正确的识别码<font>";
 				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
 			else { var okMsg = "<font color=green>输入正确<font>";
 			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
 			
 		}
-		//验证身份证
-		if($(this).is('#cus_id')){
-			if(this.value == "" || this.value.length<18){
-				var errorMsg ="<font color=red>*请输入正确的18位身份证号码<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入正确<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-		}
-		//验证密码
-		if($(this).is('#cus_pwd')){
-			if(this.value == "" || this.value.length< 8){
-				var errorMsg ="<font color=red>*密码最短不能小于6位<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入符合格式<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-			
-		}
+		
 }  ) ;
 
 		}) ;
@@ -56,47 +38,31 @@ $(document).ready(function(){
 
 
 <body>
-认真填写以下信息，以便找回用户名/密码
-<hr width="100% size="1">
+<center>认真填写以下信息，以便找回用户名/密码
+<hr width="60%" size="1">
 
 <form name="login"
 	action="<?php
 echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd'));
 ?>"
 	method="post">
+<div>
 
-<table width="90%" height="105" border="0">
+<div>
 
-<tr>
-		<td width="10%" height="30">账户名：</td>
+<p style="width: 500px;">身份证:<input name="cus_id" type="text"
+	id="cus_id" maxlength="18"></p>
+<p style="width: 500px;">原密码:<input name="cus_pwd" type="password"
+	id=" cus_pwd" maxlength="14"></p>
+<p><input type="submit" value="　下一步　" id="next" /></p>
 
-		<td width="73%" height="30"><input name="cus_account" type="text"
-			id="cus_account" maxlength="12"> </td>
-			</tr>
-			<tr>
-		<td width="10%" height="30">身份证：</td>
+</div>
+</div>
 
-		<td width="73%" height="30"><input name="cus_id" type="text"
-			id="cus_id" maxlength="18"> </td>
-			</tr>
-			<tr>
-		<td width="10%" height="30">密码：</td>
-
-		<td width="73%" height="30"><input name="cus_pwd" type="text"
-			id="cus_pwd" maxlength="14"> </td>
-			</tr>
-
-<tr>
-<td><input type="submit" value="　下一步　" id="next" />
-</td>
-</tr>
-
-
-</table>
 </form>
 
-<hr width="100%" size="1">
-
+<hr width="60%" size="1">
+</center>
 
 </body>
 </html>

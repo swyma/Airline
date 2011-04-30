@@ -45,11 +45,6 @@ echo $this->baseUrl() . '/skin/image/ZYFmagnifier.png'?>" /> <a href="#">查询�
 <br>
 <img
 	src="<?php
-echo $this->baseUrl() . '/skin/image/ZYFmonitor_delete.png'?>" /> <a
-	href="#">会员退票</a><br>
-<br>
-<img
-	src="<?php
 echo $this->baseUrl() . '/skin/image/ZYFpage_copy.png'?>" /> <a href="#">会员订单</a><br>
 <br>
 </div>
@@ -68,10 +63,22 @@ $(".reme a").live("click", function(){
 		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/customerinfomationshow'?>";
 	
 	else if($(this).text()=="查询预订")
-		$("#c-c-iframe").get(0).src="<?php
-echo $this->baseUrl() . '/Customer/flightsearch'?>";
-else if($(this).text()=="会员订单")
-	$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/bookhistory'?>";
+		$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/flightsearch'?>";
+	else if($(this).text()=="会员订单"){
+		<?php 
+				Zend_Session::start();
+	    		$customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+	    		$user=$customerNamespace->cus_account;//取你的session
+	    		//var_dump($user);
+	    		if($user==NULL){
+					echo 'alert("尚未登录!请登录!");'?>
+					$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/customerlogin'?>";
+				<?php 
+				}else{?>
+					$("#c-c-iframe").get(0).src="<?php echo $this->baseUrl() . '/Customer/bookhistory'?>";
+				<?php } ?>
+	}
+		
 });
 </script>
 <!-- 左面板 end -->

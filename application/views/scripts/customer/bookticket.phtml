@@ -2,6 +2,13 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>register</title>
+<style type="text/css">
+
+body{ text-align:center; }
+.waicheng {color: #0066CC; margin:5px auto; width:700px; height:800px; border:1px solid #000000;}
+
+</style> 
+
 <script type="text/javascript"
 	src="<?php
 echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
@@ -36,7 +43,7 @@ echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
 	});	
 </script>
 
-<div id="fli_no">
+<div class="waicheng" id="fli_no" >
 <fieldset style="width: 96%;"><legend>订票信息</legend>
 <table width="600" height="101" border="0" align="center"
 	cellpadding="0" cellspacing="0">
@@ -45,36 +52,30 @@ echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
     ?>
 	<tr>
 		<td width="80" height="34">起飞地点:</td>
-		<td width="160"><input id="fli_baddress" type="text" readonly="true "
-			name="fli_baddress" value="<?php
-    echo $value['fli_baddress']?>" /></td>
+		<td width="160"><input id="fli_baddress" type="text" readonly="true " name="fli_baddress" value="<?php echo $value['fli_baddress']?>" /></td>
 		<td width="80">起飞时间:</td>
-		<td width="160"><input id="fli_everyday" type="text" readonly="true "
-			name="fli_everyday" value="<?php
-    echo $value['fli_everyday']?>" /></td>
+		<td width="160"><input id="fli_everyday" type="text" readonly="true " name="fli_everyday" value="<?php echo $value['fli_everyday']?>" /></td>
 	</tr>
 	<tr>
 		<td height="32">降落地点:</td>
-		<td><input id="fli_aaddress" type="text" name="fli_aaddress"
-			readonly="true " value="<?php
-    echo $value['fli_aaddress']?>" /></td>
+		<td><input id="fli_aaddress" type="text" name="fli_aaddress" readonly="true " value="<?php echo $value['fli_aaddress']?>" /></td>
 		<td>航班舱位:</td>
-
-		<td><select style="width: 160;">
-			<option id="fli_cangwei" value="经济舱">经济舱</option>
-			<option id="fli_cangwei" value="头等舱">头等舱</option>
-			<option id="fli_cangwei" value="公务舱">公务舱</option>
-		</select></td>
+		<td>
+			<select style="width: 160;">
+				<option id="fli_cangwei" value="经济舱">经济舱</option>
+				<option id="fli_cangwei" value="头等舱">头等舱</option>
+				<option id="fli_cangwei" value="公务舱">公务舱</option>
+			</select>
+		</td>
 	</tr>
 	<tr>
 		<td>&nbsp;&nbsp;航班号:</td>
 		<td><input type="text" id="flight_no"
-			value="<?php
-    echo $value['com_code'] . $value['fli_no']?>"
-			readonly='true' /></td>
-		<td colspan="4" align="right"><input id="submit" type="submit"
-			name="submit" value="确认订票" /> <input id="reset" type="reset"
-			name="reset" value="返回查询" /></td>
+			value="<?php echo $value['com_code'] . $value['fli_no']?>" readonly='true' /></td>
+		<td colspan="4" align="right">
+			<input id="submit" type="submit" name="submit" value="确认订票" /> 
+			<input id="reset" type="reset" name="reset" value="返回查询" />
+		</td>
 	</tr>
 </table>
 

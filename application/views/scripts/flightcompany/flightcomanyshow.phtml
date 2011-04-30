@@ -24,7 +24,12 @@ a:hover{
 
 
 
-<form name="form" 
+
+  <?php 
+  		if($this->flightcompanyshow==NULL){
+  			echo "输入为空,本网站无法定位到您要查询的信息!";
+  		}else{?>
+  		<form name="form" 
 	  action="<?php echo $this->url(array('controller'=>'Flightcompany','action'=>'flightcomanyshow'));?>" 
 	  method="post">
 <table border="1" cellspacing="0" cellpadding="2px" bgcolor="#abedef" align="center" width="700px">
@@ -36,9 +41,6 @@ a:hover{
    
   </tr>
   <?php 
-  		if($this->flightcompanyshow==NULL){
-  		}else{
-  		
   		foreach($this->flightcompanyshow as $key=>$value){
   ?>
   <tr>

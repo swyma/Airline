@@ -10,82 +10,35 @@
 	src="<?php
 echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
 ?>"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	//重置操作
-	$("#cz").click(
-			function(){
-				alert ("你可以重新填写了");
-				
-			}
-			);
-	
-	
-	$('form :input').blur(function(){
-		var $parent = $(this).parent();
-		$parent.find(".formtips").remove();
-
-		//验证密码
-		if($(this).is('#newpwd')){
-			if(this.value == "" || this.value.length< 8){
-				var errorMsg ="<font color=red>*密码最短不能小于6位<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入符合格式<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-			
-		}
-		//验证确认密码
-		if($(this).is('#newpwd2')){
-			if($(this).val()  == $("#cus_pwd").val() &&  this.value !=  "" ){
-				var errorMsg ="<font color=green>下一步<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=red>*请确认两次输入一致且不为空<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-		}
-		
-}  ) ;
-
-		}) ;
-
-</script>
 
 
 </head>
 
 
 <body>
-认真填写以下信息，以便找回用户名/密码
-<hr width="100%" size="1">
+<center>认真填写以下信息，以便找回用户名/密码
+<hr width="60%" size="1">
 
 <form name="login"
-	action="<?php echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd2')); ?>"
+	action="<?php
+echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd2'));
+?>"
 	method="post">
-请重新设置你的新密码
-<table width="90%" height="105" border="0">
+<div>
+<div>
+<p>账户名 <input type="text"  id="cus_newaccount "  maxlength="12"/></p>
+<p>请重新设置你的新密码</p>
+<p style="width: 500px;">新密码:<input  type="password"
+	maxlength="14" id="newpwd"></p>
+<p style="width: 500px;">请确认:<input  type="password"
+	maxlength="14" id="newpwd2"></p>
+<p><input type="submit" value="　完成　" id="finish" />
 
 
-<tr>
-		<td width="10%" height="30">新密码：</td>
+<p>
 
-		<td width="73%" height="30"><input name="newpwd" type="text"
-			id="newpwd" maxlength="14"> </td>
-			</tr>
-			
-<tr>
-		<td width="10%" height="30">确认：</td>
-
-		<td width="73%" height="30"><input name="newpwd2" type="text"
-			id="newpwd2" maxlength="14"> </td>
-			</tr>
-<tr>
-<td><input type="submit" value="　完成　" id="finish" /></td> </tr>
-
-
-
-</table>
+</div>
+</div>
 
 
 
@@ -94,8 +47,8 @@ $(document).ready(function(){
 
 </form>
 
-<hr width="100%" size="1">
-
+<hr width="60%" size="1">
+</center>
 
 </body>
 </html>

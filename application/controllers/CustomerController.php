@@ -198,8 +198,7 @@ class CustomerController extends Zend_Controller_Action
                                              "' and b.boo_berth='" . $fli_cangwei .
                                              "' and b.boo_everyday='" . $fli_everyday .
                                              "'";
-                                            $refund_info = $adapter->fetchOne(
-                                            $refund_info_sql);
+                                            $refund_info = $adapter->fetchOne($refund_info_sql);
                                             if ($refund_info > 0) {
                                                 //如果退票表有相应航班相应舱位信息的话
                                                 $permit = true;
@@ -243,33 +242,38 @@ class CustomerController extends Zend_Controller_Action
                                      * 2.取得积分表的金,银,铜的基本积分,以及相应的折扣
                                      * 3.将会员现在的积分和积分表的基本积分进行比对,然后进行相应的打折
                                      */
+                                    
+                                    //获取用户的积分信息
+	                                $cus_integral = "select cus_integral from customer where cus_id='" . $cus_id . "'";
+	                                //$discount=1;
+	                                //实现业务:用户的积分与积分表的积分进行比较
+	                                $cus_score = $adapter->fetchOne( $cus_integral);
+	                                    
                                     $fare_type = "select * from faretype where far_comcode='" . $com_code . "'";
                                     $faretype = $adapter->query($fare_type);
                                     $faretype_info = $faretype->fetchAll();
-                                    foreach ($faretype_info as $key => $value) {
-                                        $far_goldscore = $value['far_goldscore'];
-                                        $far_golddiscount = $value['far_golddiscount'];
-                                        $far_silscore = $value['far_silscore'];
-                                        $far_silddiscount = $value['far_sildiscount'];
-                                        $far_broscore = $value['far_broscore'];
-                                        $far_brodiscount = $value['far_brodiscount'];
-                                    }
-                                    //获取用户的积分信息
-                                    $cus_integral = "select cus_integral from customer where cus_id='" . $cus_id . "'";
-                                    //$discount=1;
-                                    //实现业务:用户的积分与积分表的积分进行比较
-                                    $cus_score = $adapter->fetchOne( $cus_integral);
-                                    //积分进行比较,取得相应的折扣
-                                    if($cus_integral>$far_broscore){
-	                                    if ($cus_score >= $far_goldscore) {
-	                                        $this->_discount = $far_golddiscount;
-	                                    } else if ($cus_score >= $far_silscore) {
-	                                        $this->_discount = $far_silddiscount;
-	                                    } else if ($cus_score >= $far_broscore) {
-	                                        $this->_discount = $far_brodiscount;
+                                    if($faretype_info){
+	                                    foreach ($faretype_info as $key => $value) {
+	                                        $far_goldscore = $value['far_goldscore'];
+	                                        $far_golddiscount = $value['far_golddiscount'];
+	                                        $far_silscore = $value['far_silscore'];
+	                                        $far_silddiscount = $value['far_sildiscount'];
+	                                        $far_broscore = $value['far_broscore'];
+	                                        $far_brodiscount = $value['far_brodiscount'];
 	                                    }
-	                                    //折中折,生成最终的票价
-	                                    $this->_fare = $standardMoney * $this->_discount * $fli_discount; //最终用户价格
+	                                    
+	                                    //积分进行比较,取得相应的折扣
+	                                    if($cus_integral>$far_broscore){
+		                                    if ($cus_score >= $far_goldscore) {
+		                                        $this->_discount = $far_golddiscount;
+		                                    } else if ($cus_score >= $far_silscore) {
+		                                        $this->_discount = $far_silddiscount;
+		                                    } else if ($cus_score >= $far_broscore) {
+		                                        $this->_discount = $far_brodiscount;
+		                                    }
+		                                    //折中折,生成最终的票价
+		                                    $this->_fare = $standardMoney * $this->_discount * $fli_discount; //最终用户价格
+	                                    }
                                     }else{
                                     	$this->_fare = $standardMoney * $fli_discount; //最终用户价格
                                     }
@@ -392,7 +396,7 @@ class CustomerController extends Zend_Controller_Action
                                             if ($fli_cangwei =="经济舱") {
                                                 if ($seat_virtual_no != null) {
                                                     //删除退票表相应的信息
-                                                    echo $seat_update = "delete from refundrecord where boo_autoid in(select boo_autoid from bookinformation where flag_pass=1 and com_code='" . $com_code . "' and boo_no='" . $fli_no . "' and boo_number='" . $seat_virtual_no . "' and boo_everyday='" . $fli_everyday . "')";
+                                                    $seat_update = "delete from refundrecord where boo_autoid in(select boo_autoid from bookinformation where flag_pass=1 and com_code='" . $com_code . "' and boo_no='" . $fli_no . "' and boo_number='" . $seat_virtual_no . "' and boo_everyday='" . $fli_everyday . "')";
 													//$seat_update="delete from refundrecord where boo_autoid='".$param."'";
                                                 	//$reuslt=$adapter->query($seat_update);	//删除完毕
                                                 } else {
@@ -462,7 +466,7 @@ class CustomerController extends Zend_Controller_Action
                                 }
                             }
                         } else {
-                            echo "你已经订过此航班信息了,一人一次只能订一张票!";
+                            echo 'alert("你已经订过此航班信息了,一人一次只能订一张票!")';
                         }
                     } else {
                         echo "该航班不存在";
@@ -473,18 +477,20 @@ class CustomerController extends Zend_Controller_Action
                 }
     }
 
-    public function customerregisterAction()
-    {
-    {
-            {
-                $time = date("Y-m-d H:i:s");
+    //叶茂安
+    public function customerregisterhandlerAction(){
+    	$this->_helper->layout->disableLayout();
+        $this->_helper->contextSwitch()->initJsonContext();
+        $this->getResponse()->setHeader('Content-Type', 'application/json');
+    	$time = date("Y-m-d H:i:s");
                 $this->_helper->layout->disableLayout();
                 // action body
-                $customerNamespace = new Zend_Session_Namespace(
-                'customer');
+                //多余代码
+                /*$customerNamespace = new Zend_Session_Namespace(
+                'customer');*/
                 // $customerNamespace->setExpirationHops(2);
-                if (strtolower($_SERVER['REQUEST_METHOD']) ==
-                 'post') {
+                if (strtolower($_SERVER['REQUEST_METHOD']) =='post') {
+                	//叶茂安修改
                     $cus_account = $this->_request->getPost('cus_account');
                     $cus_pwd = $this->_request->getPost('cus_pwd');
                     $cus_pwd2 = $this->_request->getPost('cus_pwd2');
@@ -492,32 +498,45 @@ class CustomerController extends Zend_Controller_Action
                     $cus_id = $this->_request->getPost('cus_id');
                     $cus_telnumber = $this->_request->getPost('cus_telnumber');
                     $cus_email = $this->_request->getPost('cus_email');
-                    $cus_time = $this->_request->getPost('cus_time');
-                    $db = new Application_Model_DbTable_Customer();
-                    //将前台传过来的值进行数组化,为inser服务
-                    $data = array(
-                    'cus_account' => $cus_account, 'cus_pwd' => $cus_pwd, 
-                    'cus_id' => $cus_id, 'cus_sex' => $cus_sex, 
-                    'cus_telnumber' => $cus_telnumber, 'cus_email' => $cus_email, 
-                    'cus_time' => $time, 'cus_integral' => 0, 'flag' => true);
-                    //该方法的api是这样的insert($array)
-                    $db->insert($data);
-                    $adapter = Zend_Registry::get('db');
-                    if ($cus_account != "" && $cus_pwd != "" && $cus_pwd2 != "" &&
-                     $cus_id != "" && $cus_telnumber != "" && $cus_email != "") {
-                        echo $this->_helper->redirector('customerlogin');
-                    } else {
-                        $this->_helper->redirector('customerregister');
+                    //$cus_time = $this->_request->getPost('cus_time');//多余
+                    if($cus_account!=null && $cus_email!=null && $cus_id!=null && $cus_pwd!=null && $cus_pwd2!=null && $cus_sex!=null){
+                    	$db = new Application_Model_DbTable_Customer();
+	                    //将前台传过来的值进行数组化,为inser服务
+	                   
+	                    $data = array(
+	                    'cus_account' => $cus_account, 'cus_pwd' => $cus_pwd, 
+	                    'cus_id' => $cus_id, 'cus_sex' => $cus_sex, 
+	                    'cus_telnumber' => $cus_telnumber, 'cus_email' => $cus_email, 
+	                    'cus_time' => $time, 'cus_integral' => 0, 'flag' => true);
+	                    //该方法的api是这样的insert($array)
+	                    $result=$db->insert($data);
+	                    
+	                    //多余代码
+	                    /*$adapter = Zend_Registry::get('db');
+	                    if ($cus_account != "" && $cus_pwd != "" && $cus_pwd2 != "" &&
+	                     $cus_id != "" && $cus_telnumber != "" && $cus_email != "") {*/
+	                     	//成功后跳转页面echo 'alert("注册成功,返回登录!")';
+	                     if($result){
+	                     	echo "[{\"success\":\"success\"}]";
+	                        $this->_helper->redirector('customerlogin');
+	                    } else {
+	                    	echo "[{\"success\":\"failure\"}]";
+	                        //$this->_helper->redirector('customerregister');
+	                    }	
+                    }else{
+                    	echo "[{\"success\":\"failure\"}]";
+                    	$this->_helper->redirector('customerregister');
                     }
                 }
-                 //成功后跳转页面
-            }
-        }
+    }
+    public function customerregisterAction()
+    {
+    	$this->_helper->layout->disableLayout();
     }
 
     public function customerloginAction()
     {
-    $this->_helper->layout->disableLayout();
+    	$this->_helper->layout->disableLayout();
         Zend_Session::start();
         $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
         $customerNamespace->setExpirationSeconds(86400); //命名空间 "customer" 将在第一次访问后 86400秒（一天）过期。
@@ -593,6 +612,16 @@ class CustomerController extends Zend_Controller_Action
         }
     }
 
+	public function customerlogoutAction()
+    {
+        // action body
+        $this->_helper->layout->disableLayout();
+        Zend_Session::start();
+        $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+        $customerNamespace->__unset();//注销session*/
+        echo $this->_helper->redirector('customerlogin');
+         
+    }
 /*    public function customercommentAction()
     {
         // action body
@@ -720,29 +749,35 @@ class CustomerController extends Zend_Controller_Action
     {
         // action body
                 $this->_helper->layout->disableLayout();
-                $user='1';
+                Zend_Session::start();
+               	$customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+                $user=$customerNamespace->cus_account;//取你的session
+                //var_dump($this->_user=$user);
                 $this->_user=$user;
-                
-                $db = new Application_Model_DbTable_Flightinformation();
-                $sql = "select a.boo_autoid,a.com_code,a.boo_no,a.boo_everyday,a.boo_baddress,".
-                "a.boo_aaddress,substring(a.boo_btime,12,5)as boo_btime,substring(a.boo_atime,12,5) as boo_atime,".
-                "a.boo_berth,a.boo_number,a.boo_fare,a.boo_time,a.flag_pay,a.flag_pass ".
-                "from bookinformation a,customer b ".
-                "where a.cus_id=".$this->_user." and a.cus_id=b.cus_id and flag_type=1 ".
-                "order by a.boo_time desc";
-                /* Zend_Paginator分页 */
-                $numPerPage = $this->_numPerPage;
-                $pageRange = $this->_pageRange;
-                $page = $this->_request->getParam('page', 1);
-                $offset = $numPerPage * $page;
-                $select = $db->getAllInfo($sql)->fetchAll();
-                $paginator = Zend_Paginator::factory($select);
-                //分页取数据
-                $paginator->setCurrentPageNumber($page)
-                    ->setItemCountPerPage($numPerPage)
-                    ->setPageRange($pageRange);
-                $this->view->flightinformation = $paginator;
-                $this->view->i = 0;
+                /*if($this->_user==""){
+                	echo "用户尚未登录,请登录!";
+                }else{*/
+	                $db = new Application_Model_DbTable_Flightinformation();
+	                $sql = "select a.boo_autoid,a.com_code,a.boo_no,a.boo_everyday,a.boo_baddress,".
+	                "a.boo_aaddress,substring(a.boo_btime,12,5)as boo_btime,substring(a.boo_atime,12,5) as boo_atime,".
+	                "a.boo_berth,a.boo_number,a.boo_fare,a.boo_time,a.flag_pay,a.flag_pass ".
+	                "from bookinformation a,customer b ".
+	                "where a.cus_id=".$this->_user." and a.cus_id=b.cus_id and flag_type=1 ".
+	                "order by a.boo_time desc";
+	                /* Zend_Paginator分页 */
+	                $numPerPage = $this->_numPerPage;
+	                $pageRange = $this->_pageRange;
+	                $page = $this->_request->getParam('page', 1);
+	                $offset = $numPerPage * $page;
+	                $select = $db->getAllInfo($sql)->fetchAll();
+	                $paginator = Zend_Paginator::factory($select);
+	                //分页取数据
+	                $paginator->setCurrentPageNumber($page)
+	                    ->setItemCountPerPage($numPerPage)
+	                    ->setPageRange($pageRange);
+	                $this->view->flightinformation = $paginator;
+	                $this->view->i = 0;
+               // }
     }
 
     public function refundticketAction(){
@@ -831,54 +866,80 @@ class CustomerController extends Zend_Controller_Action
 
  public function customerpwdAction ()
     {
-    {
+        {
             $this->_helper->layout->disableLayout();
-            Zend_Session::start();
-            $customerNamespace = new Zend_Session_Namespace('customer');
+           
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 //取得前台得传过来的值
-                $cus_account = $this->_request->getPost(
-                'cus_account');
-                $cus_id = $this->_request->getPost('cus_id');
+                //$cus_id = $this->_request->getPost('cus_id');
+                $cus_id = $this->_request->getPost( 'cus_id');
                 $cus_pwd = $this->_request->getPost('cus_pwd');
-                $customerNamespace->cus_account = $cus_account; //设置值
-                if ($cus_id != null && $cus_pwd != null &&
-                 $cus_account != null) {
+                $customerNamespace->cus_id = $cus_id; //设置值
+                $customerNamespace->cus_pwd = $cus_pwd;
+                if ($cus_id != null && $cus_pwd != null) {
                     //实例化
                     $db = new Application_Model_DbTable_Customer();
                     //实例一个全局变量
                     $adapter = Zend_Registry::get('db');
                     //查询登录会员的信息
                     $sqlstr1 = "select count(*) from customer where  cus_id='" .
-                     $cus_id .
-                     "' and
-                                                                          cus_pwd='" .
-                     $cus_pwd .
-                     "'and
-                                                                          cus_account='" .
-                     $cus_account . "' ";
+                     $cus_id . "' and cus_pwd='" .  $cus_pwd . "' ";
                     echo $sqlstr1;
                     $result = $adapter->fetchOne($sqlstr1);
                     echo $result;
                     if ($result > 0) {
                         echo "success";
                         echo $this->_helper->redirector('customerpwd2');
-                        
                     } else {
                         //失败后返回
-                       
+                        echo "账户或密码有错，请重新登录！";
                         echo $this->_helper->redirector('customerpwd');
-                        
                     }
                 }
             }
              // action body
         }
     }
-public function customerinformationalterAction ()
+public function customerpwd2Action ()
     {
-     {
+        {
             $this->_helper->layout->disableLayout();
+           
+            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                //取得前台得传过来的值
+                $newpwd = $this->_request->getPost('newpwd');
+                $newpwd2 = $this->_request->getPost('newpwd2');
+                $cus_newaccount = $this->_request->getPost('cus_newaccount');
+                $customerNamespace->newpwd = $newpwd; //设置值
+                $customerNamespace->newpwd2 = $newpwd2;
+                $customerNamespace->cus_newaccount = $cus_newaccount;
+               
+                //实例化
+               	$db = new Application_Model_DbTable_Customer();
+                    //实例一个全局变量
+                    $adapter = Zend_Registry::get('db');
+                    //查询登录会员的信息
+                     $sqlstr2 = "update customer set  cus_pwd='".$newpwd."'  where cus_account ='".$cus_newaccount."' ";
+                    echo $sqlstr2;
+                    $result = $adapter->fetchOne($sqlstr2);
+                    echo $result;
+                    if ($result > 0) {
+                        echo "success";
+                        echo $this->_helper->redirector('customerlogin');
+                    } else {
+                        //失败后返回
+                        echo "账户或密码有错，请重新登录！";
+                        echo $this->_helper->redirector('customerpwd2');
+                    }
+            }
+             // action body
+        }
+    }
+
+    public function customerinformationalterhandlerAction (){
+    	$this->_helper->layout->disableLayout();
+    	$this->_helper->contextSwitch()->initJsonContext();
+                $this->getResponse()->setHeader('Content-Type', 'application/json');
             Zend_Session::start();
             $customerNamespace = new Zend_Session_Namespace('customer');
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
@@ -894,72 +955,95 @@ public function customerinformationalterAction ()
                     //实例化
                     $adapter = Zend_Registry::get('db');
                     //查询登录会员的信息
-              $sqlstr1 = "update customer set  cus_pwd='" .
+              		 $sqlstr1 = "update customer set  cus_pwd='" .
                      $cus_pwd . "' , cus_telnumber='" .
                      $cus_telnumber . "',cus_email='" .
                      $cus_email . "'  where cus_account ='" . $cus_account . "' ";
-                    $result = $adapter->query($sqlstr1);
-                   
-                   // echo $result;
-                    if ($result > 0) {
-                        echo "success";
-                        echo $this->_helper->redirector('customerlogin');
-                    } else {
-                        //失败后返回
-        
-                    
-                   
-                        echo $this->_helper->redirector('customerinformationalter');
-                        
-                    }
+                   	 $result = $adapter->query($sqlstr1);
+                 
+                    if ($result) {
+			           echo "[{\"success\":\"success\"}]";
+			           //$this->_helper->redirector('customerinformationalter');
+			        }else{
+			        	echo "[{\"success\":\"failure\"}]";
+			        }
+                }else{
+                	echo "[{\"success\":\"failure\"}]";
                 }
             } 
-             // action body
+    
+    }
+public function customerinformationalterAction ()
+    {
+     $this->_helper->layout->disableLayout();
+                
+    }
+    
+    //叶茂安 checkaccount
+    public function checkaccountAction (){
+		$this->_helper->layout->disableLayout();
+                $this->_helper->contextSwitch()->initJsonContext();
+                $this->getResponse()->setHeader('Content-Type', 'application/json');
+        
+        $adapter = Zend_Registry::get('db');
+        $account = $this->_request->getParam('account');   
+        if($account!=null){
+        	$account_sql="select count(cus_id) from customer where cus_account='".$account."'";
+        	$account_info=$adapter->fetchOne($account_sql);
+        	//$this->view->refundticket=$refundticketinfo; 
+        	if($account_info){
+        		echo "[{\"success\":\"failure\"}]";
+        	}else{
+        		echo "[{\"success\":\"success\"}]";
+        	}
         }
     }
     
-public function customerpwd2Action ()
-    {
-     {
-            $this->_helper->layout->disableLayout();
-            Zend_Session::start();
-            $customerNamespace = new Zend_Session_Namespace('customer');
-            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-                //取得前台得传过来的值
-                echo $newpwd = $this->_request->getPost(
-                'newpwd');
-                echo $newpwd2 = $this->_request->getPost('newpwd2');
-                //$customerNamespace->newpwd = $newpwd; //设置值
-                //$customerNamespace->newpwd2 = $newpwd2;
-                $cus_account = $customerNamespace->cus_account;
-                if ($newpwd != null && $newpwd2 != null) {
-                    //实例化
-                    $db = new Application_Model_DbTable_Customer();
-                    //实例一个全局变量
-                    $adapter = Zend_Registry::get('db');
-                    //查询登录会员的信息
-                    $sqlstr2 = "update customer set  cus_pwd='" .
-                     $newpwd . "'  where cus_account ='" . $cus_account . "' ";
-                    // echo $sqlstr2;
-                    $result = $adapter->query($sqlstr2);
-                    //echo $result;
-                    if ($result) {
-                        echo "success";
-                        echo $this->_helper->redirector('customerlogin');
-                    } else {
-                        //失败后返回
-                       
-                        echo $this->_helper->redirector('customerpwd2');
-                         
-                    }
-                } else {
-                   echo '<script>alert("请确认两次填写不为空");</script>';
-                }
-            }
-             // action body
+	//叶茂安 checkcusid
+    public function checkcusidAction (){
+		$this->_helper->layout->disableLayout();
+        $this->_helper->contextSwitch()->initJsonContext();
+        $this->getResponse()->setHeader('Content-Type', 'application/json');
+        
+        $adapter = Zend_Registry::get('db');
+        $cus_id = $this->_request->getParam('cus_id');   
+        if($cus_id!=null){
+        	$cus_id_sql="select count(cus_id) from customer where cus_id='".$cus_id."'";
+        	$cus_id_info=$adapter->fetchOne($cus_id_sql);
+        	//$this->view->refundticket=$refundticketinfo; 
+        	if($cus_id_info){
+        		echo "[{\"success\":\"failure\"}]";
+        	}else{
+        		echo "[{\"success\":\"success\"}]";
+        	}
         }
     }
-
+    
+//叶茂安 checkcusid
+    public function checkpwdAction (){
+		$this->_helper->layout->disableLayout();
+        $this->_helper->contextSwitch()->initJsonContext();
+        $this->getResponse()->setHeader('Content-Type', 'application/json');
+        
+        Zend_Session::start();
+               	$customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+                $user=$customerNamespace->cus_account;//取你的session
+                //var_dump($this->_user=$user);
+                $this->_user=$user;
+            
+        $adapter = Zend_Registry::get('db');
+        $pre_pwd = $this->_request->getParam('pre_pwd');   
+        if($pre_pwd!=null){
+        	$cus_pwd_sql="select count(cus_id) from customer where cus_pwd='".$pre_pwd."' and cus_account='".$this->_user."'";
+        	$cus_pwd_info=$adapter->fetchOne($cus_pwd_sql);
+        	//$this->view->refundticket=$refundticketinfo; 
+        	if($cus_pwd_info){
+        		echo "[{\"success\":\"success\"}]";
+        	}else{
+        		echo "[{\"success\":\"failure\"}]";
+        	}
+        }
+    }
 }
 
 

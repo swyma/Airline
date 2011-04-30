@@ -3,84 +3,160 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head>
 <title>register</title>
-<script type="text/javascript"
-	src="<?php
-echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
-?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js'; ?>"></script>
+<link href="<?php echo $this->baseUrl() . '/skin/css/YMAregister.css'?>" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-$(document).ready(function(){
+	$(document).ready(function(){
+		
+		$("form :input.required").each(function(){
+			var $required = $("<strong class='high'> *</strong>"); 
+			$(this).parent().append($required);
+		});
+		
+		//重置操作
+		$("#cz").click(function(){
+				$(".formtips").remove(); 
+		});
 	
-	//重置操作
-	$("#cz").click(
-			function(){
-				alert ("你可以重新填写了");
-				
-			}
-			);
-	
-	
-	$('form :input').blur(function(){
-		var $parent = $(this).parent();
-		$parent.find(".formtips").remove();
-		//验证账户
-		if($(this).is('#cus_account')){
-			if(this.value == "" || this.value.length <3){
-				var errorMsg ="<font color=red>*账户名最短不能小于三位<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入正确<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
+		//2011/04/30 叶茂安修改
+		$('form :input').blur(function(){
+			var $parent = $(this).parent();
+		
+			$parent.find(".formtips").remove();
+			//验证账户
+			if($(this).is('#cus_account')){
 			
-		}
-		//验证密码
-		if($(this).is('#cus_pwd')){
-			if(this.value == "" || this.value.length< 8){
-				var errorMsg ="<font color=red>*密码最短不能小于6位<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入符合格式<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-			
-		}
-		//验证确认密码
-		if($(this).is('#cus_pwd2')){
-			if($(this).val()  == $("#cus_pwd").val() &&  this.value !=  "" ){
-				var errorMsg ="<font color=green>下一步<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=red>*请确认两次输入一致且不为空<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-		}
-		//验证身份证
-		if($(this).is('#cus_id')){
-			if(this.value == "" || this.value.length<18){
-				var errorMsg ="<font color=red>*请输入正确的18位身份证号码<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入正确<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-		}
-		//验证邮箱
-		if($(this).is('#cus_email')){
-			if(this.value == "" || (this.value !=  "" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))){
-				 var errorMsg ="<font color=red>*请输入正确的email地址<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入正确<font>"; 
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
-			}
-		//验证电话号
-		if($(this).is('#cus_telnumber')){
-			
-			if(this.value == "" || this.value.length <  11 || ! (/^1[358]\d{9}$/.test(this.value)) ) {
-				var errorMsg ="<font color=red>*请输入正确的11位电话号码<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入正确<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
+				if(this.value == "" || this.value.length <3){
+					var Msg ="<font color=red>账户名最短不能小于三位<font>";
+					$parent.append('<span class = "formtips onError">' + Msg+ '</span>');
+				}else{
+					var account=$("#cus_account").val();
+					$.ajax({
+						type:"post",
+						url:"/Airline/Customer/checkaccount",
+						contentType: "application/x-www-form-urlencoded; charset=utf-8",
+						cache: true,
+						data:{account:account},
+						success:function(data,textStatus){
+							if(data[0].success=="success"){
+								var Msg = "<font color=green>恭喜你,该用户名尚未被注册!</font>";
+								$parent.append('<span class="formtips onSuccess">' +Msg +'</span>');
+							}else{
+								var Msg="<font color=red>用户名已经存在,请重新输入!</font>";
+								$parent.append('<span class="formtips onError">' +Msg +'</span>');
+							}
+							
+						},
+						error: function(data, textStatus) {
+						}
+					});
+				}
 			
 			
 			}
-}  ) ;
+			//验证密码
+			if($(this).is('#cus_pwd')){
+				if(this.value == "" || this.value.length< 6){
+					var errorMsg ="<font color=red>密码最短不能小于6位<font>";
+					$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');
+				}else { 
+					var okMsg = "<font color=green>输入符合格式<font>";
+				$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
+			}
+			//验证确认密码
+			//2011/04/30  叶茂安修改
+			if($(this).is('#cus_pwd2')){
+				if($(this).val()  == $("#cus_pwd").val() &&  this.value !=  "" ){
+					var Msg ="<font color=green>密码输入正确</font>";
+					$parent.append('<span class = "formtips onSuccess">' + Msg+ '</span>');
+				}
+				else { 
+					var Msg = "<font color=red>请确认两次输入一致且不为空</font>";
+					$parent.append('<span class="formtips onError">' +Msg +'</span>');
+				}
+			
+			}
+			//验证身份证
+			//2011/04/30  叶茂安修改
+			if($(this).is('#cus_id')){
+				if(this.value == "" || this.value.length<18){
+					var Msg ="<font color=red>请输入正确的18位身份证号码</font>";
+					$parent.append('<span class = "formtips onError">' + Msg+ '</span>');
+				}else{
+					var cus_id=$("#cus_id").val();
+					$.ajax({
+						type:"post",
+						url:"/Airline/Customer/checkcusid",
+						contentType: "application/x-www-form-urlencoded; charset=utf-8",
+						cache: true,
+						data:{cus_id:cus_id},
+						success:function(data,textStatus){
+							if(data[0].success=="success"){
+								var Msg = "<font color=green>身份证数据输入正确</font>";
+								$parent.append('<span class="formtips onSuccess">' +Msg +'</span>');
+							}else{
+								var Msg="<font color=red>身份证信息已经存在,请重新输入!</font>";
+								$parent.append('<span class="formtips onError">' +Msg +'</span>');
+							}
+							
+						},
+						error: function(data, textStatus) {
+						}
+					});
+				}
+			}
+			//验证邮箱
+			if($(this).is('#cus_email')){
+				if(this.value == "" || (this.value !=  "" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value))){
+					var errorMsg ="<font color=red>请输入正确的email地址</font>";
+					$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');
+				}else{
+					var okMsg = "<font color=green>输入正确</font>"; 
+				$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
+			
+			}
+			//验证电话号
+			if($(this).is('#cus_telnumber')){
+			
+				if(this.value == "" || this.value.length <  11 || ! (/^1[358]\d{9}$/.test(this.value)) ) {
+					var errorMsg ="<font color=red>请输入正确的11位电话号码</font>";
+					$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');
+				}
+				else { 
+					var okMsg = "<font color=green>输入正确</font>";
+					$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
+				}
+			});
 
+			$("#shiyan").click(function(){
+				var cus_id=$("#cus_id").val();
+				var cus_account=$("#cus_account").val();
+				var cus_pwd=$("#cus_pwd").val();
+				var cus_pwd2=$("#cus_pwd2").val();
+				var cus_telnumber=$("#cus_telnumber").val();
+				var cus_email=$("#cus_email").val();
+				var cus_sex=$("#sex").find("option:selected").text();
+				//alert(cus_sex);
+				$.ajax({
+					type:"post",
+					url:"/Airline/Customer/customerregisterhandler",
+					contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					cache: true,
+					data:{ cus_id:cus_id,cus_account:cus_account,cus_pwd:cus_pwd,cus_pwd2:cus_pwd2,cus_telnumber:cus_telnumber,cus_email:cus_email,cus_sex:cus_sex },
+					success:function(data,textStatus){
+						if(data[0].success=="success"){
+							var Msg = "用户注册成功!";
+						}else{
+							//$(".formtips").remove();
+							var Msg="注册信息失败,请核对数据重新注册!";
+							 
+						}
+						alert(Msg);
+					},
+					error: function(data, textStatus) {
+					}
+				});
+			});
 		}) ;
 
 </script>
@@ -91,32 +167,28 @@ $(document).ready(function(){
 填写完完整注册信息后方能注册
 <hr width="100%" size="1">
 
-<form name="login"
-	action="<?php
-echo $this->url(array('controller' => 'customer', 'action' => 'customerregister'));
-?>"
-	method="post">
+<form name="login" method="post">
 
 <table width="90%" height="105" border="0">
 	<tr>
 
 		<td width="10%" height="30">账户：</td>
 
-		<td width="73%" height="30"><input name="cus_account" type="text"
-			id="cus_account" maxlength="12"> </td>
+		<td width="73%" height="30">
+		<input name="cus_account" type="text" class="required" id="cus_account" maxlength="12"> </td>
 
 	</tr>
 	<tr>
 		<td height="30">密码：</td>
 
-		<td height="30"><input name="cus_pwd" type="password" id="cus_pwd"
-			maxlength="14"></td>
+		<td height="30">
+		<input name="cus_pwd" type="password" id="cus_pwd" class="required" maxlength="14"></td>
 	</tr>
 	<tr>
 		<td height="30">确定密码：</td>
 
-		<td height="30"><input name="cus_pwd2" type="password" id="cus_pwd2"
-			maxlength="14"></td>
+		<td height="30">
+		<input name="cus_pwd2" type="password" id="cus_pwd2" class="required" maxlength="14"></td>
 	</tr>
 
 	<tr>
@@ -132,26 +204,26 @@ echo $this->url(array('controller' => 'customer', 'action' => 'customerregister'
 	<tr>
 		<td height="30">身份证号：</td>
 
-		<td height="30"><input name="cus_id" type="text" id="cus_id"
-			maxlength="18"></td>
+		<td height="30">
+		<input name="cus_id" type="text" id="cus_id" class="required" maxlength="18"></td>
 	</tr>
 	<tr>
 
 		<td height="30">联系电话</td>
-		<td height="30"><input name="cus_telnumber" type="text"
-			id="cus_telnumber" maxlength="11" /> </td>
+		<td height="30">
+			<input name="cus_telnumber" type="text" class="required" id="cus_telnumber" maxlength="11" /> </td>
 
 	</tr>
 	<tr>
 		<td height="30">Mail：</td>
 
-		<td height="30"><input name="cus_email" type="text" id="cus_email"
-			maxlength="40"></td>
+		<td height="30">
+		<input name="cus_email" type="text" id="cus_email" class="required" maxlength="40"></td>
 	</tr>
 	
 
 	<tr>
-		<td><input type="submit" value="　注册　" id="shiyan" /></td>
+		<td><input type="button" value="　注册　" id="shiyan" /></td>
 		<td><input type="reset" value="　重置　" id="cz" /></td>
 	</tr>
 </table>
