@@ -22,6 +22,7 @@
         </controllerFile>
         <controllerFile controllerName="Flightcompany">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="flightcomanyshow"/>
         </controllerFile>
         <controllerFile controllerName="Bookinformation">
           <actionMethod actionName="index"/>
@@ -29,7 +30,6 @@
         </controllerFile>
         <controllerFile controllerName="Customer">
           <actionMethod actionName="index"/>
-         
           <actionMethod actionName="bookticket"/>
           <actionMethod actionName="customerlogin"/>
           <actionMethod actionName="customerinfomationshow"/>
@@ -41,6 +41,7 @@
           <actionMethod actionName="refundticket"/>
           <actionMethod actionName="customerpwd"/>
           <actionMethod actionName="customerpwd2"/>
+          <actionMethod actionName="customerinformationalter"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -108,7 +109,6 @@
           <viewControllerScriptsDirectory forControllerName="Bookinformation">
             <viewScriptFile forActionName="show"/>
           </viewControllerScriptsDirectory>
-          
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="bookticket"/>
           </viewControllerScriptsDirectory>
@@ -168,6 +168,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="customerpwd2"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Flightcompany">
+            <viewScriptFile forActionName="flightcomanyshow"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customerinformationalter"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

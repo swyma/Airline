@@ -831,71 +831,130 @@ class CustomerController extends Zend_Controller_Action
 
  public function customerpwdAction ()
     {
-        {
+    {
             $this->_helper->layout->disableLayout();
-           
+            Zend_Session::start();
+            $customerNamespace = new Zend_Session_Namespace('customer');
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 //取得前台得传过来的值
-                //$cus_id = $this->_request->getPost('cus_id');
-                $cus_id = $this->_request->getPost( 'cus_id');
+                $cus_account = $this->_request->getPost(
+                'cus_account');
+                $cus_id = $this->_request->getPost('cus_id');
                 $cus_pwd = $this->_request->getPost('cus_pwd');
-                $customerNamespace->cus_id = $cus_id; //设置值
-                $customerNamespace->cus_pwd = $cus_pwd;
-                if ($cus_id != null && $cus_pwd != null) {
+                $customerNamespace->cus_account = $cus_account; //设置值
+                if ($cus_id != null && $cus_pwd != null &&
+                 $cus_account != null) {
                     //实例化
                     $db = new Application_Model_DbTable_Customer();
                     //实例一个全局变量
                     $adapter = Zend_Registry::get('db');
                     //查询登录会员的信息
                     $sqlstr1 = "select count(*) from customer where  cus_id='" .
-                     $cus_id . "' and cus_pwd='" .  $cus_pwd . "' ";
+                     $cus_id .
+                     "' and
+                                                                          cus_pwd='" .
+                     $cus_pwd .
+                     "'and
+                                                                          cus_account='" .
+                     $cus_account . "' ";
                     echo $sqlstr1;
                     $result = $adapter->fetchOne($sqlstr1);
                     echo $result;
                     if ($result > 0) {
                         echo "success";
                         echo $this->_helper->redirector('customerpwd2');
+                        
                     } else {
                         //失败后返回
-                        echo "账户或密码有错，请重新登录！";
+                       
                         echo $this->_helper->redirector('customerpwd');
+                        
                     }
                 }
             }
              // action body
         }
     }
-public function customerpwd2Action ()
+public function customerinformationalterAction ()
     {
-        {
+     {
             $this->_helper->layout->disableLayout();
-           
+            Zend_Session::start();
+            $customerNamespace = new Zend_Session_Namespace('customer');
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 //取得前台得传过来的值
-                $newpwd = $this->_request->getPost('newpwd');
-                $newpwd2 = $this->_request->getPost('newpwd2');
-                $cus_newaccount = $this->_request->getPost('cus_newaccount');
-                $customerNamespace->newpwd = $newpwd; //设置值
-                $customerNamespace->newpwd2 = $newpwd2;
-                $customerNamespace->cus_newaccount = $cus_newaccount;
-               
-                //实例化
-               	$db = new Application_Model_DbTable_Customer();
-                    //实例一个全局变量
+                
+                $cus_pwd = $this->_request->getPost('cus_pwd');
+                $cus_pwd2 = $this->_request->getPost('cus_pwd2');
+                 $cus_telnumber = $this->_request->getPost('cus_telnumber');
+                $cus_email = $this->_request->getPost('cus_email');
+                $cus_account = $customerNamespace->cus_account;//传session
+                if ($cus_pwd != null && $cus_pwd2 != null &&
+                 $cus_telnumber != null && $cus_email != null && $cus_pwd == $cus_pwd2  ) {
+                    //实例化
                     $adapter = Zend_Registry::get('db');
                     //查询登录会员的信息
-                     $sqlstr2 = "update customer set  cus_pwd='".$newpwd."'  where cus_account ='".$cus_newaccount."' ";
-                    echo $sqlstr2;
-                    $result = $adapter->fetchOne($sqlstr2);
-                    echo $result;
+              $sqlstr1 = "update customer set  cus_pwd='" .
+                     $cus_pwd . "' , cus_telnumber='" .
+                     $cus_telnumber . "',cus_email='" .
+                     $cus_email . "'  where cus_account ='" . $cus_account . "' ";
+                    $result = $adapter->query($sqlstr1);
+                   
+                   // echo $result;
                     if ($result > 0) {
                         echo "success";
                         echo $this->_helper->redirector('customerlogin');
                     } else {
                         //失败后返回
-                        echo "账户或密码有错，请重新登录！";
-                        echo $this->_helper->redirector('customerpwd2');
+        
+                    
+                   
+                        echo $this->_helper->redirector('customerinformationalter');
+                        
                     }
+                }
+            } 
+             // action body
+        }
+    }
+    
+public function customerpwd2Action ()
+    {
+     {
+            $this->_helper->layout->disableLayout();
+            Zend_Session::start();
+            $customerNamespace = new Zend_Session_Namespace('customer');
+            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                //取得前台得传过来的值
+                echo $newpwd = $this->_request->getPost(
+                'newpwd');
+                echo $newpwd2 = $this->_request->getPost('newpwd2');
+                //$customerNamespace->newpwd = $newpwd; //设置值
+                //$customerNamespace->newpwd2 = $newpwd2;
+                $cus_account = $customerNamespace->cus_account;
+                if ($newpwd != null && $newpwd2 != null) {
+                    //实例化
+                    $db = new Application_Model_DbTable_Customer();
+                    //实例一个全局变量
+                    $adapter = Zend_Registry::get('db');
+                    //查询登录会员的信息
+                    $sqlstr2 = "update customer set  cus_pwd='" .
+                     $newpwd . "'  where cus_account ='" . $cus_account . "' ";
+                    // echo $sqlstr2;
+                    $result = $adapter->query($sqlstr2);
+                    //echo $result;
+                    if ($result) {
+                        echo "success";
+                        echo $this->_helper->redirector('customerlogin');
+                    } else {
+                        //失败后返回
+                       
+                        echo $this->_helper->redirector('customerpwd2');
+                         
+                    }
+                } else {
+                   echo '<script>alert("请确认两次填写不为空");</script>';
+                }
             }
              // action body
         }

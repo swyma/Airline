@@ -1,83 +1,79 @@
-<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<!-- hotelinformation页面css -->
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/YJhotelinformation.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<!-- 链接页面js -->
+<script type="text/javascript"
+src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js';?>">
+</script>
+<script type="text/javascript"
+	src="<?php echo $this->baseUrl() . '/skin/js/ZQNflightinformation.js';
+?>"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<head><title>航空公司信息</title>
-
-</head>
-<body  >
-相关介绍：<br>
-<hr width="100%" size="1">
-以下各航空公司的信息:
-<hr width="100%" size="1">
- 
 
 
-<table style= "TABLE-LAYOUT:fixed ">
- 
- 
-  <tr>
-  	
-  	 <?php 
-  		foreach($this->Flightcompany  as $key=>$value){
-  ?>
-  	<td>
- 	 	<?php echo $value['com_name']?>
-  	</td>  	
-  <td>
- 	 	<?php echo "地址:" ?>
-  	</td>  	
- 	 <td>
-  		<?php echo $value['com_address'] 
-  		
-  		?>
-  	
-  	</td>
-  	<td>
-  	<textarea style="scrollbar-face-color:#ff80ff;background-color:;  border:0px;color:black ;font-size:8pt;font-weight:bold"  cols=80 rows=10    > 
-		<?php echo $value['com_information'] 
-  		?>
-		</textarea> 	  
-	
-  	</td> 
-  	<td>
-  	
-  	<tr>
-  	<td>
-  	
-  	<hr width="100%" size="1">
-		
-   </td>
-   <td>
-  	
-  	<hr width="100%" size="1">
-		
-   </td>   
-    <td>
-  	
-  	<hr width="100%" size="1">
-		
-   </td>   
-    <td>
-  	
-  	<hr width="100%" size="1">
-		
-   </td>   
-   </tr>
-  
-		
-  <?php 
-  		 } ?>		
- 
-   
-   </table>
-      谢谢浏览
-     
-   <hr width="100%" size="1">
-   
-  </body>
-<div id="images">
-<img src="<?php echo $this->baseUrl() . '/skin/image/zqnFlightcompany.png'?>" width=350px height=200px>
+<title>航空公司信息</title>
+<div id="scroller">
+	<div id="images">
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/zqn3.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/zqn2.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/zqn6.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/zqn4.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/zqn1.jpg'?>" width=150px height=150px></a>
+		<a href="#"><img src="<?php echo $this->baseUrl() . '/skin/image/zqn5.jpg'?>" width=150px height=150px></a>
+	</div>
 </div>
 
-  	  
-</html>
+<!-- 左面板 start -->
+<div class="left">
+	<div class="subdiv">
+		<p class="top">&nbsp;</p>
+			<h2>航空公司搜索</h2>
+				<div class="search"><br>
+					<form name="search" method="post" id="f">
+						<label><font size="3px">航空公司名称</font></label>
+						<input name="com_name" id="com_name" type="text" size="10"><br>
+							<input type="button"  id="search" value="　搜索　" onclick="b()" />
+					
+					</form>
+				
+					<p class="bot"></p>
+				</div>
+		</div>
+</div>
+
+
+<!-- 左面板 end -->
+<!--// 右面板 start -->
+<div class="right">
+<div class="left-top-corner">
+<div class="right-top-corner">
+<div class="border-top"></div>
+</div>
+</div>
+<div class="border-left">
+<div class="border-right">
+<div class="inner">
+	<div id="hello"><!--
+	  <iframe style="width: 100%; height: 220px; border: none;" id="c-c-iframe"
+	></iframe> 
+	--></div><!--
+	 <div class="hoteldetail">	
+	<iframe style="width: 100%; height: 220px; border: none;" id="c-c-iframe1" >
+	</iframe>
+	</div>
+	
+--></div>
+
+</div>
+</div>
+<div class="left-bot-corner">
+<div class="right-bot-corner">
+<div class="border-bot"></div>
+</div>
+</div>
+</div>
+
+<!-- 右面板 end -->
