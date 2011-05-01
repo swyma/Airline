@@ -57,8 +57,11 @@ foreach ($this->flightinformation as $key => $value) {
 		<td><?php echo $value['boo_fare']?>元</td>
 		<td><?php echo $value['boo_time']?></td>
 		<td><a href="javascript:;" rel="<?php echo 'targetBox' . $this->i; ?>">详情</a></td>
-		<?php ?>
+		<?php if($value['flag_pass']==0){?>
 		<td><a href="<?php echo $this->baseUrl()?>/Customer/refundticket/parm/<?php echo $value['boo_autoid']?>">退票</a></td>
+		<?php }else{?>
+			<td>退票</td>
+		<?php }?>
 	</tr>
 	<div id="<?php echo 'targetBox' . $this->i; ?>" class="shadow target_box dn" >
 		<div class="target_list"> 
@@ -73,7 +76,7 @@ foreach ($this->flightinformation as $key => $value) {
 		?></div>
 		<div class="target_list">
 			是否退票：<?php 
-			if($value['flag_pass']=="1") 
+			if($value['flag_pass']=="0") 
 				echo "否"; 
 			else
 				echo "<font color=red>是</font>";

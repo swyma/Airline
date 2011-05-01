@@ -11,6 +11,11 @@ class CustomerController extends Zend_Controller_Action
     protected $_pageRange = 10;
 
     protected $_user = '';
+    
+    //座位号
+    protected $_boonum='';
+    
+    protected $_cusid='';
 
     public function init()
     {
@@ -60,14 +65,22 @@ class CustomerController extends Zend_Controller_Action
                 $this->_helper->layout->disableLayout();
                 $this->_helper->contextSwitch()->initJsonContext();
                 $this->getResponse()->setHeader('Content-Type', 'application/json');
+                
+                Zend_Session::start();
+               	$customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+                $user=$customerNamespace->cus_account;//取你的session
+                //var_dump($this->_user=$user);
+                $this->_user=$user;
                 //业务一：
                 //取得用户的id
                 /**
                  * 这部分要等负责用户登录完成后才能进行
                  */
                 //$cus_id = $this->_request->getPost("cus_id"); //success
-                $cus_id="1";
+                //$cus_id="1";
                 //echo $cus_id;
+                $cus_id_sql="select cus_id from customer where cus_account='".$this->_user."'";
+                $cus_id=$adapter->fetchOne($cus_id_sql);
                 //取得用户选择的航班号,用户输入的格式为:CA123
                 $flight_no = $this->_request->getPost("flight_no"); //success
                 //echo $flight_no;
@@ -456,24 +469,24 @@ class CustomerController extends Zend_Controller_Action
                                                 $flightinformation = $adapter->query($show_sql);
                                                 $rows = $flightinformation->fetchAll();
                                                 $ticketinformation = Zend_Json::encode($rows);
-                                                echo $tick_informations = substr($ticketinformation, 0, strlen($ticketinformation) - 2) .(",\"ticket_no\":\"") . $ticket_no ."\"}]";
-                                                 //echo "订票成功!";
+                                                echo $tick_informations = substr($ticketinformation, 0, strlen($ticketinformation) - 2) .(",\"ticket_no\":\"") . $ticket_no ."\","."\"success\":\"success\""."}]";
+                                                //echo "订票成功!";
                                             }
                                         }
                                     }
                                 } else {
-                                    echo "舱位已经满人";
+                                    //echo "舱位已经满人";
+                                    echo "[{\"success\":\"舱位已经满人\"}]";
                                 }
                             }
                         } else {
-                            echo 'alert("你已经订过此航班信息了,一人一次只能订一张票!")';
+                            echo "[{\"success\":\"你已经订过此航班信息了,一人一次只能订一张票!\"}]";
                         }
                     } else {
-                        echo "该航班不存在";
+                    	echo "[{\"success\":\"该航班不存在\"}]";
                     }
-                     //echo $flightinformation;
                 } else {
-                    echo "前台传值错误!";
+                    echo "[{\"success\":\"前台传值错误!\"}]";
                 }
     }
 
@@ -518,14 +531,14 @@ class CustomerController extends Zend_Controller_Action
 	                     	//成功后跳转页面echo 'alert("注册成功,返回登录!")';
 	                     if($result){
 	                     	echo "[{\"success\":\"success\"}]";
-	                        $this->_helper->redirector('customerlogin');
+	                        //$this->_helper->redirector('customerlogin');
 	                    } else {
 	                    	echo "[{\"success\":\"failure\"}]";
 	                        //$this->_helper->redirector('customerregister');
 	                    }	
                     }else{
                     	echo "[{\"success\":\"failure\"}]";
-                    	$this->_helper->redirector('customerregister');
+                    	//$this->_helper->redirector('customerregister');
                     }
                 }
     }
@@ -810,7 +823,7 @@ class CustomerController extends Zend_Controller_Action
         //得到用户订票的航班信息
         //$adapter = Zend_Registry::get('db');
         $this->_helper->contextSwitch()->initJsonContext();
-        $this->getResponse()->setHeader('Content-Type', 'text/plain');
+        $this->getResponse()->setHeader('Content-Type', 'application/json');
         $adapter = Zend_Registry::get('db');
         $this->_helper->layout->disableLayout();
         //$this->_helper->contextSwitch()->initJsonContext();
@@ -832,34 +845,35 @@ class CustomerController extends Zend_Controller_Action
             $refundticket = $adapter->query($refundticket_sql);
             $refundticketAllinfo = $refundticket->fetchAll();
             foreach ($refundticketAllinfo as $key => $value) {
-               $boo_number = $value['boo_number']; 				//航班座位号
-               $cus_id = $value['cus_id']; 						//用户ID
-               $boo_fare=$value['boo_fare'];					//票价,为积分更新服务
+               $this->_boonum = $value['boo_number']; 				//航班座位号
+               $this->_cusid = $value['cus_id']; 						//用户ID
+               $this->_fare=$value['boo_fare'];					//票价,为积分更新服务
             }
             $update_bookticket_sql="update bookinformation set flag_pass='1' where boo_autoid='".$param."'";
             $update_bookticket=$adapter->query($update_bookticket_sql);
             if($update_bookticket){
             	//2.
-            	$update_refundticket_sql="insert into refundrecord(boo_autoid,boo_number) values ('".$param."','".$boo_number."')";
+            	$update_refundticket_sql="insert into refundrecord(boo_autoid,boo_number) values ('".$param."','".$this->_boonum."')";
             	$update_refundticket=$adapter->query($update_refundticket_sql);
             	if($update_refundticket){
             		//取得用户现有的积分
-            		$cus_current_integral_sql="select cus_integral from customer where cus_id='" . $cus_id . "'";
+            		$cus_current_integral_sql="select cus_integral from customer where cus_id='" . $this->_cusid . "'";
             		$cus_current_integral=$adapter->fetchOne($cus_current_integral_sql);
             		
             		//3.
-            		$update_customer_integral_sql="update customer set cus_integral='".($cus_current_integral - $boo_fare)."'";
+            		$update_customer_integral_sql="update customer set cus_integral='".($cus_current_integral - $this->_fare)."' where cus_id='".$this->_cusid."'";
             		$update_customer_integral=$adapter->query($update_customer_integral_sql);
             		if($update_customer_integral){
-            			echo "<script>alert(\"退票成功!\")</script>";
+            			echo "[{\"success\":\"退票成功!5秒后自动返回!\"}]";
+            			//echo "[{\"success\":\"success\"}]";
             		}else{
-            			echo "积分表更新失败!";
+            			echo "[{\"success\":\"积分表更新失败!\"}]";
             		}
             	}else{
-            		echo "退票表信息更新失败!";
+            		echo "[{\"success\":\"退票表信息更新失败!\"}]";
             	}
             }else{
-            	echo "订票表退票更新失败!";
+            	echo "[{\"success\":\"订票表退票更新失败!\"}]";
             }
         }
     }

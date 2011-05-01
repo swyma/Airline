@@ -19,7 +19,8 @@ $(document).ready(function(){
 			cache: true,
 			data:{boo_autoid:boo_autoid},
 			success:function(data,textStatus){
-				//alert("success");
+				alert(data[0].success);
+				setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/bookhistory'",5000);
 				//window.location.href="/Airline/Customer/bookhistory";
 			},
 			error: function(data, textStatus) { }
@@ -35,6 +36,10 @@ $(document).ready(function(){
 <fieldset style="width:96%;">
 	<legend>机票信息</legend>
     <table width="564" height="147" border="0" align="center" cellpadding="0" cellspacing="0">
+    <?php if($this->refundticket==NULL){
+    	echo "没有该用户信息!";
+    	
+    }else{?>
     <?php foreach ($this->refundticket as $key => $value) {	?>
     
     <tr>
@@ -75,12 +80,11 @@ $(document).ready(function(){
         <td><?php echo $value['boo_time']?></td>
         <td>&nbsp;</td>
        
-        <td id="s"><a href="#">确认退票</a></td>
-        <td><a href="<?php echo $this->baseUrl()?>/Customer/bookhistory">返    回</a></td>
-        <!--<td><input type="button" value="返   回" id="back" /></td>
-         <td><input type="button" value="确认退票" id="s" /></td>
+         <!--<td id="s"><a href="#">确认退票</a></td>
         
-        <td></td>-->
+       <td><input type="button" value="返   回" id="back" /></td>-->
+         <td><input type="button" value="确认退票" id="s" /></td>
+        <td><a href="<?php echo $this->baseUrl()?>/Customer/bookhistory">返回</a></td>
       </tr>
     </table>
     <div>
@@ -90,7 +94,7 @@ $(document).ready(function(){
    			</tr>
    		</table>
     </div>
-    <?php }?>
+    <?php }}?>
 </fieldset>
 </div>
 </body>

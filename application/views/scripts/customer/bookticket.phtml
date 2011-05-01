@@ -1,19 +1,17 @@
 <!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>register</title>
-<style type="text/css">
+<title>bookticket</title>
+<style>
+			body{text-align:center;margin-left:auto;margin-right:auto;}
 
-body{ text-align:center; }
-.waicheng {color: #0066CC; margin:5px auto; width:700px; height:800px; border:1px solid #000000;}
-
-</style> 
-
-<script type="text/javascript"
-	src="<?php
-echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
-?>"></script>
-<body>
+			div{
+				border:0px solid #000;
+				margin:1px 1px 1px 1px;
+				<!--background:blue;-->
+			}
+</style>
+<script type="text/javascript" src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js'; ?>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#submit").click(function(){
@@ -29,12 +27,18 @@ echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
 				cache: true,
 				data:data,
 				success:function(data,textStatus){
-					$("#show").html("<fieldset style=\"width:96.6%;\"><legend>机票信息</legend><table width=\"564\" height=\"147\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">"+
-					     	"<tr> <td>机票编号:</td> <td>"+data[0].ticket_no+"</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>座&nbsp;位&nbsp;号:</td> <td>"+data[0].boo_number+"</td> </tr>"+
-					     	" <tr> <td colspan=\"1\"></td> <td>"+data[0].boo_baddress+"</td> <td colspan=\"2\">-----------</td><td colspan=\"1\"></td> <td>"+data[0].boo_aaddress+"</td> </tr>"+
-					     	"<tr> <td colspan=\"1\"></td> <td>"+data[0].boo_btime+"</td><td colspan=\"2\"></td><td colspan=\"1\"></td> <td>"+data[0].boo_atime+"</td></tr>"+
-					     	"<tr><td>飞行日期:</td><td>"+data[0].boo_everyday+"</td><td colspan=\"2\"></td><td>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价:</td> <td>"+data[0].boo_fare+"</td></tr>"+
-					     	"<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>订票时间:</td><td>"+data[0].boo_time+"</td> </tr></table></fieldset>");
+					//alert(data[0].success);
+					if(data[0].success=="success"){
+						alert("订票成功!");
+						$("#show").html("<fieldset style=\"width:96.6%;\"><legend>机票信息</legend><table width=\"564\" height=\"147\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">"+
+						     	"<tr> <td>机票编号:</td> <td>"+data[0].ticket_no+"</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>座&nbsp;位&nbsp;号:</td> <td>"+data[0].boo_number+"</td> </tr>"+
+						     	" <tr> <td colspan=\"1\"></td> <td>"+data[0].boo_baddress+"</td> <td colspan=\"2\">-----------</td><td>"+data[0].boo_aaddress+"</td> </tr>"+
+						     	"<tr> <td colspan=\"1\"></td> <td>"+data[0].boo_btime+"</td><td colspan=\"2\"></td> <td>"+data[0].boo_atime+"</td></tr>"+
+						     	"<tr><td>飞行日期:</td><td>"+data[0].boo_everyday+"</td><td colspan=\"2\"></td><td>票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价:</td> <td>"+data[0].boo_fare+"</td></tr>"+
+						     	"<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>订票时间:</td><td>"+data[0].boo_time+"</td> </tr></table></fieldset>");
+					}else{
+						alert(data[0].success);
+					}	
 				},
 				error: function(data, textStatus) { }
 			});
@@ -42,49 +46,51 @@ echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
 		
 	});	
 </script>
-
-<div class="waicheng" id="fli_no" >
-<fieldset style="width: 96%;"><legend>订票信息</legend>
-<table width="600" height="101" border="0" align="center"
-	cellpadding="0" cellspacing="0">
-	<?php
+<body>
+<div style="width:99%; height:400px; text-align:center;">
+<?php
 		foreach ($this->book_flightinfo as $key => $value) {
     ?>
-	<tr>
-		<td width="80" height="34">起飞地点:</td>
-		<td width="160"><input id="fli_baddress" type="text" readonly="true " name="fli_baddress" value="<?php echo $value['fli_baddress']?>" /></td>
-		<td width="80">起飞时间:</td>
-		<td width="160"><input id="fli_everyday" type="text" readonly="true " name="fli_everyday" value="<?php echo $value['fli_everyday']?>" /></td>
-	</tr>
-	<tr>
-		<td height="32">降落地点:</td>
-		<td><input id="fli_aaddress" type="text" name="fli_aaddress" readonly="true " value="<?php echo $value['fli_aaddress']?>" /></td>
-		<td>航班舱位:</td>
-		<td>
-			<select style="width: 160;">
-				<option id="fli_cangwei" value="经济舱">经济舱</option>
-				<option id="fli_cangwei" value="头等舱">头等舱</option>
-				<option id="fli_cangwei" value="公务舱">公务舱</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td>&nbsp;&nbsp;航班号:</td>
-		<td><input type="text" id="flight_no"
-			value="<?php echo $value['com_code'] . $value['fli_no']?>" readonly='true' /></td>
-		<td colspan="4" align="right">
-			<input id="submit" type="submit" name="submit" value="确认订票" /> 
-			<input id="reset" type="reset" name="reset" value="返回查询" />
-		</td>
-	</tr>
-</table>
+			<!--  <div style="height:30%; ">头部</div>-->
+			<div style="float:left;width:99.5%;height:40%;">
+				<!--<div style="float:left;width:96%; height:99%;margin:0px auto; text-align:center;"">-->
+					<fieldset style="width:96%;height:80%;"><legend>订票信息</legend>
+					<table style="margin:0 auto;width:650px;" width="100%" height="50%" border="0" align="center" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="60" >起飞地点:</td>
+							<td width="160"><input id="fli_baddress" type="text" readonly="true " name="fli_baddress" value="<?php echo $value['fli_baddress']?>" /></td>
+							<td width="60">起飞时间:</td>
+							<td width="160"><input id="fli_everyday" type="text" readonly="true " name="fli_everyday" value="<?php echo $value['fli_everyday']?>" /></td>
+						</tr>
+						<tr>
+							<td >降落地点:</td>
+							<td><input id="fli_aaddress" type="text" name="fli_aaddress" readonly="true " value="<?php echo $value['fli_aaddress']?>"/></td>
+							<td>航班舱位:</td>
+							<td>
+								<select style="width: 220px;">
+									<option id="fli_cangwei" value="经济舱">经济舱</option>
+									<option id="fli_cangwei" value="头等舱">头等舱</option>
+									<option id="fli_cangwei" value="公务舱">公务舱</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;&nbsp;航班号:</td>
+							<td><input type="text" id="flight_no" value="<?php echo $value['com_code'] . $value['fli_no']?>" /></td>
+							<td id="submit"  align="right"><a href="#">确认订票</a> </td>
+							<td align="center"><a href="<?php echo $this->baseUrl()?>/Customer/flightsearch">返回查询</a></td>
+								<!--  <input id="reset" type="reset" name="reset" value="返回查询" />
+							</td>-->
+						</tr>
+					</table>
 
-</fieldset>
-<?php
-}
-?>
-</div>
-<div id="show"></div>
+				</fieldset>
+			</div>
+			
+			
+			<div id="show" style="float:left;width:99.5%;height:27%;"></div>
+		</div>
+<?php }?>
 
 </body>
 </html>
