@@ -767,9 +767,10 @@ class CustomerController extends Zend_Controller_Action
                 $user=$customerNamespace->cus_account;//取你的session
                 //var_dump($this->_user=$user);
                 $this->_user=$user;
-                /*if($this->_user==""){
-                	echo "用户尚未登录,请登录!";
-                }else{*/
+                if($this->_user==""){
+                	//echo '<script>alert("用户尚未登录,请登录!")</script>';
+                	//$this->_helper->redirector('customerlogin');
+                }else{
 	                $db = new Application_Model_DbTable_Flightinformation();
 	                $sql = "select a.boo_autoid,a.com_code,a.boo_no,a.boo_everyday,a.boo_baddress,".
 	                "a.boo_aaddress,substring(a.boo_btime,12,5)as boo_btime,substring(a.boo_atime,12,5) as boo_atime,".
@@ -790,7 +791,7 @@ class CustomerController extends Zend_Controller_Action
 	                    ->setPageRange($pageRange);
 	                $this->view->flightinformation = $paginator;
 	                $this->view->i = 0;
-               // }
+                }
     }
 
     public function refundticketAction(){

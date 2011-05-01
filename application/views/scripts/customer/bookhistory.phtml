@@ -34,7 +34,18 @@ echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
 </head>
 <body>
 <center>
-
+<?php
+		Zend_Session::start();
+	    $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+	    $user=$customerNamespace->cus_account;//取你的session
+	   	if($user==NULL){?>
+	   	<script type="text/javascript">
+	   		alert("尚未登录!请登录!3秒后返回登录界面");
+	   		setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/customerlogin'",3000);	
+	   	</script>
+	  	 <?php }else{
+		
+    ?>
 <table cellspacing="0" cellpadding="0">
 	<tr>
 		<th width="10%">航班号</th>
@@ -46,9 +57,7 @@ echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
 		<th>操作1</th>
 		<th>操作2</th>
 	</tr>
-	<?php
-foreach ($this->flightinformation as $key => $value) {
-    ?>
+	<?php foreach ($this->flightinformation as $key => $value) {?>
 	<tr>
 		<td><?php echo $value['com_code'].$value['boo_no']?></td>
 		<td><?php echo $value['boo_baddress']?></td>
@@ -96,6 +105,7 @@ Jumping：页码最后页之后会显示第一页；
 Sliding：Yahoo式，当前页会放在页码中间，这是默认样式。 
  -->
 <?php echo $this->paginationControl($this->flightinformation, 'Sliding', '/customer/pagelist.phtml'); ?>
+<?php }?>
 </center>
 
 
