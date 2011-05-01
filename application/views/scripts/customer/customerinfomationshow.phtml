@@ -3,7 +3,52 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>航班查询</title>
+<title>会员信息</title>
+<style>
+
+body{
+	margin:0;
+	padding:0;
+	background:#f1f1f1;
+	font:70% Arial, Helvetica, sans-serif; 
+	color:#555;
+	line-height:150%;
+	text-align:left;
+}
+a{
+	text-decoration:none;
+	color:#057fac;
+}
+a:hover{
+	text-decoration:none;
+	color:#999;
+}
+h1{
+	font-size:140%;
+	margin:0 20px;
+	line-height:80px;	
+}
+h2{
+	font-size:120%;
+}
+#container{
+	margin:0 auto;
+	width:680px;
+	background:#fff;
+	padding-bottom:20px;
+}
+#content{margin:0 20px;}
+p.sig{	
+	margin:0 auto;
+	width:680px;
+	padding:1em 0;
+}
+form{
+	margin:1em 0;
+	padding:.2em 20px;
+	background:#eee;
+}
+</style>
 <link
 	href="<?php
 echo $this->baseUrl() . '/skin/css/ZYFtablecloth.css'?>"
@@ -33,62 +78,67 @@ echo $this->baseUrl() . '/skin/css/ZYFpowerFloat.css'?>"
 	src="<?php
 echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
 </head>
+ <a style="float:right" href="<?php echo $this->baseUrl() . '/Customer/customerlogout'?>">退出系统</a><br />
 <body>
-您好<?php Zend_Session::start(); 
-       $customerNamespace = new Zend_Session_Namespace('customer');
-        echo $customerNamespace->cus_account;?>，您的个人信息如下：<br />
+您好，<?php Zend_Session::start(); 
+    $customerNamespace = new Zend_Session_Namespace('customer');
+    $login_or_not=$customerNamespace->login_or_not;
+  if($login_or_not===true){
+    echo $customerNamespace->cus_account;?>，您的个人信息如下：   
 <center>
 <table cellspacing="0" cellpadding="0">
-  <tr>
-    <th>会员编号</th>
-    <th>会员账号</th>
-    <th>密&nbsp;&nbsp;码</th>
-    <th>身份证号</th>
-    <th>性&nbsp;&nbsp;别</th>
-    <th>电话号码</th>
-    <th>电子邮件</th>
-    <th>注册时间</th>
-    <th>积&nbsp;&nbsp;分</th>
-  </tr>
   <?php 
   		foreach($this->customers as $key=>$value){
   ?>
-  <tr>
-  	<td>
- 	 <?php echo $value['cus_autoid'] ?>
-  	</td>
- 	<td>
-  		<?php echo $value['cus_account'] ?>
-  	</td>
-  	  	<td>
- 	 <?php echo $value['cus_pwd'] ?>
-  	</td>
- 	<td>
-  		<?php echo $value['cus_id'] ?>
-  	</td>
-  	  	<td>
- 	 <?php echo $value['cus_sex'] ?>
-  	</td>
- 	<td>
-  		<?php echo $value['cus_telnumber'] ?>
-  	</td>
-  	  	<td>
- 	 <?php echo $value['cus_email'] ?>
-  	</td>
- 	<td>
-  		<?php echo $value['cus_time'] ?>
-  	</td>
-  	  	<td>
- 	 <?php echo $value['cus_integral'] ?>
-  	</td>
-
-  </tr>
-  <?php } ?>			 	
-  		
-</table>
+			<tr>
+				<th width=50>会员编号：</th>
+				<td width=200><?php echo $value['cus_autoid'] ?></td>
+			</tr>
+			<tr>
+				<th width=50>会员账号：</th>
+				<td width=200><?php echo $value['cus_account'] ?></td>
+			</tr>			
+			<tr>
+				<th width=50>密&nbsp;&nbsp;码：</th>
+				<td width=200><?php echo $value['cus_pwd'] ?></td>
+			</tr>			
+			<tr>
+				<th width=50>身份证号：</th>
+				<td width=200><?php echo $value['cus_id'] ?></td>
+			</tr>	
+			<tr>
+				<th width=50>性&nbsp;&nbsp;别：</th>
+				<td width=200><?php echo $value['cus_sex'] ?></td>
+			</tr>	
+			<tr>
+				<th width=50>电话号码：</th>
+				<td width=200><?php echo $value['cus_telnumber'] ?></td>
+			</tr>	
+			<tr>
+				<th width=50>电子邮件：</th>
+				<td width=200><?php echo $value['cus_email'] ?></td>
+			</tr>	
+			<tr>
+				<th width=50>注册时间：</th>
+				<td width=200><?php echo $value['cus_time'] ?></td>
+			</tr>	
+			<tr>
+				<th width='50'>积&nbsp;&nbsp;分：</th>
+				<td width=200><?php echo $value['cus_integral'] ?></td>
+			</tr>			
+		  <?php } ?>																																				
+		</table>
 </center>
+您可以修改您的个人信息，<a href="#">现在就修改？</a><br />
+您还可以发表评论，<a href="<?php echo $this->baseUrl() . '/Membership/customercomment'?>">现在马上评论？</a><br />
+<?php
+  }else {
+  	$src=$this->baseUrl() . '/Customer/customerlogin';
+  	echo "您还没有登录，必须要在登录后才能看到会员的个人信息";
+  	echo "&nbsp;&nbsp;";
+	echo "<a href='$src'>请点击我现在登录</a>";
+  }
+?>
 </body>
 </html>
-您可以修改您的个人信息，<a href="<?php echo $this->baseUrl() . '/Customer/customerinformationalter'?>">现在就修改？</a><br />
-您还可以发表评论，<a href="<?php echo $this->baseUrl() . '/Membership/customercomment'?>">现在马上评论？</a><br />
 

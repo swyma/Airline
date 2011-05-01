@@ -57,6 +57,7 @@
           <actionMethod actionName="customercomment"/>
           <actionMethod actionName="customercommentcontentshow"/>
           <actionMethod actionName="customercommentcontentspaging"/>
+          <actionMethod actionName="commentreply"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
@@ -174,6 +175,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Customer">
             <viewScriptFile forActionName="customerinformationalter"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Membership">
+            <viewScriptFile forActionName="commentreply"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

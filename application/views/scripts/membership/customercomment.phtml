@@ -12,7 +12,7 @@
 			{
 			  alert("评论内容不能为空！");
 			}else{
-			  alert("success");
+			  alert("发表成功");
 			}
 			//获取后台传来的success进行判断
 			
@@ -20,13 +20,16 @@
 
 	});	
 </script>
-
-<form action="customercomment" method="post" style="bgcolor:#FA5858">
-<div id="commentform">
+<a style="float:right" href="<?php echo $this->baseUrl() . '/Customer/customerlogout'?>">退出系统</a><br />
+<form action="customercomment" method="post">
+<div id="commentform" style="background:#EEEE11;">
 <h5><?php Zend_Session::start(); 
   $customerNamespace = new Zend_Session_Namespace('customer');
-  echo $customerNamespace->cus_account;?>您好,请在下面的输入框中发表您的评论 </h5>
-<textarea name="comment_content" id="comment_content" cols="30" rows="4"></textarea>
+   $login_or_not=$customerNamespace->login_or_not;
+  if($login_or_not===true){
+  echo $customerNamespace->cus_account;?>您好,请在下面的输入框中发表您的评论
+</h5>
+<textarea name="comment_content" id="comment_content" cols="70" rows="5"></textarea>
   <p align="left"><!--
   账号：<input type="text" size="12" name="cus_account" id="cus_account" />
   密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />
@@ -37,6 +40,15 @@
   </p>
 </div>
 </form>
+<a href="<?php echo $this->baseUrl() . '/Customer/customerinfomationshow'?>">返回会员个人信息页面</a>
+<?php 
+  } else {
+  		$src= $this->baseUrl() . '/Customer/customerlogout';
+	    echo "您还没有登录，必须要在登录后才能评论";
+	    echo "&nbsp;&nbsp;";
+	    echo "<a href='$src'>请点击我现在登录</a>";
+  }
+?>
 <body>
 </body>
 </html>

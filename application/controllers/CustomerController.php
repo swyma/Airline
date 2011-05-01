@@ -549,80 +549,81 @@ class CustomerController extends Zend_Controller_Action
 
     public function customerloginAction()
     {
-    	$this->_helper->layout->disableLayout();
-        Zend_Session::start();
-        $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
-        $customerNamespace->setExpirationSeconds(86400); //命名空间 "customer" 将在第一次访问后 86400秒（一天）过期。
-        /*$userNamespace->setExpirationHops(5);// 5 次访问后，会话过期
-        $userNamespace->setExpirationSeconds(60);//命名空间 "user" 将在第一次访问后 60 秒，或者访问 5 次后过期。
-        $userNamespace->__unset();//注销session*/
-        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-            //取得前台得传过来的值
-            //$cus_id = $this->_request->getPost('cus_id');
-            $cus_account = $this->_request->getPost('cus_account');
-            $cus_pwd = $this->_request->getPost('cus_pwd');
-            //定义session
-            $customerNamespace->login_or_not=FALSE;//用来判断是否已经登录
-            $customerNamespace->cus_account = NULL; 
-            $customerNamespace->cus_pwd = NUll;
-            if ($cus_account != null && $cus_pwd != null) {
-                //实例化
-                $db = new Application_Model_DbTable_Customer();
-                //实例一个全局变量
-                $adapter = Zend_Registry::get('db');
-                //查询登录会员的信息
-                $sqlstr1 = "select count(*) from customer where  cus_account='"
-                  .$cus_account . "' and cus_pwd='" . $cus_pwd . "' and flag=1";
-                //echo $sqlstr1;
-                $result = $adapter->fetchOne($sqlstr1);
-                //echo $result;
-                if ($result > 0) {
-                	Zend_Session::start();
-                	$customerNamespace = new Zend_Session_Namespace('customer');
-                	//如果输入的会员账号和密码正确，则为Session设值
-                	//说明已经登录，$login_or_not设为true
-                	$customerNamespace->login_or_not=TRUE;
-                    $customerNamespace->cus_account = $cus_account; 
-                    $customerNamespace->cus_pwd = $cus_pwd;
-                    echo $this->_helper->redirector('customerinfomationshow');
-                } else {
-                    //失败后返回
-                    Zend_Session::start();
-                    $customerNamespace = new Zend_Session_Namespace('customer');
-                    $customerNamespace->login_or_not=FALSE;//如果输入的会员账号和密码不正确，这样就不能登录，$login_or_not设为false
-                    echo '<script>alert("会员账号或者密码错误，请重新登录");</script>';
-                }
-            }
-        }
+    $this->_helper->layout->disableLayout();
+                Zend_Session::start();
+                $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+                $customerNamespace->setExpirationSeconds(86400); //命名空间 "customer" 将在第一次访问后 86400秒（一天）过期。
+                /*$userNamespace->setExpirationHops(5);// 5 次访问后，会话过期
+                $userNamespace->setExpirationSeconds(60);//命名空间 "user" 将在第一次访问后 60 秒，或者访问 5 次后过期。
+                $userNamespace->__unset();//注销session*/
+                if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                    //取得前台得传过来的值
+                    //$cus_id = $this->_request->getPost('cus_id');
+                    $cus_account = $this->_request->getPost('cus_account');
+                    $cus_pwd = $this->_request->getPost('cus_pwd');
+                    //定义session
+                    $customerNamespace->login_or_not=false;//用来判断是否已经登录
+                    $customerNamespace->cus_account = null; 
+                    $customerNamespace->cus_pwd = null;
+                    if ($cus_account != null && $cus_pwd != null) {
+                        //实例化
+                        $db = new Application_Model_DbTable_Customer();
+                        //实例一个全局变量
+                        $adapter = Zend_Registry::get('db');
+                        //查询登录会员的信息
+                        $sqlstr = "select count(*) from customer where  cus_account='"
+                          .$cus_account . "' and cus_pwd='" . $cus_pwd . "' and flag=1";
+                        //echo $sqlstr1;
+                        $result = $adapter->fetchOne($sqlstr);
+                        //echo $result;
+                        if ($result > 0) {
+                        	Zend_Session::start();
+                        	$customerNamespace = new Zend_Session_Namespace('customer');
+                        	//如果输入的会员账号和密码正确，则为Session设值
+                        	//说明已经登录，$login_or_not设为true
+                        	$customerNamespace->login_or_not=true;
+                            $customerNamespace->cus_account = $cus_account; 
+                            $customerNamespace->cus_pwd = $cus_pwd;
+                            echo $this->_helper->redirector('customerinfomationshow');
+                        } else {
+                            //失败后返回
+                            //Zend_Session::start();
+                            //$customerNamespace = new Zend_Session_Namespace('customer');
+                            //如果输入的会员账号和密码不正确，这样就不能登录，$login_or_not设为false
+                            $customerNamespace->login_or_not=false;
+                            echo '<script>alert("会员账号或者密码错误，请重新登录");</script>';
+                        }
+                    }
     }
+   }
 
     public function customerinfomationshowAction()
     {
      // action body
-        $this->_helper->layout->disableLayout();
-        Zend_Session::start();
-        $customerNamespace = new Zend_Session_Namespace('customer');
-        //先把会话$login_or_not设置为false
-        $login_or_not=$customerNamespace->login_or_not;
-        if($login_or_not===TRUE){
-        $cus_account = $customerNamespace->cus_account;
-        $cus_pwd = $customerNamespace->cus_pwd;
-        $db = new Application_Model_DbTable_Customer();
-        //查询所有用户的信息
-        $adapter = Zend_Registry::get('db');
-        $sqlstr1 = "select * from customer where  cus_account='" . $cus_account . "' and
-                    cus_pwd='" . $cus_pwd ."' and flag=1";
-        $customerinfo = $adapter->query($sqlstr1);
-        // echo ($customerinfo);
-        $customerinfor = $customerinfo->fetchAll();
-        $this->view->customers = $customerinfor;
-        } else {       	
-		//  验证失败，将会话$login_or_not设置为 false    
-		$customerNamespace->login_or_not=FALSE;   
-		echo '<script>alert("您还没有登录，只有登录后才能看到会员信息");</script>';
-		echo '<a href="http://localhost/Airline/Customer/customerlogin">请点击我现在登录</a>';
-		//echo $this->_helper->redirector('customerlogin');
-        }
+                $this->_helper->layout->disableLayout();
+                Zend_Session::start();
+                $customerNamespace = new Zend_Session_Namespace('customer');
+                //先把会话$login_or_not设置为false
+                $login_or_not=$customerNamespace->login_or_not;
+                if($login_or_not===TRUE){
+                $cus_account = $customerNamespace->cus_account;
+                $cus_pwd = $customerNamespace->cus_pwd;
+                $db = new Application_Model_DbTable_Customer();
+                //查询所有用户的信息
+                $adapter = Zend_Registry::get('db');
+                $sqlstr1 = "select * from customer where  cus_account='" . $cus_account . "' and
+                            cus_pwd='" . $cus_pwd ."' and flag=1";
+                $customerinfo = $adapter->query($sqlstr1);
+                // echo ($customerinfo);
+                $customerinfor = $customerinfo->fetchAll();
+                $this->view->customers = $customerinfor;
+                } else {       	
+        		//  验证失败，将会话$login_or_not设置为 false    
+        		$customerNamespace->login_or_not=FALSE;   
+        		echo '<script>alert("您还没有登录，只有登录后才能看到会员的个人信息");</script>';
+        		//echo '<a href="http://localhost/Airline/Customer/customerlogin">请点击我现在登录</a>';
+        		//echo $this->_helper->redirector('customerlogin');
+    }
     }
 
 	public function customerlogoutAction()

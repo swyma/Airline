@@ -3,15 +3,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>评论列表页面</title>
 <script type="text/javascript"
-	src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
 ?>"></script>
 <script type="text/javascript"
-	src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery-powerFloat-min.js';
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery-powerFloat-min.js';
 ?>"></script>
 <!--<script type="text/javascript"
-	src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery-powerFloat.js';
+	src="<?php
+//echo $this->baseUrl() . '/skin/source/jquery/jquery-powerFloat.js';
 ?>"></script>
---><body>
+-->
+<!-- 回复评论的css -->
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/LZYtablecloth.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/js/LZYtablecloth.js';
+?>"></script>
+<body>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#submit").click(function(){
@@ -19,6 +32,8 @@
 			if ($.trim($("#comment_content")[0].value) == "")
 			{
 			  alert("评论内容不能为空！");
+			} else{
+			  alert("发表成功");
 			}
 		});
 	});	
@@ -26,20 +41,51 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-       $("#trigger6").powerFloat({ 
-			eventType: "click",
-			target: "/Airline/membership/customercomment", 
-			targetMode: "ajax" 
+       $("span a").toggle(function(){
+           $(this).parent().parent().parent().parent().append('<tr id=\'reply\'><th style="background:#C2EE11;">'+
+                   '<form action="commentreply" method="post"><textarea name="comment_content" id="comment_content" '+
+                   'cols="65" rows="4"></textarea><br/><p align="left">账号：<input type="text" size="12" '+
+                   'name="cus_account" id="cus_account" />密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />'+
+                   '新会员？<a href="http://localhost/Airline/Customer/customerregister">会员注册</a>'+
+    			   '<input type="submit" id="comment_reply" value="回复" /><input type="reset" name="reset" value="取消"></p></th></tr></form>');
+		},function(){
+			$("#reply").remove();
 		});
+		$("#comment_reply").click(function(){
+			if ($.trim($("#cus_account")[0].value) == "")
+			{
+			  alert("会员账号不能为空！");
+			} else if ($.trim($("#cus_pwd")[0].value) == "")
+			{
+		      alert("会员密码不能为空！");				
+			} else if ($.trim($("#comment_content")[0].value) == ""){
+			  alert("回复内容不能为空！") ; 				
+			} else {
+			  alert("回复成功！");
+			}
+		})
  });
 </script>
-<form action="customercomment" method="post">
-<div id="commentform">
-<h5><?php Zend_Session::start(); 
-  $customerNamespace = new Zend_Session_Namespace('customer');
-  echo $customerNamespace->cus_account;?> 您好,请在下面的输入框中发表您的评论 </h5>
-<textarea name="comment_content" id="comment_content" cols="65" rows="4"></textarea>
-<p align="left"><!--
+<a style="float:right" href="<?php echo $this->baseUrl() . '/Customer/customerlogout'?>">退出系统</a><br />
+<form action="customercommentcontentshow" method="post" >
+<div id="commentform" style="background:#EEEE11;">
+<h5><?php
+Zend_Session::start();
+$customerNamespace = new Zend_Session_Namespace('customer');
+$login_or_not = $customerNamespace->login_or_not;
+if($login_or_not===true){
+echo $customerNamespace->cus_account;
+echo "您好,请在下面的输入框中发表您的评论";
+} else {
+	$src= $this->baseUrl() . '/Customer/customerlogout';
+	echo "您还没有登录，必须要在登录后才能评论";
+	echo "&nbsp;&nbsp;";
+	echo "<a href='$src'>请点击我现在登录</a>";
+	} 
+?>
+</h5>
+<textarea name="comment_content" id="comment_content" cols="65" rows="5"></textarea>
+<p><!--
   账号：<input type="text" size="12" name="cus_account" id="cus_account" />
   密码：<input type="text" size="12" name="cus_pwd" id="cus_pwd" />
   新会员？<a href="http://localhost/Airline/Customer/register">会员注册</a>
@@ -47,31 +93,34 @@
 	type="reset" name="reset" value="取消评论"></p>
 </div>
 </form>
-<style>
-.commentcustomer {
-	padding-bottom: 0px;
-	padding-left: 0px;
-	border: 1px solid green;
-	background: lightgrey;
-	width: 600px;
-	height: 40px;
-}
-</style>
-<div>已有评论：</div>
-<?php
+<div>已有评论：</div>	
+	<?php
 foreach ($this->membership as $key => $value) {
     ?>
-<div class="commentcustomer">
-<h5><?php echo $value['customer_name']?> 发表于<?php
-    echo $value['comment_time']?></h5>
-</div>
-<div>
-<p><?php echo $value['comment_content']?><button style="float:right" id="trigger6" >回复此评论</button></p>    
-</div>
-<?php
+		<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th width="100%"><img
+			src="<?php
+    echo $this->baseUrl() . '/skin/image/ZYFuser_comment.png'?>" /><?php
+    echo $value['customer_name']?><span>发表于<?php
+    echo $value['comment_time']?></span></th>
+	</tr>
+	<tr>
+		<td class="td_height"><?php
+    echo $value['comment_content']?></td>
+    
+	</tr>
+
+	<tr>
+		<th width="100%" class="td_bottom"><span><a href="#">回复此评论</a></span></th>
+	</tr>
+
+</table>
+		<?php
 }
 ?>	
-<?php
+		
+		<?php
 echo $this->paginationControl($this->membership, 'Sliding', 
 '/membership/customercommentcontentspaging.phtml');
 ?>

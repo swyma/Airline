@@ -1,0 +1,71 @@
+/* 
+
+	TableCloth	
+	by Alen Grakalic, brought to you by cssglobe.com
+	
+*/
+#container {
+	margin: 0 auto;
+	width: 680px;
+	background: #fff;
+	padding-bottom: 20px;
+}
+
+#content {
+	margin: 0 20px;
+}
+
+table,td {
+	font: 100% Arial, Helvetica, sans-serif;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1em 0;
+}
+
+th,td {
+	text-align: left;
+	padding: .5em;
+	border: 1px solid #fff;
+	
+}
+
+th {
+	background:#66B3FF;
+	/*background: #328aa4 url(../image/ZYFtablecloth_th.png) repeat-x;*/
+	color: #fff;
+	font-size: 12px;
+}
+
+th span {
+	float: right;
+}
+
+th a {
+	color: #fff;
+	text-decoration:none;
+}
+th a:hover{
+	text-decoration:underline
+}
+
+td {
+	float: left;
+}
+
+.td_height {
+	height: auto;
+	font-size: 16px;
+	width:100%;
+}
+
+.td_bottom {
+	background:#66B3FF;
+	/*background: #328aa4 url(../image/ZYFtablecloth_th.png) repeat-x;*/
+}
+
+td.empty,tr.odd td.empty,tr.even td.empty {
+	background: #fff;
+}
