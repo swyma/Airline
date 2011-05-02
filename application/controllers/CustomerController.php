@@ -460,8 +460,8 @@ class CustomerController extends Zend_Controller_Action
                                             if ($reuslt_update_seat) {
                                                 //更新成功完成,所有业务流程已经过了
                                                 //生成机票编号:当前时间+用户id+用户的座号
-                                                $ticket_no = time() .
-                                                 $cus_id . $cus_real_seat;
+                                                
+                                                $ticket_no = time() . substr($cus_id,strlen($cus_id)-3, 3). $cus_real_seat;
                                                 //将信息传递给前台,前台接受并显示相应的信息
                                                 $show_sql = "select com_code,cus_id,boo_everyday,boo_no,boo_baddress,boo_aaddress,SUBSTRING(boo_btime,12,5) as boo_btime,SUBSTRING(boo_atime,12,5) as boo_atime,boo_berth,boo_number,boo_fare,boo_time from bookinformation where com_code='" .
                                                  $com_code . "' and cus_id='" . $cus_id . "' and boo_everyday='" . $fli_everyday . "' and boo_no='" . $fli_no . "' and flag_pass=0";
@@ -594,36 +594,36 @@ class CustomerController extends Zend_Controller_Action
                             echo '<script>alert("会员账号或者密码错误，请重新登录");</script>';
                         }
                     }
+   			}
     }
-   }
 
     public function customerinfomationshowAction()
     {
      // action body
-                $this->_helper->layout->disableLayout();
-                Zend_Session::start();
-                $customerNamespace = new Zend_Session_Namespace('customer');
-                //先把会话$login_or_not设置为false
-                $login_or_not=$customerNamespace->login_or_not;
-                if($login_or_not===TRUE){
-                $cus_account = $customerNamespace->cus_account;
-                $cus_pwd = $customerNamespace->cus_pwd;
-                $db = new Application_Model_DbTable_Customer();
-                //查询所有用户的信息
-                $adapter = Zend_Registry::get('db');
-                $sqlstr1 = "select * from customer where  cus_account='" . $cus_account . "' and
-                            cus_pwd='" . $cus_pwd ."' and flag=1";
-                $customerinfo = $adapter->query($sqlstr1);
-                // echo ($customerinfo);
-                $customerinfor = $customerinfo->fetchAll();
-                $this->view->customers = $customerinfor;
-                } else {       	
-        		//  验证失败，将会话$login_or_not设置为 false    
-        		$customerNamespace->login_or_not=FALSE;   
-        		echo '<script>alert("您还没有登录，只有登录后才能看到会员的个人信息");</script>';
-        		//echo '<a href="http://localhost/Airline/Customer/customerlogin">请点击我现在登录</a>';
-        		//echo $this->_helper->redirector('customerlogin');
-    }
+        $this->_helper->layout->disableLayout();
+        Zend_Session::start();
+        $customerNamespace = new Zend_Session_Namespace('customer');
+        //先把会话$login_or_not设置为false
+        $login_or_not=$customerNamespace->login_or_not;
+        if($login_or_not===TRUE){
+        $cus_account = $customerNamespace->cus_account;
+        $cus_pwd = $customerNamespace->cus_pwd;
+        $db = new Application_Model_DbTable_Customer();
+        //查询所有用户的信息
+        $adapter = Zend_Registry::get('db');
+        $sqlstr1 = "select * from customer where  cus_account='" . $cus_account . "' and
+                    cus_pwd='" . $cus_pwd ."' and flag=1";
+        $customerinfo = $adapter->query($sqlstr1);
+        // echo ($customerinfo);
+        $customerinfor = $customerinfo->fetchAll();
+        $this->view->customers = $customerinfor;
+        } else {       	
+		//  验证失败，将会话$login_or_not设置为 false    
+		$customerNamespace->login_or_not=FALSE;   
+		echo '<script>alert("您还没有登录，只有登录后才能看到会员信息");</script>';
+		echo '<a href="http://localhost/Airline/Customer/customerlogin">请点击我现在登录</a>';
+		//echo $this->_helper->redirector('customerlogin');
+        }
     }
 
 	public function customerlogoutAction()
@@ -636,49 +636,7 @@ class CustomerController extends Zend_Controller_Action
         echo $this->_helper->redirector('customerlogin');
          
     }
-/*    public function customercommentAction()
-    {
-        // action body
-                $this->_helper->layout->disableLayout();
-                Zend_Session::start();
-                $customerNamespace = new Zend_Session_Namespace('customer');
-                $cus_account = $customerNamespace->cus_account;
-                $db = new Application_Model_DbTable_Customer();
-                $allcustomer = "select * from customer where cus_account='$cus_account' and flag='1'";
-                $customerinfo = $db->getCustomerInfo($allcustomer);
-                echo $cus_account;
-                $this->customer = $customerinfo;
-                foreach ($this->customer as $key => $value) {
-                    $customer_id = $value['cus_id'];
-                    $customer_name = $value['cus_account'];
-                }
-                echo $customer_id;
-                echo $customer_name;
-                if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-                    //取得前台得传过来的值
-                    $comment_content = $this->_request->getPost(
-                    'comment_content');
-                    //$user_pwd = $this->_request->getPost('user_pwd');
-                    if ($comment_content != null) {
-                        //实例化
-                        $db = new Application_Model_DbTable_Membership();
-                        $ip = $_SERVER['REMOTE_ADDR']; //获取远端ip
-                        $sqlstr = "insert into membership values(null,'$customer_id','$customer_name',
-                                                '$comment_content',now(),'$ip','1')";
-                        $adapter = Zend_Registry::get('db');
-                        $result = $adapter->query($sqlstr);
-                        //成功后跳转页面
-                        if ($result > 0) {
-                            echo "发表评论成功！";
-                            echo $this->_helper->redirector('customerinformationshow');
-                        }
-                    } else {
-                        //失败后返回
-                        echo $this->_helper->redirector(
-                        'customercomment');
-                    }
-                }
-    }*/
+
 
     public function flightsearchAction()
     {
@@ -777,7 +735,7 @@ class CustomerController extends Zend_Controller_Action
 	                "a.boo_aaddress,substring(a.boo_btime,12,5)as boo_btime,substring(a.boo_atime,12,5) as boo_atime,".
 	                "a.boo_berth,a.boo_number,a.boo_fare,a.boo_time,a.flag_pay,a.flag_pass ".
 	                "from bookinformation a,customer b ".
-	                "where a.cus_id=".$this->_user." and a.cus_id=b.cus_id and flag_type=1 ".
+	                "where b.cus_account='".$this->_user."' and a.cus_id=b.cus_id and flag_type=1 ".
 	                "order by a.boo_time desc";
 	                /* Zend_Paginator分页 */
 	                $numPerPage = $this->_numPerPage;
