@@ -42,6 +42,7 @@
           <actionMethod actionName="customerpwd"/>
           <actionMethod actionName="customerpwd2"/>
           <actionMethod actionName="customerinformationalter"/>
+          <actionMethod actionName="customeralterpwd"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -178,6 +179,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Membership">
             <viewScriptFile forActionName="commentreply"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="customeralterpwd"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

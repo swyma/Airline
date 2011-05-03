@@ -129,35 +129,55 @@
 会员信息修改
 <hr width="100%" size="1">
 <form name="change"  method="post">
-	<table width="90%" height="105" border="0" >
-		<tr>
-			<td height="30">原密码：</td>
-			<td height="30"><input name="pre_pwd" type="password" class="required" id="pre_pwd" maxlength="14"></td>
-		<tr>
-		<tr>
-			<td height="30">新密码：</td>
-			<td height="30"><input name="cus_pwd" type="password" class="required" id="cus_pwd" maxlength="14"></td>
-		</tr>
-		<tr>
-			<td height="30">确定密码：</td>
-			<td height="30"><input name="cus_pwd2" type="password" class="required" id="cus_pwd2" maxlength="14"></td>
-		</tr>
-		<tr>
-			<td height="30">联系电话</td>
-			<td height="30"><input name="cus_telnumber" type="text" class="required" id="cus_telnumber" maxlength="11" /> </td>
-		</tr>
-		<tr>
-			<td height="30">Mail：</td>
-			<td height="30"><input name="cus_email" type="text" class="required" id="cus_email" maxlength="30"></td>
-		</tr>
-		<tr>
+	<table cellspacing="0" cellpadding="0">
+  <?php 
+  		foreach($this-> customers  as $key=>$value){
+  ?>
+			<tr>
+				<th width=50>会员编号：</th>
+				<td width=200><?php echo $value['cus_autoid'] ?></td>
+			</tr>
+			<tr>
+				<th width=50>会员账号：</th>
+				<td width=200><?php echo $value['cus_account'] ?></td>
+			</tr>			
+			<tr>
+				<th width=50>密&nbsp;&nbsp;码：</th>
+				<td width=200><?php echo $value['cus_pwd'] ?></td>
+			</tr>			
+			<tr>
+				<th width=50>身份证号：</th>
+				<td width=200><?php echo $value['cus_id'] ?></td>
+			</tr>	
+			<tr>
+				<th width=50>性&nbsp;&nbsp;别：</th>
+				<td width=200><?php echo $value['cus_sex'] ?></td>
+			</tr>	
+			<tr>
+				<th width=50>电话号码：</th>
+				<td width=200><input name="cus_telnumber" type="text" class="required" id="cus_telnumber" maxlength="11" /> </td>
+			</tr>	
+			<tr>
+				<th width=50>电子邮件：</th>
+				<td width=200><input name="cus_email" type="text" class="required" id="cus_email" maxlength="30"></td>
+			</tr>	
+			<tr>
+				<th width=50>注册时间：</th>
+				<td width=200><?php echo $value['cus_time'] ?></td>
+			</tr>	
+			<tr>
+				<th width='50'>积&nbsp;&nbsp;分：</th>
+				<td width=200><?php echo $value['cus_integral'] ?></td>
+			</tr>		
+				<tr>
 			<td><input type="button" value="　修改　" id="alter" /></td>
 			<td><input type="reset" value="　重置　" id="cz" /></td>
 		</tr>
-	</table>
+		  <?php } ?>																																				
+		</table>
 </form>
 
 <hr width="100%" size="1">
-请记住你修改的密码！
+
 </body>
 </html>
