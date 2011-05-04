@@ -1,163 +1,158 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="skin/css/ZJPcustomerservice.css" rel="stylesheet" type="text/css" />
-<title>客服服务</title>
+<title>customerservice</title>
+<link href="<?php
+echo $this->baseUrl() . '/skin/css/ZJPcustomerservice.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js'?>"></script>
+<script type="text/javascript" 
+	src="<?php	echo $this->baseUrl() . '/skin/js/ZJPcustomerservice1.js'; ?>">
+</script>
+<!-- QQtart -->
+<div id="QQFloat" style="Z-INDEX:20;LEFT:0px;VISIBILITY:visible;WIDTH:66px;POSITION:absolute;TOP:150px;HEIGHT:150px;">
+	<table cellSpacing="0" cellPadding="0" width="65px" border="0" id="qqtab">
+	<tr id="qqstab">
+	<td valign="middle" align="center" height="84px"><table border="0" width="65px" cellSpacing="0" cellPadding="0">
+	<tr>
+	<td width="65px" align="right" valign="middle"><table border="0" cellpadding="0" cellspacing="0" width="65px" style="border:#dee7a8 1px solid">
+	<tr>
+	<td height="27px" bgcolor="#e20002" style="color:#FFFFFF; font-size:12px; font-weight:bold" align="center">QQ服务</td>
+	</tr>
+	<tr>
+	<td bgcolor="#FFFFFF" height="18px" align="center" style="padding-top:10px; padding-bottom:5px">
+	
+	
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1038295900&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1038295900:47" alt="48小时在线咨询" title="48小时在线咨询"></a>
+	</td>
+	</tr>
+	<tr>
+	<td align="center" bgcolor="#FFFFFF" style="padding-bottom:5px">
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=965141813&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:965141813:47" alt="48小时在线咨询" title="48小时在线咨询"></a>
+	</td>
+	</tr>
+	<tr>
+	<td align="center" bgcolor="#FFFFFF" style="padding-bottom:5px">
+	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=839697835
+	&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:839697835
+	:47" alt="48小时在线咨询" title="48小时在线咨询"></a>
+	</td>
+	</tr>
+	</table></td>
+	</tr>
+	</table></td>
+	</tr>
+	</table>
+	</div><script type="text/javascript">
+	//<![CDATA[
+	var tips; var theTop = 90/*这是默认高度,越大越往下*/; var old = theTop;
+	function initFloatTips() {
+	tips = document.getElementById('QQFloat');
+	moveTips();
+	};
+	function moveTips() {
+	var tt=50;
+	if (window.innerHeight) {
+	pos = window.pageYOffset
+	}
+	else if (document.documentElement && document.documentElement.scrollTop) {
+	pos = document.documentElement.scrollTop
+	}
+	else if (document.body) {
+	pos = document.body.scrollTop;
+	}
+	
+	pos=pos-tips.offsetTop+theTop;
+	pos=tips.offsetTop+pos/10;
+	
+	if (pos < theTop) pos = theTop;
+	if (pos != old) {
+	tips.style.top = pos+"px";
+	tt=10;
+	//alert(tips.style.top);
+	}
+	old = pos;
+	setTimeout(moveTips,tt);
+	}
+	function close1() {
+	abc = document.getElementById('QQFloat');
+	abc.style.display='none';
+	};
+	//!]]>
+	initFloatTips();
+	</script>
+	<!-- QQend -->
 </head>
-<div id="menu_panel">
+<body>
 
-<div id="menu_section">
-   <ul class="navi">
-   	 <li><a href="http://t.sina.com.cn/zengsn" class="hover">曾少宁老师</a></li>
-     <li><a href="http://t.sina.com.cn/1775421363">周永丰</a></li>
-      <li><a href="http://t.sina.com.cn/lizhaoyi19890903">李招意</a></li>
-     <li><a href="http://t.sina.com.cn/2013624157">张健平</a></li>
-      <li><a href="">杨海亮</a></li>
-     <li><a href="http://t.sina.com.cn/1728416901">卢伟灵</a></li>
-     <li><a href="http://t.sina.com.cn/summerdir">叶茂安</a></li>
-    <li><a href="http://home.cnblogs.com/u/naijsp/">庄秋乃</a></li>
-    <li><a href="http://t.sina.com.cn/2082938781">叶景</a></li>
+<div class="ee" style="float:left;width:10%;">
+<div id="navigation-block" > 
+  <ul id="sliding-navigation">
+    <li class="sliding-element">
+      <h3>微博客服</h3>
+    </li>
+    <li class="sliding-element"><a href="#" >曾少宁老师</a></li>
+    <li class="sliding-element"><a href="#" >周永丰同学</a></li>
+    <li class="sliding-element"><a href="#" >李招意同学</a></li>
+    <li class="sliding-element"><a href="#" >张健平同学</a></li>
+    <li class="sliding-element"><a href="#" >杨海亮同学</a></li>
+    <li class="sliding-element"><a href="#" >卢伟灵同学</a></li>
+    <li class="sliding-element"><a href="#" >叶茂安同学</a></li>
+    <li class="sliding-element"><a href="#" >庄秋乃同学</a></li>
+    <li class="sliding-element"><a href="#" >叶景同学</a></li>
   </ul>
-  </div>
-  </div>
-  <div id="allen1">
-  <table width="938" height="184">
-    <tr>
-       <td height="106"><a href="http://t.sina.com.cn/zengsn" class="tooltip" title="曾少宁老师"><img src="skin/image/ZJP01.jpg"  width="91" height="91"/></a></td>
-       <td><a href="http://t.sina.com.cn/1775421363" class="tooltip" title="周永丰同学"><img src="skin/image/ZJP02.jpg"  width="91" height="91"/></a></td>
-       <td><a href="http://t.sina.com.cn/lizhaoyi19890903" class="tooltip" title="李招意同学"><img src="skin/image/ZJP03.png"  width="91" height="91"/></a></td>
-       <td><a href="http://t.sina.com.cn/2013624157" class="tooltip" title="张健平同学"><img src="skin/image/ZJP04.jpg"  width="91" height="91"/></a></td>
-       <td><a href="" class="tooltip" title="杨海亮同学"><img src="skin/image/ZJP05.jpg"  width="91" height="91"/></a></td>
-       <td><a href="http://t.sina.com.cn/1728416901" class="tooltip" title="卢伟灵同学"><img src="skin/image/ZJP06.jpg"  width="91" height="91"/></a></td>
-       <td><a href="http://t.sina.com.cn/summerdir" class="tooltip" title="叶茂安同学"><img src="skin/image/ZJP07.png"  width="91" height="91"/></a></td>
-       <td><a href="http://home.cnblogs.com/u/naijsp/" class="tooltip" title="庄秋乃同学"><img src="skin/image/ZJP08.jpg"  width="91" height="91"/></a></td>
-       <td><a href="http://t.sina.com.cn/2082938781" class="tooltip" title="叶景同学"><img src="skin/image/ZJP09.jpg"    width="91" height="91"/></a></td>
-     </tr>
-   </table>
-  </div>
-  <div id="allen2">
- <!-- begin :客户服务 -->
-<DIV id=divStay style="POSITION: center"> 
-<TABLE cellSpacing=0 cellPadding=0  border=0> 
-<TBODY> 
-<TR> 
-<TD vAlign=top width="10%">¡¡</TD></TR></TBODY></TABLE></DIV> 
-<SCRIPT language=javascript> 
-function picsize(obj,MaxWidth){ 
-img=new Image(); 
-img.src=obj.src; 
-if (img.width>MaxWidth) 
-{ 
-return MaxWidth; 
-} 
-else 
-{ 
-return img.width; 
-} 
-} 
-function CloseQQ() 
-{ 
-divStayTopleft.style.display="none"; 
-return true; 
-} 
-var online= new Array(); 
-</SCRIPT> 
-<div id="divStayTopleft" style="POSITION: center"> 
-<table cellspacing="0" cellpadding="0" width="109" border="0"> 
-<tr> 
-<td colspan="3"> 
-<a onClick="CloseQQ()" href="javascript:;" shape="circle" coords="91,16,12"> 
-<img height="34" src="http://js.alixixi.com/texiaotu/qq_top.gif" width="109" usemap="#Map" border="0"></a></td> 
-</tr> 
-<tr> 
-<td width="6"><img height="100" src="http://js.alixixi.com/texiaotu/qq_life.gif" width="6"></td> 
-<td valign="top" width="96" background="sto/qq_bg.gif"> 
-<table cellspacing="0" cellpadding="0" width="90" align="center" border="0"> 
-<tr> 
-<td height="30"> 
-<table cellspacing="0" cellpadding="0" width="90" border="0"> 
-<tr> 
-<td> 
-<img height="13" src="http://js.alixixi.com/texiaotu/qq_ico1.gif" width="16"><span class="font_12"> 
-<span style="font-size: 9pt">航程网</span></span></td> 
-</tr> 
-</table> 
-</td> 
-</tr> 
-<tr> 
-<td> 
-<table border="0" width="100%" cellpadding="2" id="table47"> 
-<tr> 
-<td width="15" valign="top" height="23"> 
-<img border="0" src="http://js.alixixi.com/texiaotu/qq_v01.gif" width="16" height="16"></td> 
-<td valign="bottom"><script>document.write("<a target=blank href=tencent://message/?uin=1038295900&Site=航程网&Menu=yes><img border=0 SRC=http://wpa.qq.com/pa?p=1:1038295900:10 alt=[航程网]></a>");</script></td> 
-</tr> 
-</table> 
-</td> 
-</tr> 
-<tr> 
-<td></td> 
-</tr> 
-<tr> 
-<td> 
-<table border="0" width="100%" cellpadding="2" id="table47"> 
-<tr> 
-<td width="15" valign="top" height="23"> 
-<img border="0" src="http://js.alixixi.com/texiaotu/qq_n01.gif" width="16" height="16"></td> 
-<td valign="bottom"><script>document.write("<a target=blank href=tencent://message/?uin=839697835&Site=航程网&Menu=yes><img border=0 SRC=http://wpa.qq.com/pa?p=1:839697835:10 alt=[航程网]></a>");</script></td> 
-</tr> 
-</table> 
-</td> 
-</tr> 
-<tr> 
-<td></td> 
-</tr> 
-</table> 
-</td> 
-<td width="7"><img height="100" src="http://js.alixixi.com/texiaotu/qq_right.gif" width="7"></td> 
-</tr> 
-<tr> 
-<td colspan="3"> 
-<img height="30" src="http://js.alixixi.com/texiaotu/qq_bottom1.gif" width="109"></td> 
-</tr> 
-<tr> 
-<td colspan="3"> 
-<img height="33" src="http://js.alixixi.com/texiaotu/qq_logo.gif" width="109"></td> 
-</tr> 
-</table> 
-</div> 
-<script type="text/javascript"> 
-function FloatTop() 
-{ 
-var startX1 =document.body.offsetWidth-125 ,startY1 = 5; 
-var startX2 =0,startY2 = 95; 
-var ns = (navigator.appName.indexOf("Netscape") != -1); 
-var d = document; 
-function ml(id,startX,startY) 
-{ 
-var el=d.getElementById?d.getElementById(id):d.all?d.all[id]:d.layers[id]; 
-if(d.layers)el.style=el; 
-el.sP=function(x,y){this.style.left=x;this.style.top=y;}; 
-el.x = startX; 
-el.y = startY; 
-return el; 
-} 
-window.stayTopLeft=function() 
-{ 
-var pY = ns ? pageYOffset : document.body.scrollTop; 
-ftlObj.y += (pY + startY1 - ftlObj.y)/8; 
-ftlObj1.y += (pY + startY2 - ftlObj1.y)/8; 
-ftlObj.sP(document.body.scrollLeft+document.body.offsetWidth-125, ftlObj.y); 
-ftlObj1.sP(ftlObj1.x, ftlObj1.y); 
-setTimeout("stayTopLeft()", 30); 
-} 
-ftlObj = ml("divStay",(document.body.scrollLeft+document.body.offsetWidth)/100,0); 
-ftlObj1 = ml("divStayTopLeft",(document.body.scrollLeft+document.body.offsetWidth)/100,0); 
-stayTopLeft(); 
-} 
-FloatTop(); 
-</script> 
-<!--End:客户服务 --> 
-  </div>
-  </html>
+</div>
+</div>
+<script type="text/javascript">
+$(".ee a").live("click", function(){
+	if($(this).text()=="曾少宁老师")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/zengsn";
+	else if($(this).text()=="周永丰同学")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/1775421363";
+	else if($(this).text()=="李招意同学")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/lizhaoyi19890903";
+	else if($(this).text()=="张健平同学")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/2013624157";
+	else if($(this).text()=="杨海亮同学")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/2013624157";
+	else if($(this).text()=="卢伟灵同学")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/1728416901";
+	else if($(this).text()=="叶茂安同学")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/summerdir";
+	else if($(this).text()=="庄秋乃同学")
+		$("#c-c-iframe").get(0).src="http://home.cnblogs.com/u/naijsp/";
+	else if($(this).text()=="叶景同学")
+		$("#c-c-iframe").get(0).src="http://t.sina.com.cn/2082938781";
+		
+});
+</script>
+<!-- 右面板 start -->
+<div>
+<div class="right">
+<div class="left-top-corner">
+<div class="right-top-corner">
+<div class="border-top"></div>
+</div>
+</div>
+<div class="border-left">
+<div class="border-right">
+<div class="inner"><iframe  src="http://t.sina.com.cn/zengsn"
+	style="width: 100%; height: 435px; border: none;" id="c-c-iframe"> </iframe>
+</div>
+
+</div>
+</div>
+<div class="left-bot-corner">
+<div class="right-bot-corner">
+<div class="border-bot"></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 右面板 end -->
+</body>
+</html>

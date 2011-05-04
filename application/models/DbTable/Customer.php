@@ -17,7 +17,6 @@ class Application_Model_DbTable_Customer extends Zend_Db_Table_Abstract
     //用户的信息增删改
     //这种方法你只要改变$sql就可以
     //其实个人觉得这种方法不安全，因为会涉及数据注入失败情况发生
- 
 
 	function json_decode(){
 		

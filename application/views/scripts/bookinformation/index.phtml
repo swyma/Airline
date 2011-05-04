@@ -37,12 +37,13 @@ echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
 
 <form name="login"
 	action="<?php
-echo $this->url(array('controller' => 'Bookinformation', 'action' => 'index'));
+echo $this->url(array('controller' => 'Customer', 'action' => 'flightsearch'));
 ?>"
-	method="post"><input type="text" name="txt" id="txt" /><input
-	type="submit" value="搜索"> <input type="button" value="刷新"
+	method="post">
+	<input type="text" name="txt" id="txt" />
+	<input type="submit" value="搜索"> <input type="button" value="刷新"
 	onclick="location.href='<?php
-echo $this->baseUrl()?>/Bookinformation/index'">
+echo $this->baseUrl()?>/Customer/flightsearch'">
 </form>
 <table cellspacing="0" cellpadding="0">
 	<tr>
@@ -77,8 +78,20 @@ foreach ($this->flightinformation as $key => $value) {
 			rel="<?php
     echo 'targetBox' . $this->i;
     ?>">详情</a></td>
-		<td><a href="<?php
-echo $this->baseUrl()?>/Customer/bookticket/parm/<?php echo $value['fli_autoid']?>">订票</a></td>
+		<td><?php
+			Zend_Session::start();
+            $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+            $user=$customerNamespace->cus_account;//取你的session
+            
+            if($user==NULL){
+            ?>
+            	订票</td>
+            <?php 
+            	//echo 'alert("尚未登录!")';
+            }else{
+            ?>
+				<a href= "<?php echo $this->baseUrl()?>/Customer/bookticket/parm/<?php echo $value['fli_autoid']?>">订票</a></td>
+			<?php }?>
 	</tr>
 	<div id="<?php
     echo 'targetBox' . $this->i;
