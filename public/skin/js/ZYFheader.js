@@ -3,10 +3,10 @@
  */
 function addHover()
 {
-    var domainUrl = ['Index','Hotelinformation','Flightcompany','Bookinformation','Customer','Customerservice','Sitehelp','Aboutus'];
+    var domainUrl = ['index','hotelinformation','flightcompany','bookinformation','customer','customerservice','sitehelp','aboutus'];
     var url=window.location.href;
     $(".navi li a").each(function (i) {
-        if (url.indexOf(domainUrl[i])>0) {
+        if (url.toLocaleLowerCase().indexOf(domainUrl[i])>0) {
             //onhover是个a被选中的样式，具体你可以自己写
         	$(".navi li a").removeClass("hover");
             $(this).addClass("hover");

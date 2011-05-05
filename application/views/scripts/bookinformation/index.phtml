@@ -37,13 +37,13 @@ echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
 
 <form name="login"
 	action="<?php
-echo $this->url(array('controller' => 'Customer', 'action' => 'flightsearch'));
+echo $this->url(array('controller' => 'Bookinformation', 'action' => 'index'));
 ?>"
 	method="post">
 	<input type="text" name="txt" id="txt" />
 	<input type="submit" value="搜索"> <input type="button" value="刷新"
 	onclick="location.href='<?php
-echo $this->baseUrl()?>/Customer/flightsearch'">
+echo $this->baseUrl()?>/Bookinformation/index'">
 </form>
 <table cellspacing="0" cellpadding="0">
 	<tr>

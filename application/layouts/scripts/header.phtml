@@ -8,14 +8,14 @@
                 Aenean viverra sapien a enim. Pellentesque non justo.            </h1>
 
             <ul class="navi">
-            	<li><a href="<?php echo $this->url(array('controller'=>'index','action'=>'index'));?>" >首页</a></li>
-                <li><a href="<?php echo $this->url(array('controller'=>'Hotelinformation','action'=>'index'));?>">酒店信息</a></li>
-                <li><a href="<?php echo $this->url(array('controller'=>'Flightcompany','action'=>'index'));?>">航空公司信息</a></li>
-                <li><a href="<?php echo $this->url(array('controller'=>'Bookinformation','action'=>'index'));?>">航班预定查询</a></li>
-                <li><a href="<?php echo $this->url(array('controller'=>'Customer','action'=>'index'));?>">航程会员</a></li>
-                <li><a href="<?php echo $this->url(array('controller'=>'Customerservice','action'=>'index'));?>">客户服务</a></li>
-                <li><a href="<?php echo $this->url(array('controller'=>'Sitehelp','action'=>'index'));?>">网站帮助</a></li>
-                <li class="noborder"><a href="<?php echo $this->url(array('controller'=>'Aboutus','action'=>'index'));?>">关于我们</a></li>
+            	<li><a href="<?php echo $this->baseUrl().'/Index';?>" >首页</a></li>
+                <li><a href="<?php echo $this->baseUrl().'/Hotelinformation';?>">酒店信息</a></li>
+                <li><a href="<?php echo $this->baseUrl().'/Flightcompany';?>">航空公司信息</a></li>
+                <li><a href="<?php echo $this->baseUrl().'/Bookinformation';?>">航班预定查询</a></li>
+                <li><a href="<?php echo $this->baseUrl().'/Customer';?>">航程会员</a></li>
+                <li><a href="<?php echo $this->baseUrl().'/Customerservice';?>">客户服务</a></li>
+                <li><a href="<?php echo $this->baseUrl().'/Sitehelp';?>">网站帮助</a></li>
+                <li class="noborder"><a href="<?php echo $this->baseUrl().'/Aboutus';?>">关于我们</a></li>
             </ul>
             
             <form name="serach" method="post" action="#">
@@ -26,6 +26,6 @@
             
             <ul class="login">
             	<li><a href="#" class="sub"></a></li>
-                <li><a href="<?php echo $this->url(array('controller'=>'Customer','action'=>'customerlogin'));?>" class="loginHer"></a></li>
+                <li><a href="<?php echo $this->baseUrl().'/Customer/customerlogin';?>" class="loginHer"></a></li>
             </ul>
         </div>

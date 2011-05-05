@@ -41,22 +41,19 @@ ul#sliding-navigation li.sliding-element a
 
 ul#sliding-navigation li.sliding-element h3
 {
-	color: #990066;
+	color: #005AB5;
 	font-weight: normal;
 }
 
 ul#sliding-navigation li.sliding-element a
 {
-	color:#CC0033;
-	background-color:#6633ff;
-	border: 1px solid #1a1a1a;
+	color:white;
+	background: #328aa4 url(../image/ZJPtr_back1.gif) repeat-x;
 	text-decoration: none;
 }
 
 ul#sliding-navigation li.sliding-element a:hover { 
 color:#0000DD;
-
-
 }
 /* 右面板 */
 .right {
@@ -115,7 +112,7 @@ color:#0000DD;
 .right .inner {
 	padding: 5px 5px 5px 5px;
 	height: auto !important;
-	min-height: 360px;
+	min-height: 800px;
 	background: url(../image/ZYFbox-bg.png) left top;
 }
 
