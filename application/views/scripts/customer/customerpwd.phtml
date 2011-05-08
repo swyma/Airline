@@ -12,57 +12,100 @@ echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
 ?>"></script>
 
 <script type="text/javascript">
+
 $(document).ready(function(){
+
+	
+	$("form :input.required").each(function(){
+		var $required = $("<strong class='high'> *</strong>"); 
+		$(this).parent().append($required);
+	});
 	
 	
+
 	
 	$('form :input').blur(function(){
 		var $parent = $(this).parent();
+	
 		$parent.find(".formtips").remove();
 		//验证账户
-		if($(this).is('#identifier')){
-			if(this.value == "" || this.value.length< 18){
-				var errorMsg ="<font color=red>请填写正确的识别码<font>";
-				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');}
-			else { var okMsg = "<font color=green>输入正确<font>";
-			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
-			
+		if($(this).is('#cus_account')){
+		
+			if(this.value == "" || this.value.length <3){
+				var Msg ="<font color=red>账户名最短不能小于三位<font>";
+				$parent.append('<span class = "formtips onError">' + Msg+ '</span>');
+			}else{
+				var account=$("#cus_account").val();
+				$.ajax({
+					type:"post",
+					url:"/Airline/Customer/checkaccount",
+					contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					cache: true,
+					data:{account:account},
+					success:function(data,textStatus){
+						if(data[0].success=="success"){
+							var Msg = "<font color=red>该账户名不存在!</font>";
+							$parent.append('<span class="formtips onSuccess">' +Msg +'</span>');
+							
+						}else{
+							var Msg="<font color=green>下一步</font>";
+							$parent.append('<span class="formtips onError">' +Msg +'</span>');
+						}
+						
+					},
+					error: function(data, textStatus) {
+					}
+				});
+			}
+		
+		
 		}
 		
-}  ) ;
+		
+		
+		
+		});
 
-		}) ;
+		
+	} ) ;
+	
 
 </script>
 </head>
 
 
 <body>
-<center>认真填写以下信息，以便找回用户名/密码
-<hr width="60%" size="1">
+认真填写以下信息，以便找回密码
+<hr width="100%" size="1">
 
 <form name="login"
 	action="<?php
 echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd'));
 ?>"
 	method="post">
-<div>
+<table width="90%" height="105" border="0" align="center">
+	<tr>
+	<td width="10%" height="30">账户名：</td>
+	<td width="100%" height="30"> <input name="cus_account" type="text"
+	id="cus_account" maxlength="12"></td>
+	</tr>
 
-<div>
-
-<p style="width: 500px;">身份证:<input name="cus_id" type="text"
-	id="cus_id" maxlength="18"></p>
-<p style="width: 500px;">原密码:<input name="cus_pwd" type="password"
-	id=" cus_pwd" maxlength="14"></p>
-<p><input type="submit" value="　下一步　" id="next" /></p>
-
-</div>
-</div>
+<tr>
+	<td height="30">身份证：</td>
+	<td width="100%" height="30"> <input name="cus_id" type="text"
+	id=" cus_id" maxlength="14"></td>
+	</tr>
+<tr>
+<td>
+<input type="submit" value="　下一步　" id="next" />
+</td>
+</tr>
+</table>
 
 </form>
 
-<hr width="60%" size="1">
-</center>
+<hr width="100%" size="1">
+
 
 </body>
 </html>

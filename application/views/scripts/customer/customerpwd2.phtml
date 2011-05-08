@@ -10,35 +10,88 @@
 	src="<?php
 echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
 ?>"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("form :input.required").each(function(){
+			var $required = $("<strong class='high'> *</strong>"); 
+			$(this).parent().append($required);
+		});
+		
+		//重置操作
+		$("#submit").click(function(){
+				$(".formtips").remove(); 
+		});
+	
+		//2011/04/30 叶茂安修改
+		$('form :input').blur(function(){
+			var $parent = $(this).parent();
+		
+			$parent.find(".formtips").remove();
+			
+			
+			//验证密码
+			if($(this).is('#newpwd')){
+				if(this.value == "" || this.value.length< 6){
+					var errorMsg ="<font color=red>密码最短不能小于6位<font>";
+					$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');
+				}else { 
+					var okMsg = "<font color=green>输入符合格式<font>";
+				$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
+			}
+			//验证确认密码
+			
+			if($(this).is('#newpwd2')){
+				if($(this).val()  == $("#newpwd").val() &&  this.value !=  "" ){
+					var Msg ="<font color=green>密码输入正确</font>";
+					$parent.append('<span class = "formtips onSuccess">' + Msg+ '</span>');
+				}
+				else { 
+					var Msg = "<font color=red>请确认两次输入一致且不为空</font>";
+					$parent.append('<span class="formtips onError">' +Msg +'</span>');
+				}
+			
+			}
+			
 
+	
+			});
+		}) ;
+
+</script>
 
 </head>
 
 
 <body>
-<center>认真填写以下信息，以便找回用户名/密码
-<hr width="60%" size="1">
+请重新设置你的新密码
+<hr width="100%" size="1">
 
 <form name="login"
 	action="<?php
 echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd2'));
 ?>"
 	method="post">
-<div>
-<div>
-<p>账户名 <input type="text"  id="cus_newaccount "  maxlength="12"/></p>
-<p>请重新设置你的新密码</p>
-<p style="width: 500px;">新密码:<input  type="password"
-	maxlength="14" id="newpwd"></p>
-<p style="width: 500px;">请确认:<input  type="password"
-	maxlength="14" id="newpwd2"></p>
-<p><input type="submit" value="　完成　" id="finish" />
+<table width="90%" height="105" border="0" align="center">
+<tr>
+<td  >新密码：</td>
+<td width="100%" height="30"><input  type="password" name="newpwd"
+	maxlength="14" id="newpwd" ></td>
+</tr>
+
+<tr>
+<td >确认密码：</td>
+<td width="100%" height="30"><input  type="password" name = "newpwd2"
+	maxlength="14" id="newpwd2"></td>
+</tr>
+<tr>
+<td>
+<input type="submit" value="　完成　" id="finish" />
+</td>
+</tr>
 
 
-<p>
-
-</div>
-</div>
+</table>
 
 
 
@@ -47,8 +100,8 @@ echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd2'));
 
 </form>
 
-<hr width="60%" size="1">
-</center>
+<hr width="100%" size="1">
+
 
 </body>
 </html>
