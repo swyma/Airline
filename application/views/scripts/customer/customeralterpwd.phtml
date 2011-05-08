@@ -23,6 +23,34 @@ $(document).ready(function(){
 		var $parent = $(this).parent();
 	
 		$parent.find(".formtips").remove();
+
+		if($(this).is('#oldpwd')){
+			if(this.value == "" || this.value.length< 6){
+				var errorMsg ="<font color=red>密码最短不能小于6位<font>";
+				$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');
+			}else { 
+				var pre_pwd=$("#oldpwd").val();
+				$.ajax({
+					type:"post",
+					url:"/Airline/Customer/checkpwd",
+					contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					cache: true,
+					data:{pre_pwd:pre_pwd},
+					success:function(data,textStatus){
+						if(data[0].success=="success"){
+							var okMsg = "<font color=green>原密码输入正确！</font>";
+							$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');
+						}else{
+							var errorMsg ="<font color=red>原密码错误，请重新输入！</font>";
+							$parent.append('<span class = "formtips onError">' + errorMsg+ '</span>');
+							 
+						}
+					},
+					error: function(data, textStatus) {
+					}
+				});
+			}
+		}
 		
 		
 		//验证新密码
@@ -34,6 +62,10 @@ $(document).ready(function(){
 				var okMsg = "<font color=green>输入符合格式<font>";
 			$parent.append('<span class="formtips onSuccess">' +okMsg +'</span>');}
 		}
+
+		
+		
+		
 		//验证确认密码
 		
 		if($(this).is('#newpwd2')){
@@ -47,9 +79,33 @@ $(document).ready(function(){
 			}
 		
 		}
+
 		
 
 
+		});
+
+		$("#alter").click(function(){
+			var newpwd=$("#newpwd").val();
+			var newpwd2=$("#newpwd2").val();
+			$.ajax({
+				type:"post",
+				url:"/Airline/Customer/customeralterpwdhandler",
+				contentType: "application/x-www-form-urlencoded; charset=utf-8",
+				cache: true,
+				data:{newpwd:newpwd,newpwd2:newpwd2},
+				success:function(data,textStatus){
+					if(data[0].success=="success"){
+						var Msg="密码修改成功！";
+						setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/customerinfomationshow'",1000);
+					}else{
+						var Msg="密码修改失败！";
+					}
+					alert(Msg);
+				},
+				error: function(data, textStatus) {
+				}
+			});
 		});
 	}) ;
 
@@ -61,10 +117,14 @@ $(document).ready(function(){
 修改密码
 <hr width="100%" size="1">
 
-<form name="login"  action="<?php echo $this->url(array('controller'=>'customer','action'=>'customeralterpwd'));?>"  method="post" >
+<form name="login"   method="post" >
 
 <table width="90%" height="105" border="0" align="center">
-	
+	<tr>
+		<td height="30">原密码：</td>
+		<td height="30" width="100%">
+		<input name="oldpwd" type="password" id="oldpwd" class="required" maxlength="14"></td>
+	</tr>
 	<tr>
 		<td height="30">新密码：</td>
 
@@ -84,7 +144,7 @@ $(document).ready(function(){
 	
 
 	<tr>
-		<td><input type="submit" value="　修改　" id="alter" /></td>
+		<td><input type="button" value="　修改　" id="alter" /></td>
 		<td><input type="reset" value="　重置　" id="cz" /></td>
 	</tr>
 </table>

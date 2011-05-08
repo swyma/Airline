@@ -60,6 +60,34 @@ $(document).ready(function(){
 		
 		
 		}
+
+		if($(this).is('#cus_id')){
+			if(this.value == "" || this.value.length<18){
+				var Msg ="<font color=red>请输入正确的18位身份证号码</font>";
+				$parent.append('<span class = "formtips onError">' + Msg+ '</span>');
+			}else{
+				var cus_id=$("#cus_id").val();
+				$.ajax({
+					type:"post",
+					url:"/Airline/Customer/checkcusid",
+					contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					cache: true,
+					data:{cus_id:cus_id},
+					success:function(data,textStatus){
+						if(data[0].success=="failure"){
+							var Msg = "<font color=green>身份证数据输入正确</font>";
+							$parent.append('<span class="formtips onSuccess">' +Msg +'</span>');
+						}else{
+							var Msg="<font color=red>身份证信息错误,请重新输入!</font>";
+							$parent.append('<span class="formtips onError">' +Msg +'</span>');
+						}
+						
+					},
+					error: function(data, textStatus) {
+					}
+				});
+			}
+		}
 		
 		
 		
@@ -93,7 +121,7 @@ echo $this->url(array('controller' => 'customer', 'action' => 'customerpwd'));
 <tr>
 	<td height="30">身份证：</td>
 	<td width="100%" height="30"> <input name="cus_id" type="text"
-	id=" cus_id" maxlength="14"></td>
+	id="cus_id" maxlength="18"></td>
 	</tr>
 <tr>
 <td>

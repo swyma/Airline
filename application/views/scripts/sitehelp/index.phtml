@@ -10,13 +10,13 @@
 <p class="top">&nbsp;</p>
 <h3>网站帮助</h3>
 <div class="reme"><br>
-<img src="<?php echo $this->baseUrl() . '/skin/image/register-customer.png'?>" /> <a href="#">会员注册流程</a><br>
+<img src="<?php echo $this->baseUrl() . '/skin/image/register-customer.png'?>" /> <a href="#register">会员如何注册</a><br>
 <br>
-<img src="<?php echo $this->baseUrl() . '/skin/image/customer-login.png'?>" /> <a href="#">会员积分规则</a><br>
+<img src="<?php echo $this->baseUrl() . '/skin/image/customer-login.png'?>" /> <a href="#integral">会员积分规则</a><br>
 <br>
-<img src="<?php echo $this->baseUrl() . '/skin/image/ZYFcomments.png'?>" /> <a href="#">会员订票流程</a><br>
+<img src="<?php echo $this->baseUrl() . '/skin/image/ZYFcomments.png'?>" /> <a href="#bookticket">会员如何订票</a><br>
 <br>
-<img src="<?php echo $this->baseUrl() . '/skin/image/ZYFuser_comment.png'?>" /> <a href="#">会员退票流程</a></div>
+<img src="<?php echo $this->baseUrl() . '/skin/image/ZYFuser_comment.png'?>" /> <a href="#refundticket">会员如何退票</a></div>
 <br>
 <br>
 <br>
@@ -26,20 +26,7 @@
 <p class="bot"></p>
 </div>
 </div>
-<script type="text/javascript">
-$(".reme a").live("click", function(){
-	if($(this).text()=="会员注册流程")
-		$("#sitehelp").html("<h2>会员注册流程</h2><p>1.用户点击导航条的<font color=\"red\">航程会员</font>，进入会员页面。</p><P>2.用户点击侧边栏的<font color=\"red\">会员注册</font>，进入注册页面。</p>"+
-				"<p>3.用户输入用户基本信息，验证无误后，点击<font color=\"red\">注册</font>。</p><p>4.注册成功，页面跳转到登录界面。</p>"+
-				"<h2>用户注册流程图</h2><div style=\"height:240px;width:100%;\"></div>");
-	else if($(this).text()=="会员积分规则")
-		$("#sitehelp").html("<h2>会员积分规则</h2>");
-	else if($(this).text()=="会员订票流程")
-		$("#sitehelp").html("<h2>会员订票流程</h2>");
-	else if($(this).text()=="会员退票流程")
-		$("#sitehelp").html("<h2>会员退票流程</h2>");
-});
-</script>
+
 <!-- 左面板 end -->
 
 <!-- 右面板 start -->
@@ -52,9 +39,34 @@ $(".reme a").live("click", function(){
 </div>
 <div class="border-left">
 <div class="border-right">
-<div class="inner" id="sitehelp">
-	
+<div class="inner">
+	<div id="register">
+		<h2>会员注册流程</h2>
+		<p>1.用户点击导航条的<font color=red>航程会员</font>，进入会员页面。</p>
+		<P>2.用户点击侧边栏的<font color=red>会员注册</font>，进入注册页面。</p>
+		<p>3.用户输入用户基本信息，验证无误后，点击<font color=red>注册</font>。</p>
+		<p>4.注册成功，页面跳转到登录界面。</p>
+	</div>
+	<div id="integral">
+		<h2>会员积分规则</h2>
+		<p>1.用户网上<font color=red>确认订票</font>时，系统会根据各航空公司的积分及时增加用户的积分。</p>
+		<p>2.用户网上<font color=red>确认退票</font>时，系统会根据各航空公司的积分及时减掉用户的积分。</p>
+	</div>
+	<div id="bookticket">
+		<h2>会员订票流程</h2>
+		<p>1.会员订票前须先<font color=red>会员登录</font>，方可订票。</p>
+		<p>2.会员登录后，点击左侧边栏<font color=red>查询预定</font>，右侧边栏显示所有航班信息。</p>
+		<p>3.会员选择相应航班<font color=red>订票</font>后，进入订票确认界面。</p>
+		<p>4.会员核对航班信息后，点击<font color=red>确认订票</font>后，显示本次预定的机票信息。</p>
+	</div>
+	<div id="refundticket">
+		<h2>会员退票流程</h2>
+		<p>1.会员<font color=red>会员登录</font>，点击侧边栏的<font color=red>会员订单</font>，右侧边栏显示用户订票历史记录。</p>
+		<p>2.会员根据相应的退票信息，点击<font color=red>退票</font>，进入确认退票页面。</p>
+		<p>3.会员核对相应航班信息后，点击<font color=red>确认退票</font>后，用户即可成功退票。</p>
+	</div>
 </div>
+
 </div>
 </div>
 <div class="left-bot-corner">

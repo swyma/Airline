@@ -1,0 +1,77 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>登录界面</title>
+<script type="text/javascript" src="<?php echo $this->baseUrl().'/skin/source/jquery/jquery.js' ;?>"></script>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//跳转航程会员（叶茂安）
+		
+		$("#login").click(function(){
+			var cus_account=$("#cus_account").val();
+			var cus_pwd=$("#cus_pwd").val();
+			if(cus_account==""  || cus_pwd==""){
+				alert("信息有误请重新输入！");
+			}else{
+				$.ajax({
+					type:"post",
+					url:"/Airline/Customer/loginhandler",
+					contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					cache: true,
+					data:{cus_account:cus_account,cus_pwd:cus_pwd},
+					success:function(data,textStatus){
+						if(data[0].success=="success"){
+							//成功后返回
+							$.ajax({
+								type:"post",
+								url:"/Airline/Customer/customerinformationhandler",
+								contentType: "application/x-www-form-urlencoded; charset=utf-8",
+								cache: true,
+								data:{cus_account:cus_account},
+								success:function(data,textStatus){
+									if(data[0].success=="success"){
+										$("#indexlogin").html("<div align=\"left\"><p><font color=blue>"+data[0].cus_account+"</font>,欢迎登录航程网！</p> <p>当前积分：<font color=red>"+data[0].cus_integral+"</font> 分</p> <p>注册时间："+data[0].cus_time+" </p></div>");
+									}else{
+										$("#indexlogin").html("<P>输入有错误，请重新输入！</p>");
+									}
+								},
+								error: function(data, textStatus) {
+								}
+							});
+							
+						}else{
+							alert("输入数据错误，请重新输入！");
+						}
+					}
+				});
+			}
+		});
+		
+	});	
+</script>
+
+<form method="post">
+<center>
+	<div id="indexlogin" style="height:170px;width:100%;">
+	<table>
+		<tr>
+			<td style="float:left">账号:
+			<input type="text" name="cus_account" id="cus_account" /></td>
+		</tr>
+		<tr>
+			<td style="float:left">密码：<input type="password" name="cus_pwd" id="cus_pwd" /></td>
+		</tr>
+		<tr>
+			<td>
+				<input type="button" value="登	录" id="login" name="login" />
+				<input type="button" value="取	消" id="fm" name="fm" />
+			</td>
+		</tr>
+		</table>
+	</div>
+</center>	
+</form>
+
+</body>
+</html>

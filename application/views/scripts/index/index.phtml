@@ -15,44 +15,32 @@ echo $this->baseUrl() . '/Index/dirgramshow'?>";
 </script>
 <div id="main">
 <div class="main_left">
-<div class="main_top">
+<div class="main_top" style="width:40%;">
 <table cellspacing="0" cellpadding="0">
 	<tr>
-		<th>通告</th>
+		<th>用户登录</th>
+	</tr>
+	<tr>
+		<td><iframe frameborder="0"
+			src="<?php echo $this->baseUrl() . '/Customer/login'?>" scrolling="no" width=100% height=170px></iframe></td>
+
+	</tr>
+</table>
+</div>
+<div class="main_top" style="width:59%;">
+<table cellspacing="0" cellpadding="0">
+	<tr>
+		<th>评论</th>
 	</tr>
 	<tr>
 		<td><iframe frameborder="0"
 			src="<?php
 echo $this->baseUrl() . '/Index/announce-show'?>"
 			scrolling="no" width=100% height=170px></iframe></td>
-
 	</tr>
 </table>
 </div>
-<div class="main_top">
-<table cellspacing="0" cellpadding="0">
-	<tr>
-		<th>评论</th>
-	</tr>
-	<tr>
-		<td><iframe frameborder="0" src="#" scrolling="no" width=100%
-			height=170px></iframe></td>
 
-	</tr>
-</table>
-</div>
-<div class="main_top">
-<table cellspacing="0" cellpadding="0">
-	<tr>
-		<th>动态留言</th>
-	</tr>
-	<tr>
-		<td><iframe frameborder="0" src="#" scrolling="no" width=100%
-			height=170px></iframe></td>
-
-	</tr>
-</table>
-</div>
 <div class="main_bottom">
 <table cellspacing="0" cellpadding="0">
 	<tr>

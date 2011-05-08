@@ -146,12 +146,11 @@
 					data:{ cus_id:cus_id,cus_account:cus_account,cus_pwd:cus_pwd,cus_pwd2:cus_pwd2,cus_telnumber:cus_telnumber,cus_email:cus_email,cus_sex:cus_sex },
 					success:function(data,textStatus){
 						if(data[0].success=="success"){
-							var Msg = "用户注册成功!5秒后跳转到登录界面";
-							setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/customerlogin'",5000);
+							var Msg = "用户注册成功!1秒后跳转到登录界面";
+							setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/customerlogin'",1000);
 						}else{
 							//$(".formtips").remove();
 							var Msg="注册信息失败,请核对数据重新注册!";
-							 
 						}
 						alert(Msg);
 					},

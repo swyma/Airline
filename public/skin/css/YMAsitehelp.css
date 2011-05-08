@@ -2,7 +2,7 @@
 
 /* 主面板高度 */
 #content {
-	height: 500px;
+	height: 800px;
 }
 
 /* 左面板 */
@@ -78,9 +78,9 @@
 }
 
 .right .inner {
+	overflow-y:auto;
 	padding: 5px 5px 15px 5px;
-	height: auto !important;
-	min-height: 440px;
+	height:740px;
 	background: url(../image/ZYFbox-bg.png) left top white;
 }
 

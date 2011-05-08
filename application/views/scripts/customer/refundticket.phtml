@@ -18,7 +18,7 @@ $(document).ready(function(){
 			data:{boo_autoid:boo_autoid},
 			success:function(data,textStatus){
 				alert(data[0].success);
-				setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/bookhistory'",5000);
+				setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/bookhistory'",3000);
 				//window.location.href="/Airline/Customer/bookhistory";
 			},
 			error: function(data, textStatus) { }

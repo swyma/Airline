@@ -42,6 +42,7 @@
           <actionMethod actionName="customerpwd"/>
           <actionMethod actionName="customerpwd2"/>
           <actionMethod actionName="customerinformationalter"/>
+          <actionMethod actionName="login"/>
         </controllerFile>
         <controllerFile controllerName="Customerservice">
           <actionMethod actionName="index"/>
@@ -179,6 +180,9 @@
           <viewControllerScriptsDirectory forControllerName="Membership">
             <viewScriptFile forActionName="commentreply"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Customer">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -213,14 +217,14 @@
       <testApplicationDirectory>
         <testApplicationBootstrapFile filesystemName="bootstrap.php"/>
         <testApplicationControllerDirectory>
-          <testApplicationControllerFile filesystemName="HotelinformationControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="FlightcompanyControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="BookinformationControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="CustomerControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="CustomerserviceControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="SitehelpControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="AboutusControllerTest.php"/>
-          <testApplicationControllerFile filesystemName="MembershipControllerTest.php"/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
+          <testApplicationControllerFile/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

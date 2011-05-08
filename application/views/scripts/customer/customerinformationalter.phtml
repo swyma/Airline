@@ -3,6 +3,79 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head>
 <title>commerinformationalter</title>
+<style>
+
+body{
+	margin:0;
+	padding:0;
+	background:#f1f1f1;
+	font:70% Arial, Helvetica, sans-serif; 
+	color:#555;
+	line-height:150%;
+	text-align:left;
+}
+a{
+	text-decoration:none;
+	color:#057fac;
+}
+a:hover{
+	text-decoration:none;
+	color:#999;
+}
+h1{
+	font-size:140%;
+	margin:0 20px;
+	line-height:80px;	
+}
+h2{
+	font-size:120%;
+}
+#container{
+	margin:0 auto;
+	width:680px;
+	background:#fff;
+	padding-bottom:20px;
+}
+#content{margin:0 20px;}
+p.sig{	
+	margin:0 auto;
+	width:680px;
+	padding:1em 0;
+}
+form{
+	margin:1em 0;
+	padding:.2em 20px;
+	background:#eee;
+}
+</style>
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFtablecloth.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+
+<!-- 链接页面js -->
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/js/ZYFtablecloth.js'?>"></script>
+
+<!-- 加载jquery -->
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
+?>"></script>
+
+<!-- 页面浮动层 -->
+<link href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFcommon.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+
+<link
+	href="<?php
+echo $this->baseUrl() . '/skin/css/ZYFpowerFloat.css'?>"
+	media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="<?php
+echo $this->baseUrl() . '/skin/js/ZYFjquery-powerFloat-min.js'?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js'; ?>"></script>
 <link href="<?php echo $this->baseUrl() . '/skin/css/YMAregister.css'?>" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
@@ -108,6 +181,7 @@
 					success:function(data,textStatus){
 						if(data[0].success=="success"){
 							var Msg = "用户信息修改成功!";
+							setTimeout("window.opener=null;window.location.href='<?php echo $this->baseUrl()?>/Customer/customerinfomationshow'",1000);
 						}else{
 							//$(".formtips").remove();
 							var Msg="修改信息失败,请核对数据!";
@@ -141,10 +215,7 @@
 				<th width=50>会员账号：</th>
 				<td width=200><?php echo $value['cus_account'] ?></td>
 			</tr>			
-			<tr>
-				<th width=50>密&nbsp;&nbsp;码：</th>
-				<td width=200><?php echo $value['cus_pwd'] ?></td>
-			</tr>			
+		
 			<tr>
 				<th width=50>身份证号：</th>
 				<td width=200><?php echo $value['cus_id'] ?></td>
@@ -169,10 +240,10 @@
 				<th width='50'>积&nbsp;&nbsp;分：</th>
 				<td width=200><?php echo $value['cus_integral'] ?></td>
 			</tr>		
-				<tr>
-			<td><input type="button" value="　修改　" id="alter" /></td>
-			<td><input type="reset" value="　重置　" id="cz" /></td>
-		</tr>
+			<tr>
+					<td align="center"><input type="button" value="　修改　" id="alter" /></td>
+					<td><input type="reset" value="　重置　" id="cz" /></td>
+			</tr>
 		  <?php } ?>																																				
 		</table>
 </form>
