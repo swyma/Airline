@@ -10,7 +10,10 @@
 				margin:1px 1px 1px 1px;
 				<!--background:blue;-->
 			}
+			
+			
 </style>
+<link href="<?php echo $this->baseUrl() . '/skin/css/YMAbookticket.css'?>" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js'; ?>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -30,7 +33,7 @@
 					//alert(data[0].success);
 					if(data[0].success=="success"){
 						alert("订票成功!");
-						$("#show").html("<fieldset style=\"width:96.6%;\"><legend>机票信息</legend><table width=\"564\" height=\"147\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">"+
+						$("#show").html("<div class=\"sub\"><h2>机票信息</h2></div>"+"<fieldset style=\"width:96.6%;\"><legend>机票信息</legend><table width=\"564\" height=\"147\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">"+
 						     	"<tr> <td>机票编号:</td> <td>"+data[0].ticket_no+"</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>座&nbsp;位&nbsp;号:</td> <td>"+data[0].boo_number+"</td> </tr>"+
 						     	" <tr> <td colspan=\"1\"></td> <td>"+data[0].boo_baddress+"</td> <td colspan=\"2\">-----------</td><td>"+data[0].boo_aaddress+"</td> </tr>"+
 						     	"<tr> <td colspan=\"1\"></td> <td>"+data[0].boo_btime+"</td><td colspan=\"2\"></td> <td>"+data[0].boo_atime+"</td></tr>"+
@@ -51,8 +54,11 @@
 <?php
 		foreach ($this->book_flightinfo as $key => $value) {
     ?>
+    		<div class="sub">
+    			<h2>航班信息</h2>
+    		</div>
 			<!--  <div style="height:30%; ">头部</div>-->
-			<div style="float:left;width:99.5%;height:40%;">
+			<div style="float:left;width:99.5%;height:33%;">
 				<!--<div style="float:left;width:96%; height:99%;margin:0px auto; text-align:center;"">-->
 					<fieldset style="width:96%;height:80%;"><legend>订票信息</legend>
 					<table style="margin:0 auto;width:650px;" width="100%" height="50%" border="0" align="center" cellpadding="0" cellspacing="0">

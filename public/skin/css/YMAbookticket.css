@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.sub{
+	width:100%; 
+	margin:0 15px 0 0; 
+	background:url(../image/sub_div_bg.gif) repeat-y 0 0 #D6D7A0; 
+	padding:0;
+}
+.sub h2{
+	background:url(../image/ZYFtablecloth_th.png) repeat-x; 
+	margin:0 5px 0 5px; 
+	display:block;
+	align:left;
+	height:38px; 
+	padding:0 0 0 44px; 
+	color:#FFFFFF;
+	margin-top:10px;
+	font:bold 16px/41px Arial, Helvetica, sans-serif;
+}
+.sub p{
+	padding:0 0 0 44px;
+	margin:0 5px 0 5px;
+	margin-left:10px;
+	color:red;
+}
+

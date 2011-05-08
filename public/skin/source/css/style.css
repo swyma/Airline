@@ -135,6 +135,10 @@ ul{
 	background:url(../image/member_h2.gif) no-repeat 0 0 #fffffe; margin:0 5px 0 5px; display:block; padding:0 0 0 44px; 
 	height:41px; color:#FFFFFF; font:bold 16px/41px Arial, Helvetica, sans-serif; width:171px;
 	}
+.subdiv h3{
+	background:blue; align:center;margin:0 5px 0 5px; display:block; padding:0 0 0 44px; 
+	height:41px; color:#FFFFFF; font:bold 16px/41px Arial, Helvetica, sans-serif; width:171px;
+	}
 .subdiv h2.event{
 	background:url(../image/latest_h2_bg.gif) no-repeat 0 0; padding:0 0 0 58px; width:157px;
 	}

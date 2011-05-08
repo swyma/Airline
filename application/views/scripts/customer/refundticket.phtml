@@ -3,10 +3,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <head>
 <title>退票信息</title>
-<script type="text/javascript"
-	src="<?php
-echo $this->baseUrl() . '/skin/source/jquery/jquery.js';
-?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl() . '/skin/source/jquery/jquery.js'; ?>"></script>
+<link href="<?php echo $this->baseUrl() . '/skin/css/YMAbookticket.css'?>" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#s").click(function(){
@@ -33,6 +31,9 @@ $(document).ready(function(){
 </head>
 <body>
 <div>
+<div class="sub">
+	<h2>机票详细信息</h2>
+</div>
 <fieldset style="width:96%;">
 	<legend>机票信息</legend>
     <table width="564" height="147" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -96,6 +97,18 @@ $(document).ready(function(){
     </div>
     <?php }}?>
 </fieldset>
+</div>
+	
+<div class="sub">
+	<h2>退票须知</h2>
+</div>
+<div class="sub">
+	<p>1.用户订票退票后会扣除相应的积分</p>
+	<br />
+	<p>2.用户退票后仍可以预定该航班机票</p>
+	<br />
+	<p>3.如果您还还有疑问，请联系我们</p>
+	<br />
 </div>
 </body>
 </html>

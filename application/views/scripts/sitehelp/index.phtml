@@ -1,4 +1,67 @@
-<br />
-<br />
-<center>View script for controller <b>Sitehelp</b> and script/action
-name <b>index</b></center>
+<!-- customer页面css -->
+<link href="<?php echo $this->baseUrl() . '/skin/css/YMAsitehelp.css'?>" media="screen" rel="stylesheet" type="text/css" />
+
+<!-- 链接jquery -->
+<script type="text/javascript">
+</script>
+<!-- 左面板 start -->
+<div class="left">
+<div class="subdiv">
+<p class="top">&nbsp;</p>
+<h3>网站帮助</h3>
+<div class="reme"><br>
+<img src="<?php echo $this->baseUrl() . '/skin/image/register-customer.png'?>" /> <a href="#">会员注册流程</a><br>
+<br>
+<img src="<?php echo $this->baseUrl() . '/skin/image/customer-login.png'?>" /> <a href="#">会员积分规则</a><br>
+<br>
+<img src="<?php echo $this->baseUrl() . '/skin/image/ZYFcomments.png'?>" /> <a href="#">会员订票流程</a><br>
+<br>
+<img src="<?php echo $this->baseUrl() . '/skin/image/ZYFuser_comment.png'?>" /> <a href="#">会员退票流程</a></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p class="bot"></p>
+</div>
+</div>
+<script type="text/javascript">
+$(".reme a").live("click", function(){
+	if($(this).text()=="会员注册流程")
+		$("#sitehelp").html("<h2>会员注册流程</h2><p>1.用户点击导航条的<font color=\"red\">航程会员</font>，进入会员页面。</p><P>2.用户点击侧边栏的<font color=\"red\">会员注册</font>，进入注册页面。</p>"+
+				"<p>3.用户输入用户基本信息，验证无误后，点击<font color=\"red\">注册</font>。</p><p>4.注册成功，页面跳转到登录界面。</p>"+
+				"<h2>用户注册流程图</h2><div style=\"height:240px;width:100%;\"></div>");
+	else if($(this).text()=="会员积分规则")
+		$("#sitehelp").html("<h2>会员积分规则</h2>");
+	else if($(this).text()=="会员订票流程")
+		$("#sitehelp").html("<h2>会员订票流程</h2>");
+	else if($(this).text()=="会员退票流程")
+		$("#sitehelp").html("<h2>会员退票流程</h2>");
+});
+</script>
+<!-- 左面板 end -->
+
+<!-- 右面板 start -->
+<div class="right">
+<div class="left-top-corner">
+
+<div class="right-top-corner">
+<div class="border-top"></div>
+</div>
+</div>
+<div class="border-left">
+<div class="border-right">
+<div class="inner" id="sitehelp">
+	
+</div>
+</div>
+</div>
+<div class="left-bot-corner">
+<div class="right-bot-corner">
+<div class="border-bot"></div>
+</div>
+</div>
+</div>
+
+<!-- 右面板 end -->
