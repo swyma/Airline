@@ -82,7 +82,20 @@ $(".reme a").live("click", function(){
 </div>
 <div class="border-left">
 <div class="border-right">
-<div class="inner"><iframe
+<div class="inner"><iframe 
+	<?php 
+		Zend_Session::start();
+	    $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+	    $user=$customerNamespace->cus_account;//取你的session
+	    if($user!=NULL){
+	    ?>
+		src="<?php echo $this->baseUrl() . '/Customer/customerinfomationshow'?>"
+	<?php 
+		}else{
+
+	?>
+		src="<?php echo $this->baseUrl() . '/Customer/customerlogin'?>"
+	<?php }?>
 	style="width: 100%; height: 420px; border: none;" id="c-c-iframe"> </iframe>
 </div>
 

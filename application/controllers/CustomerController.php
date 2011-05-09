@@ -1085,6 +1085,16 @@ public function customerinformationalterAction ()
     
     public function loginAction(){
     	$this->_helper->layout->disableLayout();
+        Zend_Session::start();
+        $customerNamespace = new Zend_Session_Namespace('customer');
+        $cus_account = $customerNamespace->cus_account;
+        $db = new Application_Model_DbTable_Customer();
+        //查询所有用户的信息
+        $adapter = Zend_Registry::get('db');
+        $sqlstr1 = "select * from customer where  cus_account='" . $cus_account . "' and flag=1";
+        $customerinfo = $adapter->query($sqlstr1);
+        $customerinfor = $customerinfo->fetchAll();
+        $this->view->customers = $customerinfor;  
     }
     
     //叶茂安

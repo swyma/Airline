@@ -51,6 +51,25 @@
 	});	
 </script>
 <br />
+<?php 
+		Zend_Session::start();
+	    $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
+	    $user=$customerNamespace->cus_account;//取你的session
+	    if($user!=NULL){
+	    	foreach ($this->customers as $key => $value) {
+	    		
+	    	
+	    ?>
+		<div align=left>
+			<p><font color=blue><?php echo $value['cus_account']?></font>,欢迎登录航程网！</p> 
+			<p>当前积分：<font color=red><?php echo $value['cus_integral']?></font> 分</p> 
+			<p>注册时间：<?php echo $value['cus_time']?> </p>
+		</div>
+	<?php 
+	    	}}else{
+	?>
+		
+	
 <form method="post">
 <center>
 	<div id="indexlogin" style="height:170px;width:100%;">
@@ -72,6 +91,6 @@
 	</div>
 </center>	
 </form>
-
+<?php }?>
 </body>
 </html>
