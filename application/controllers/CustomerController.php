@@ -694,7 +694,7 @@ class CustomerController extends Zend_Controller_Action
                         $db = new Application_Model_DbTable_Flightinformation();
                         $sql = "SELECT fli_autoid,com_code,air_code,fli_everyday,fli_no," .
                          "fli_discount,fli_baddress,fli_aaddress,substring(fli_btime,12,5) as fli_btime," .
-                         "substring(fli_atime,12,5) as fli_atime,fli_Ffare,fli_Cfare,fli_Yfare FROM flightinformation";
+                         "substring(fli_atime,12,5) as fli_atime,fli_Ffare,fli_Cfare,fli_Yfare FROM flightinformation where fli_refund='运行' and fli_refundtime='正常'";
                         /* Zend_Paginator分页 */
                         $numPerPage = $this->_numPerPage;
                         $pageRange = $this->_pageRange;

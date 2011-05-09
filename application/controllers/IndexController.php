@@ -4,7 +4,7 @@
 class IndexController extends Zend_Controller_Action
 {
     protected $_numPerPage = 3; /* 每页5条 */
-    protected $_pageRange = 10; /* 页数范围为10 */
+    protected $_pageRange = 3; /* 页数范围为10 */
     public function init ()
     {
         /* Initialize action controller here */
@@ -93,7 +93,7 @@ group by DATE_FORMAT(boo_time,'%m %d')
                  * 以下是显示当天的航班优惠信息
                  */
         $this->_helper->layout->disableLayout();
-        /*$db = new Application_Model_DbTable_Flightinformation();
+       $db = new Application_Model_DbTable_Flightinformation();
         //取得系统星期
         $week = date('w');
         switch ($week) {
@@ -134,7 +134,7 @@ group by DATE_FORMAT(boo_time,'%m %d')
              " and fli_everyday='" . $week . "'";
             $fliPreferenceInfo = $db->getfliPreference($fliPreference_sql)->fetchAll();
             $paginator = Zend_Paginator::factory($fliPreferenceInfo);
-            /* Zend_Paginator分页 *//*
+            /* Zend_Paginator分页 */
             $numPerPage = $this->_numPerPage;
             $pageRange = $this->_pageRange;
             $page = $this->_request->getParam('page', 1);
@@ -146,10 +146,10 @@ group by DATE_FORMAT(boo_time,'%m %d')
                     $this->view->fliPreferenceInfo = $paginator;
                 }
             }
-        }*/
+        }
         $adapter = Zend_Registry::get('db');
         //逻辑太乱了
-        $fli_discount_sql="select com_code,fli_no,air_code,fli_baddress,fli_aaddress,fli_discount from flightinformation where fli_discount<1 and fli_refundtime='正常' and fli_refund='运行' and flag=1";
+        $fli_discount_sql="select com_code,fli_no,air_code,fli_baddress,fli_aaddress,fli_discount from flightinformation where fli_discount<1 and fli_refundtime='正常' and fli_refund='运行' and flag=1  and fli_everyday='" . $week . "'";
         $fli_discount_info=$adapter->query($fli_discount_sql);
         $this->view->fli_discount_info=$fli_discount_info;
     }
