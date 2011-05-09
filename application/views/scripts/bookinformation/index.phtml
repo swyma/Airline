@@ -55,7 +55,6 @@ echo $this->baseUrl()?>/Bookinformation/index'">
 
 		<th>经济舱价格</th>
 		<th>操作1</th>
-		<th>操作2</th>
 	</tr>
 	<?php
 foreach ($this->flightinformation as $key => $value) {
@@ -78,20 +77,7 @@ foreach ($this->flightinformation as $key => $value) {
 			rel="<?php
     echo 'targetBox' . $this->i;
     ?>">详情</a></td>
-		<td><?php
-			Zend_Session::start();
-            $customerNamespace = new Zend_Session_Namespace('customer'); //使用SESSION存储数据时要设置命名空间
-            $user=$customerNamespace->cus_account;//取你的session
-            
-            if($user==NULL){
-            ?>
-            	订票</td>
-            <?php 
-            	//echo 'alert("尚未登录!")';
-            }else{
-            ?>
-				<a href= "<?php echo $this->baseUrl()?>/Customer/bookticket/parm/<?php echo $value['fli_autoid']?>">订票</a></td>
-			<?php }?>
+		
 	</tr>
 	<div id="<?php
     echo 'targetBox' . $this->i;

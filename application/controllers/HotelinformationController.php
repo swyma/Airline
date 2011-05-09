@@ -48,7 +48,7 @@ class HotelinformationController extends Zend_Controller_Action
                 			$this->view->hotelinformation = $hotelinformation;
                 	//	$this->_helper->redirector('search');
                     }else{
-                    	echo "条件未满足！";
+                    	//echo "条件未满足！";
                     }
     }
 

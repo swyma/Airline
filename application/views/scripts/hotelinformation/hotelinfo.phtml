@@ -30,6 +30,9 @@
    <th>酒店主页</th>
   </tr>
   <?php 
+  if($this->hotelinformation==NULL){
+  	
+  }else{
   		foreach($this->hotelinformation as $key=>$value){
   ?>
   <tr>
@@ -52,5 +55,5 @@
   		<a href="<?php echo $value['hotel_page'] ?>"><?php echo $value['hotel_page'] ?></a>
   	</td>
   </tr>
-  <?php }?>
+  <?php }}?>
 </table>

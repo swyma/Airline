@@ -49,6 +49,10 @@ a:hover{
 	  action="<?php echo $this->url(array('controller'=>'hotelinformation','action'=>'search'));?>" 
 	  method="post">
 <table border="1" cellspacing="0" cellpadding="2px" bgcolor="#abedef" align="center" width="700px">
+  
+  <?php if($this->hotelinformation==NULL){
+  		echo "请输入您要查找的航空公司信息";
+  }else{ ?>
   <tr> 
    <th>酒店名称</th>
    <th>酒店等级</th>
@@ -58,6 +62,7 @@ a:hover{
    <th>酒店主页</th>
   </tr>
   <?php 
+  
   		foreach($this->hotelinformation as $key=>$value){
   ?>
   <tr>
@@ -80,6 +85,6 @@ a:hover{
   		<a href="<?php echo $value['hotel_page'] ?>"><?php echo $value['hotel_page'] ?></a>
   	</td>
   </tr>
-  <?php }?>
+  <?php }}?>
 </table>
 </form>
